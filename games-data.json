@@ -1,0 +1,93 @@
+[
+{
+  "id": 2,
+  "title": "Baldur's Gate 3",
+  "developer": "Larian Studios",
+  "year": 2023,
+  "genre": [
+    "action",
+    "rpg",
+    "adventure"
+  ],
+  "trailers": [
+    {
+      "name": "Baldur's Gate 3 - Official UNCUT Announcement Teaser",
+      "url": "https://www.youtube.com/embed/WvMf_DcyWbI",
+      "image": "https://img.youtube.com/vi/WvMf_DcyWbI/maxresdefault.jpg",
+      "dominantColors": [
+        "#4E4239",
+        "#1C1C1C",
+        "#6B5D51",
+        "#A89685",
+        "#292E37"
+      ],
+      "colorAnalysis": {
+        "avgSaturation": 60,
+        "avgBrightness": 62,
+        "contrast": 37,
+        "colorfulness": 17
+      }
+    },
+    {
+      "name": "Baldur's Gate 3 - Official 4K Early Access Release Announcement Trailer",
+      "url": "https://www.youtube.com/embed/o5xpbAsly48",
+      "image": "https://img.youtube.com/vi/o5xpbAsly48/maxresdefault.jpg",
+      "dominantColors": [
+        "#0D0A09",
+        "#4B2C1C",
+        "#BB9C69",
+        "#37281F",
+        "#323F4F"
+      ],
+      "colorAnalysis": {
+        "avgSaturation": 100,
+        "avgBrightness": 44,
+        "contrast": 38,
+        "colorfulness": 27
+      }
+    }
+  ],
+  "currentTrailer": 0,
+  "tags": [],
+  "colorCategories": [
+    "brown"
+  ]
+},
+
+{
+  "id": 3,
+  "title": "Cyberpunk 2077",
+  "developer": "CD Projekt RED",
+  "year": 2020,
+  "genre": [
+    "action"
+  ],
+  "trailers": [
+    {
+      "name": "Cyberpunk 2077 — Official Launch Trailer — V",
+      "url": "https://www.youtube.com/embed/UnA7tepsc7s",
+      "image": "https://img.youtube.com/vi/UnA7tepsc7s/maxresdefault.jpg",
+      "dominantColors": [
+        "#D5CF00",
+        "#B20021",
+        "#12110E",
+        "#44342B",
+        "#2E2F36"
+      ],
+      "colorAnalysis": {
+        "avgSaturation": 100,
+        "avgBrightness": 82,
+        "contrast": 45,
+        "colorfulness": 45
+      }
+    }
+  ],
+  "currentTrailer": 0,
+  "tags": [],
+  "colorCategories": [
+    "red",
+    "yellow"
+  ]
+}
+
+]

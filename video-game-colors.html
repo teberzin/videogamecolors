@@ -1,0 +1,2781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Game Colors - Color Archive</title>
+    <link rel="icon" type="image/x-icon" href="videogamecolors.ico">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700;900&display=swap');
+        
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #404040;
+            --gray-light: #808080;
+            --gray-lighter: #cccccc;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --green: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        /* Brutalist Navigation */
+        .nav-bar {
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem 0;
+            border-bottom: 4px solid var(--black);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .logo:hover {
+            color: var(--gray-lighter);
+        }
+
+        .system-status {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Brutalist Header */
+        .header {
+            background: var(--white);
+            padding: 4rem 2rem 2rem 2rem;
+            text-align: center;
+            border-bottom: 8px solid var(--black);
+        }
+
+        .main-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-medium);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        /* Brutalist Control Panel */
+        .control-panel {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 2rem;
+            margin: 0 auto 3rem auto;
+            max-width: 1200px;
+            border: 4px solid var(--black);
+        }
+
+        .search-container {
+            background: var(--white);
+            border: 3px solid var(--black);
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--black);
+            outline: none;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .search-input::placeholder {
+            color: var(--gray-light);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .filter-section {
+            background: var(--white);
+            border: 3px solid var(--black);
+            color: var(--black);
+        }
+
+        .filter-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid var(--black);
+        }
+
+        .filter-header:hover {
+            background: var(--gray-dark);
+        }
+
+        .filter-header.active {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .filter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .filter-section.expanded .filter-content {
+            max-height: 400px;
+        }
+
+        .filter-inner {
+            padding: 1.5rem;
+        }
+
+        .genre-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .genre-pill {
+            background: var(--white);
+            border: 2px solid var(--black);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .genre-pill:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .genre-pill.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .color-spectrum {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .color-chip {
+            background: var(--white);
+            border: 2px solid var(--black);
+            padding: 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            height: 60px;
+            position: relative;
+        }
+
+        .color-chip:hover {
+            background: var(--gray-lighter);
+        }
+
+        .color-chip.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .color-swatch {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--black);
+        }
+
+        .color-chip h4 {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            background: var(--black);
+            color: var(--white);
+            padding: 0.2rem 0.4rem;
+            border: 1px solid var(--black);
+            z-index: 10;
+        }
+
+        .color-chip:hover h4 {
+            opacity: 1;
+            bottom: -30px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            background: var(--white);
+            border: 2px solid var(--black);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* Brutalist Cartridge Design */
+        .vault-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .cartridge {
+            background: var(--white);
+            border: 4px solid var(--black);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .cartridge:hover {
+            transform: translateY(-8px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        /* NEW: Video Indicator */
+        .video-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--black);
+            color: var(--white);
+            padding: 0.3rem 0.6rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-dots {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .video-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gray-light);
+            transition: all 0.2s ease;
+        }
+
+        .video-dot.active {
+            background: var(--white);
+        }
+
+        /* NEW: Video Navigation on Cover Art */
+        .video-nav-overlay {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        .cartridge:hover .video-nav-overlay {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .video-nav-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--white);
+            border: 2px solid var(--white);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-weight: 700;
+        }
+
+        .video-nav-btn:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .cartridge-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem;
+            border-bottom: 3px solid var(--black);
+        }
+
+        .cartridge-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .cartridge-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--gray-lighter);
+            text-transform: uppercase;
+        }
+
+        .cartridge-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gray-lighter);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+
+        .cartridge:hover .game-image {
+            filter: grayscale(0%);
+        }
+
+        .palette-preview {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            display: flex;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .cartridge:hover .palette-preview {
+            opacity: 1;
+        }
+
+        .palette-bar {
+            flex: 1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideInPalette 0.5s ease forwards;
+        }
+
+        .palette-bar:nth-child(1) { animation-delay: 0.1s; }
+        .palette-bar:nth-child(2) { animation-delay: 0.2s; }
+        .palette-bar:nth-child(3) { animation-delay: 0.3s; }
+        .palette-bar:nth-child(4) { animation-delay: 0.4s; }
+        .palette-bar:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideInPalette {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .palette-bar:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .palette-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .palette-bar:hover::after {
+            opacity: 1;
+        }
+
+        .cartridge-footer {
+            padding: 1rem;
+            background: var(--white);
+            border-top: 2px solid var(--black);
+        }
+
+        .trailer-info {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--gray-medium);
+        }
+
+        /* Status Overlay */
+        .status-overlay {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border: 3px solid var(--black);
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .status-overlay.active {
+            opacity: 1;
+        }
+
+        /* Copy Indicator */
+        .copy-indicator {
+            position: absolute;
+            background: var(--black);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--white);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3000;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .copy-indicator.active {
+            opacity: 1;
+        }
+
+        /* Add Game Button - Hidden by default */
+        .add-game-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--black);
+            color: var(--white);
+            border: 3px solid var(--white);
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-game-btn.admin-mode {
+            display: flex;
+        }
+
+        .add-game-btn:hover {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--black);
+        }
+
+        /* Add Game Form Modal */
+        .add-game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2500;
+            overflow-y: auto;
+        }
+
+        .add-game-modal.active {
+            display: block;
+        }
+
+        .add-game-container {
+            background: var(--white);
+            border: 6px solid var(--black);
+            max-width: 800px;
+            margin: 2rem auto;
+            min-height: calc(100vh - 4rem);
+        }
+
+        .add-game-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--white);
+        }
+
+        .add-game-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .add-game-form {
+            padding: 2rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            border: 2px solid var(--black);
+            background: var(--white);
+        }
+
+        .form-section-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 0.8rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .form-section-content {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--white);
+            border: 2px solid var(--black);
+            padding: 0.8rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--black);
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--gray-dark);
+        }
+
+        .color-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .color-input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .color-input {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--black);
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .color-hex-input {
+            width: 80px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .metrics-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            background: var(--white);
+            border: 2px solid var(--black);
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+
+        .checkbox-item:hover {
+            background: var(--gray-lighter);
+        }
+
+        .checkbox-item.selected {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .checkbox-item input {
+            display: none;
+        }
+
+        .submit-btn {
+            background: var(--black);
+            color: var(--white);
+            border: 3px solid var(--black);
+            padding: 1rem 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .preview-section {
+            border: 2px solid var(--gray-medium);
+            padding: 1rem;
+            margin-top: 1rem;
+            background: var(--gray-lighter);
+        }
+
+        .preview-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .add-new-item {
+            background: var(--white);
+            border: 2px dashed var(--black);
+            color: var(--black);
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .add-new-item:hover {
+            background: var(--gray-lighter);
+            border-style: solid;
+        }
+
+        .new-item-input {
+            display: none;
+            margin-top: 0.5rem;
+        }
+
+        .new-item-input.active {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .new-item-input input {
+            flex: 1;
+            padding: 0.3rem;
+            border: 2px solid var(--black);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .new-item-input button {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .new-item-input button:hover {
+            background: var(--gray-dark);
+        }
+
+        /* Multiple Selection Pills */
+        .genre-pill.multi-selected {
+            background: var(--gray-dark);
+            color: var(--white);
+        }
+
+        .color-chip.multi-selected {
+            background: var(--gray-dark);
+            color: var(--white);
+        }
+
+        /* Brutalist Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+        }
+
+        .modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-container {
+            background: var(--white);
+            border: 6px solid var(--black);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* FIXED HEADER */
+        .modal-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--white);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 100;
+        }
+
+        .modal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .close-btn {
+            background: var(--white);
+            color: var(--black);
+            border: 2px solid var(--black);
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-weight: 900;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* SCROLLABLE CONTENT */
+        .modal-content {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex: 1;
+            min-height: 0;
+            height: 100%;
+        }
+
+        /* LEFT PANEL - WHITE BACKGROUND */
+        .left-panel {
+            background: var(--white);
+            border-right: 4px solid var(--black);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        /* RIGHT PANEL - BLACK BACKGROUND */
+        .right-panel {
+            background: var(--black);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 100%;
+            overflow-y: auto;
+        }
+
+        /* LEFT PANEL SECTIONS - WHITE BACKGROUND */
+        .video-section {
+            background: var(--white);
+            aspect-ratio: 16/9;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .game-info-section {
+            padding: 2rem;
+            background: var(--white);
+            color: var(--black);
+            border-bottom: 3px solid var(--black);
+            flex-shrink: 0;
+        }
+
+        .game-title-large {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+        }
+
+        .game-meta-large {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            color: var(--gray-medium);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .current-trailer-info {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: var(--black);
+        }
+
+        .trailer-controls {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            color: var(--black);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .controls-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--black);
+        }
+
+        .trailer-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .trailer-btn {
+            background: var(--white);
+            border: 2px solid var(--black);
+            color: var(--black);
+            padding: 0.8rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .trailer-btn.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .trailer-btn:hover:not(.active) {
+            background: var(--gray-lighter);
+        }
+
+        /* RIGHT PANEL SECTIONS - BLACK BACKGROUND */
+        .color-section {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            background: var(--black);
+            aspect-ratio: 16/9;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid var(--white);
+            padding-bottom: 0.6rem;
+            flex-shrink: 0;
+            color: var(--white);
+            width: 100%;
+        }
+
+        /* THINNER COLOR LINES */
+        .color-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            flex: 1;
+        }
+
+        .color-line {
+            height: 8px;
+            border: 1px solid var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .color-line:hover {
+            transform: scaleY(1.5);
+            border-width: 2px;
+            z-index: 10;
+        }
+
+        .color-line-info {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--white);
+            padding: 0.1rem 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform: translateX(-100%);
+            transition: all 0.3s ease;
+        }
+
+        .color-line:hover .color-line-info {
+            transform: translateX(0);
+        }
+
+        .color-hex-large {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 0.6rem;
+        }
+
+        .color-name-large {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            text-align: right;
+        }
+
+        /* METRICS SECTION FILLS REMAINING SPACE */
+        .metrics-section {
+            padding: 1rem 1.5rem;
+            background: var(--black);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metrics-section .section-title {
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            color: var(--white);
+            width: 100%;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            flex: 1;
+            align-content: start;
+        }
+
+        .metric-card {
+            background: var(--white);
+            color: var(--black);
+            padding: 0.8rem;
+            border: 2px solid var(--white);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .metric-card:hover {
+            background: var(--gray-lighter);
+        }
+
+        .metric-label {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            margin-bottom: 0.3rem;
+            color: var(--gray-medium);
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
+            color: var(--black);
+        }
+
+        .metric-bar {
+            width: 100%;
+            height: 3px;
+            background: var(--gray-lighter);
+            border: 1px solid var(--black);
+            overflow: hidden;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: var(--black);
+            transition: width 1s ease;
+        }
+
+        /* CODE GENERATOR MODAL */
+        .code-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            overflow-y: auto;
+        }
+
+        .code-modal.active {
+            display: block;
+        }
+
+        .code-container {
+            background: var(--white);
+            border: 6px solid var(--black);
+            max-width: 900px;
+            margin: 2rem auto;
+            min-height: calc(100vh - 4rem);
+        }
+
+        .code-header {
+            background: var(--green);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--white);
+        }
+
+        .code-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .code-content {
+            padding: 2rem;
+        }
+
+        .instruction-section {
+            margin-bottom: 2rem;
+            border: 2px solid var(--green);
+            background: var(--white);
+        }
+
+        .instruction-header {
+            background: var(--green);
+            color: var(--white);
+            padding: 0.8rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .instruction-content {
+            padding: 1.5rem;
+        }
+
+        .instruction-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #00ff00;
+            border: 2px solid var(--black);
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .copy-code-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--green);
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 0.5rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-code-btn:hover {
+            background: var(--white);
+            color: var(--green);
+            border-color: var(--green);
+        }
+
+        .file-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--green);
+            background: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-medium);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .left-panel {
+                border-right: none;
+                border-bottom: 4px solid var(--black);
+                max-height: 60vh;
+            }
+
+            .right-panel {
+                max-height: 60vh;
+            }
+
+            .vault-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+                letter-spacing: 1px;
+            }
+
+            .system-status {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .vault-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 2rem 1rem 1rem 1rem;
+            }
+
+            .control-panel {
+                margin: 0 1rem 2rem 1rem;
+                padding: 1rem;
+            }
+
+            .game-title-large {
+                font-size: 1.5rem;
+            }
+
+            .color-inputs {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .metrics-inputs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trailer-buttons {
+                flex-direction: column;
+            }
+
+            .add-game-container, .code-container {
+                margin: 1rem;
+                min-height: calc(100vh - 2rem);
+            }
+
+            .add-game-form, .code-content {
+                padding: 1rem;
+            }
+
+            .status-overlay {
+                left: 1rem;
+                bottom: 1rem;
+                font-size: 0.7rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .add-game-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+                letter-spacing: 1px;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+
+            .cartridge-title {
+                font-size: 0.9rem;
+            }
+
+            .cartridge-meta {
+                font-size: 0.7rem;
+            }
+
+            .color-inputs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .color-input {
+                width: 50px;
+                height: 50px;
+            }
+
+            .color-hex-input {
+                width: 70px;
+                font-size: 0.8rem;
+            }
+
+            .modal-title, .code-title {
+                font-size: 1rem;
+            }
+
+            .game-title-large {
+                font-size: 1.2rem;
+            }
+
+            .game-meta-large {
+                font-size: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 0.8rem;
+            }
+
+            .metric-value {
+                font-size: 1rem;
+            }
+
+            .video-nav-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .video-indicator {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.4rem;
+            }
+
+            .code-block {
+                font-size: 0.7rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .main-title {
+                font-size: 1.5rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .vault-grid {
+                padding: 0.5rem;
+                gap: 1rem;
+            }
+
+            .control-panel {
+                margin: 0 0.5rem 1rem 0.5rem;
+                padding: 0.8rem;
+            }
+
+            .color-inputs {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.3rem;
+            }
+
+            .metrics-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+            }
+
+            .checkbox-item {
+                font-size: 0.6rem;
+                padding: 0.4rem 0.6rem;
+            }
+        }
+
+        /* Additional mobile-specific improvements */
+        @media (max-width: 768px) {
+            .modal-content {
+                overflow-y: auto;
+            }
+
+            .left-panel, .right-panel {
+                overflow-y: visible;
+                height: auto;
+                max-height: none;
+            }
+
+            .video-section {
+                min-height: 200px;
+            }
+
+            .color-section {
+                min-height: 200px;
+                aspect-ratio: auto;
+            }
+
+            .metrics-section {
+                min-height: 300px;
+            }
+        }
+
+        /* Improve touch targets for mobile */
+        @media (max-width: 768px) {
+            .genre-pill, .color-chip, .action-btn, .trailer-btn {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .color-line {
+                min-height: 12px;
+            }
+
+            .palette-bar {
+                min-height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="logo" onclick="resetToMainPage()">VIDEO GAME COLORS</div>
+            <div class="system-status">
+                <span id="cartridgeCount">0</span> ITEMS LOADED
+            </div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <h1 class="main-title">EXPLORE VIDEO GAME COLORS</h1>
+        <p class="subtitle">VIDEO GAME COLOR DATA ARCHIVE</p>
+        
+        <div class="control-panel">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="SEARCH ARCHIVE..." id="searchInput">
+            </div>
+            
+            <div class="filter-grid">
+                <div class="filter-section" id="genreFilter">
+                    <div class="filter-header" onclick="toggleFilter('genreFilter')">
+                        GENRES
+                    </div>
+                    <div class="filter-content">
+                        <div class="filter-inner">
+                            <div class="genre-pills">
+                                <div class="genre-pill active" data-filter="all">ALL</div>
+                                <div class="genre-pill" data-filter="action">ACTION</div>
+                                <div class="genre-pill" data-filter="rpg">RPG</div>
+                                <div class="genre-pill" data-filter="indie">INDIE</div>
+                                <div class="genre-pill" data-filter="horror">HORROR</div>
+                                <div class="genre-pill" data-filter="platformer">PLATFORM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-section" id="colorFilter">
+                    <div class="filter-header" onclick="toggleFilter('colorFilter')">
+                        COLOR SPECTRUMS
+                    </div>
+                    <div class="filter-content">
+                        <div class="filter-inner">
+                            <div class="color-spectrum">
+                                <div class="color-chip" data-color-filter="red">
+                                    <div class="color-swatch" style="background: #FF1744;"></div>
+                                    <h4>RED</h4>
+                                </div>
+                                <div class="color-chip" data-color-filter="blue">
+                                    <div class="color-swatch" style="background: #2196F3;"></div>
+                                    <h4>BLUE</h4>
+                                </div>
+                                <div class="color-chip" data-color-filter="yellow">
+                                    <div class="color-swatch" style="background: #FFEB3B;"></div>
+                                    <h4>YELLOW</h4>
+                                </div>
+                                <div class="color-chip" data-color-filter="green">
+                                    <div class="color-swatch" style="background: #4CAF50;"></div>
+                                    <h4>GREEN</h4>
+                                </div>
+                                <div class="color-chip" data-color-filter="purple">
+                                    <div class="color-swatch" style="background: #9C27B0;"></div>
+                                    <h4>PURPLE</h4>
+                                </div>
+                                <div class="color-chip" data-color-filter="mono">
+                                    <div class="color-swatch" style="background: #424242;"></div>
+                                    <h4>MONO</h4>
+                                </div>
+                                                                <div class="color-chip" data-color-filter="brown">
+                                    <div class="color-swatch" style="background: #7c5708;"></div>
+                                    <h4>BROWN</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="vault-grid" id="vaultGrid">
+    </main>
+
+    <div class="status-overlay" id="statusOverlay">
+        LOADING...
+    </div>
+
+    <div class="copy-indicator" id="copyIndicator">
+        COPIED!
+    </div>
+
+    <button class="add-game-btn" onclick="openAddGameModal()">
+        +
+    </button>
+
+    <!-- Add Game Modal -->
+    <div class="add-game-modal" id="addGameModal">
+        <div class="add-game-container">
+            <div class="add-game-header">
+                <div class="add-game-title">ADD NEW GAME</div>
+                <button class="close-btn" onclick="closeAddGameModal()">×</button>
+            </div>
+            <form class="add-game-form" id="addGameForm">
+                <div class="form-section">
+                    <div class="form-section-header">BASIC INFORMATION</div>
+                    <div class="form-section-content">
+                        <div class="form-group">
+                            <label class="form-label">GAME TITLE</label>
+                            <input type="text" class="form-input" id="gameTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">DEVELOPER</label>
+                            <input type="text" class="form-input" id="gameDeveloper" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">RELEASE YEAR</label>
+                            <input type="number" class="form-input" id="gameYear" min="1970" max="2030" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">TRAILER INFORMATION</div>
+                    <div class="form-section-content">
+                        <div class="form-group">
+                            <label class="form-label">TRAILER NAME</label>
+                            <input type="text" class="form-input" id="trailerName" placeholder="e.g. Launch Trailer, Reveal Trailer" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">YOUTUBE URL</label>
+                            <input type="url" class="form-input" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..." required onchange="extractYouTubeId()">
+                        </div>
+                        <div class="preview-section" id="previewSection" style="display: none;">
+                            <div class="preview-title">THUMBNAIL PREVIEW</div>
+                            <img id="thumbnailPreview" class="youtube-preview" alt="Thumbnail preview">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">COLOR PALETTE (5 COLORS)</div>
+                    <div class="form-section-content">
+                        <div class="color-inputs">
+                            <div class="color-input-group">
+                                <input type="color" class="color-input" id="color1" onchange="updateColorHex(1)">
+                                <input type="text" class="form-input color-hex-input" id="colorHex1" placeholder="#FF0000" maxlength="7" onchange="updateColorPicker(1)">
+                            </div>
+                            <div class="color-input-group">
+                                <input type="color" class="color-input" id="color2" onchange="updateColorHex(2)">
+                                <input type="text" class="form-input color-hex-input" id="colorHex2" placeholder="#00FF00" maxlength="7" onchange="updateColorPicker(2)">
+                            </div>
+                            <div class="color-input-group">
+                                <input type="color" class="color-input" id="color3" onchange="updateColorHex(3)">
+                                <input type="text" class="form-input color-hex-input" id="colorHex3" placeholder="#0000FF" maxlength="7" onchange="updateColorPicker(3)">
+                            </div>
+                            <div class="color-input-group">
+                                <input type="color" class="color-input" id="color4" onchange="updateColorHex(4)">
+                                <input type="text" class="form-input color-hex-input" id="colorHex4" placeholder="#FFFF00" maxlength="7" onchange="updateColorPicker(4)">
+                            </div>
+                            <div class="color-input-group">
+                                <input type="color" class="color-input" id="color5" onchange="updateColorHex(5)">
+                                <input type="text" class="form-input color-hex-input" id="colorHex5" placeholder="#FF00FF" maxlength="7" onchange="updateColorPicker(5)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">COLOR ANALYSIS METRICS</div>
+                    <div class="form-section-content">
+                        <div class="metrics-inputs">
+                            <div class="form-group">
+                                <label class="form-label">SATURATION %</label>
+                                <input type="number" class="form-input" id="saturation" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">BRIGHTNESS %</label>
+                                <input type="number" class="form-input" id="brightness" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CONTRAST %</label>
+                                <input type="number" class="form-input" id="contrast" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">COLORFULNESS %</label>
+                                <input type="number" class="form-input" id="colorfulness" min="0" max="100" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">GENRES</div>
+                    <div class="form-section-content">
+                        <div class="checkbox-group" id="genreCheckboxes">
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="action">ACTION
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="rpg">RPG
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="indie">INDIE
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="horror">HORROR
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="platformer">PLATFORMER
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="adventure">ADVENTURE
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="strategy">STRATEGY
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="racing">RACING
+                            </label>
+                            <div class="add-new-item" onclick="showNewGenreInput()">
+                                + ADD NEW GENRE
+                            </div>
+                        </div>
+                        <div class="new-item-input" id="newGenreInput">
+                            <input type="text" id="newGenreText" placeholder="Enter new genre">
+                            <button onclick="addNewGenre()">ADD</button>
+                            <button onclick="hideNewGenreInput()">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">COLOR CATEGORIES</div>
+                    <div class="form-section-content">
+                        <div class="checkbox-group" id="colorCheckboxes">
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="red">RED
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="blue">BLUE
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="yellow">YELLOW
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="green">GREEN
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="purple">PURPLE
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" value="mono">MONO
+                            </label>
+                            <div class="add-new-item" onclick="showNewColorInput()">
+                                + ADD NEW COLOR
+                            </div>
+                        </div>
+                        <div class="new-item-input" id="newColorInput">
+                            <input type="text" id="newColorText" placeholder="Enter new color category">
+                            <button onclick="addNewColor()">ADD</button>
+                            <button onclick="hideNewColorInput()">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">ADD GAME TO VAULT</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Code Generator Modal -->
+    <div class="code-modal" id="codeModal">
+        <div class="code-container">
+            <div class="code-header">
+                <div class="code-title">CODE GENERATOR - NEW GAME ADDED</div>
+                <button class="close-btn" onclick="closeCodeModal()">×</button>
+            </div>
+            <div class="code-content">
+                <div class="instruction-section">
+                    <div class="instruction-header">STEP 1: UPDATE DATA FILE</div>
+                    <div class="instruction-content">
+                        <div class="instruction-text">
+                            Copy the JSON code below and add it to your <strong>games-data.json</strong> file. 
+                            Add it to the end of the array, just before the closing bracket <strong>]</strong>.
+                            Don't forget to add a comma after the previous game entry!
+                        </div>
+                        <div class="file-path">📁 games-data.json</div>
+                        <div class="code-block" id="jsonCode">
+                            <button class="copy-code-btn" onclick="copyCodeToClipboard('jsonCode')">COPY JSON</button>
+                            <span id="jsonCodeContent"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instruction-section">
+                    <div class="instruction-header">STEP 2: FILE STRUCTURE</div>
+                    <div class="instruction-content">
+                        <div class="instruction-text">
+                            Make sure your files are organized like this:
+                        </div>
+                        <div class="code-block">
+                            <span style="color: #ffff00;">📁 your-project-folder/</span>
+├── <span style="color: #00ffff;">video-game-colors.html</span>
+└── <span style="color: #00ffff;">games-data.json</span>
+                        </div>
+                        <div class="instruction-text">
+                            Both files must be in the same directory for the app to load the data correctly.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instruction-section">
+                    <div class="instruction-header">STEP 3: HOW TO ADD THE CODE</div>
+                    <div class="instruction-content">
+                        <div class="instruction-text">
+                            1. Open your <strong>games-data.json</strong> file in a text editor<br>
+                            2. Find the end of the last game entry (look for the closing <strong>}</strong>)<br>
+                            3. Add a comma <strong>,</strong> after that closing <strong>}</strong><br>
+                            4. Paste the JSON code from Step 1<br>
+                            5. Save the file<br>
+                            6. Refresh your browser to see the new game!
+                        </div>
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="closeCodeModal()" style="margin-top: 2rem;">GOT IT - CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Detail Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">CHROMATIC ANALYSIS</div>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-content">
+                <div id="modalContent">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game data - will be loaded from external JSON file
+        let gameData = [];
+        let filteredData = [];
+        let currentGenreFilters = [];
+        let currentColorFilters = [];
+        let adminMode = false;
+
+        // Admin mode activation (secret key combination)
+        let keySequence = [];
+        const adminSequence = ['a', 'd', 'm', 'i', 'n'];
+
+        document.addEventListener('keydown', function(e) {
+            keySequence.push(e.key.toLowerCase());
+            if (keySequence.length > adminSequence.length) {
+                keySequence.shift();
+            }
+            
+            if (JSON.stringify(keySequence) === JSON.stringify(adminSequence)) {
+                adminMode = !adminMode;
+                document.querySelector('.add-game-btn').classList.toggle('admin-mode', adminMode);
+                showStatus(adminMode ? 'Admin mode activated' : 'Admin mode deactivated');
+                keySequence = [];
+            }
+        });
+
+        // Load game data from external JSON file
+        async function loadGameData() {
+            try {
+                showStatus('Loading game data...');
+                const response = await fetch('./games-data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                gameData = await response.json();
+                filteredData = [...gameData];
+                showStatus('Game data loaded successfully');
+                renderVault();
+            } catch (error) {
+                console.error('Error loading game data:', error);
+                showStatus('Error loading game data - using fallback');
+                // Fallback to embedded data if JSON file is not available
+                loadFallbackData();
+            }
+        }
+
+        // Fallback data if JSON file is not available
+        function loadFallbackData() {
+            gameData = [
+                {
+                    id: 1,
+                    title: "Cyberpunk 2077",
+                    developer: "CD Projekt RED",
+                    year: 2020,
+                    genre: ["action", "rpg"],
+                    trailers: [
+                        {
+                            name: "Reveal Trailer",
+                            url: "https://www.youtube.com/embed/8X2kIfS6fb8",
+                            image: "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&h=300&fit=crop&crop=center",
+                            dominantColors: ["#FF0080", "#00FFFF", "#FFFF00", "#8000FF", "#FF4000"],
+                            colorAnalysis: {
+                                avgSaturation: 85,
+                                avgBrightness: 72,
+                                contrast: 92,
+                                colorfulness: 88
+                            }
+                        }
+                    ],
+                    currentTrailer: 0,
+                    tags: ["futuristic", "neon", "high-contrast", "vibrant"],
+                    colorCategories: ["red", "blue", "yellow", "purple"]
+                }
+            ];
+            filteredData = [...gameData];
+            renderVault();
+        }
+
+        function showStatus(message) {
+            const overlay = document.getElementById('statusOverlay');
+            overlay.textContent = message.toUpperCase();
+            overlay.classList.add('active');
+            setTimeout(() => {
+                overlay.classList.remove('active');
+            }, 2000);
+        }
+
+        function updateCount() {
+            document.getElementById('cartridgeCount').textContent = filteredData.length;
+        }
+
+        function resetToMainPage() {
+            closeModal();
+            closeCodeModal();
+            clearAllFilters();
+            showStatus('Returning to main page');
+        }
+
+        function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(function() {
+                showCopyIndicator(element);
+                showStatus(`Copied ${text} to clipboard`);
+            }, function(err) {
+                showStatus('Failed to copy');
+            });
+        }
+
+        function copyCodeToClipboard(elementId) {
+            const codeContent = document.getElementById(elementId + 'Content').textContent;
+            navigator.clipboard.writeText(codeContent).then(function() {
+                showStatus('Code copied to clipboard');
+            }, function(err) {
+                showStatus('Failed to copy code');
+            });
+        }
+
+        function showCopyIndicator(element) {
+            const indicator = document.getElementById('copyIndicator');
+            const rect = element.getBoundingClientRect();
+            
+            indicator.style.left = (rect.left + rect.width / 2) + 'px';
+            indicator.style.top = (rect.top + rect.height / 2) + 'px';
+            indicator.classList.add('active');
+            
+            setTimeout(() => {
+                indicator.classList.remove('active');
+            }, 1000);
+        }
+
+        function copyPaletteColor(color, element) {
+            copyToClipboard(color, element);
+        }
+
+        function openAddGameModal() {
+            document.getElementById('addGameModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAddGameModal() {
+            document.getElementById('addGameModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.getElementById('addGameForm').reset();
+            document.getElementById('previewSection').style.display = 'none';
+            // Reset checkbox styling
+            document.querySelectorAll('.checkbox-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+        }
+
+        function openCodeModal(gameJson) {
+            const modal = document.getElementById('codeModal');
+            const jsonCodeContent = document.getElementById('jsonCodeContent');
+            
+            // Format the JSON with proper indentation
+            const formattedJson = JSON.stringify(gameJson, null, 2);
+            jsonCodeContent.textContent = formattedJson;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCodeModal() {
+            document.getElementById('codeModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function extractYouTubeId() {
+            const url = document.getElementById('youtubeUrl').value;
+            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+            const match = url.match(regex);
+            
+            if (match) {
+                const videoId = match[1];
+                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                
+                document.getElementById('thumbnailPreview').src = thumbnailUrl;
+                document.getElementById('previewSection').style.display = 'block';
+                
+                // Store the embed URL for later use
+                document.getElementById('youtubeUrl').dataset.embedUrl = embedUrl;
+                document.getElementById('youtubeUrl').dataset.thumbnailUrl = thumbnailUrl;
+            } else {
+                document.getElementById('previewSection').style.display = 'none';
+            }
+        }
+
+        function updateColorHex(index) {
+            const colorPicker = document.getElementById(`color${index}`);
+            const hexInput = document.getElementById(`colorHex${index}`);
+            hexInput.value = colorPicker.value.toUpperCase();
+        }
+
+        function updateColorPicker(index) {
+            const colorPicker = document.getElementById(`color${index}`);
+            const hexInput = document.getElementById(`colorHex${index}`);
+            let hexValue = hexInput.value;
+            
+            // Ensure hex value starts with #
+            if (!hexValue.startsWith('#')) {
+                hexValue = '#' + hexValue;
+            }
+            
+            // Validate hex color
+            if (/^#[0-9A-F]{6}$/i.test(hexValue)) {
+                colorPicker.value = hexValue;
+                hexInput.value = hexValue.toUpperCase();
+            }
+        }
+
+        function toggleFilter(filterId) {
+            const filterSection = document.getElementById(filterId);
+            const isExpanded = filterSection.classList.contains('expanded');
+            
+            // Close all filters first
+            document.querySelectorAll('.filter-section').forEach(section => {
+                section.classList.remove('expanded');
+                section.querySelector('.filter-header').classList.remove('active');
+            });
+            
+            // Open the clicked filter if it wasn't already open
+            if (!isExpanded) {
+                filterSection.classList.add('expanded');
+                filterSection.querySelector('.filter-header').classList.add('active');
+            }
+        }
+
+        function getColorName(hex) {
+            const colorNames = {
+                '#FF0080': 'Hot Pink',
+                '#00FFFF': 'Cyan',
+                '#FFFF00': 'Yellow',
+                '#8000FF': 'Electric Purple',
+                '#FF4000': 'Red Orange',
+                '#FF0040': 'Crimson',
+                '#0080FF': 'Azure',
+                '#FFFF80': 'Light Yellow',
+                '#8040FF': 'Blue Purple',
+                '#FF8000': 'Orange',
+                '#8B4513': 'Saddle Brown',
+                '#228B22': 'Forest Green',
+                '#2F4F4F': 'Dark Slate Gray',
+                '#CD853F': 'Peru',
+                '#556B2F': 'Dark Olive',
+                '#DC143C': 'Crimson',
+                '#FF6347': 'Tomato',
+                '#FFD700': 'Gold',
+                '#8B0000': 'Dark Red',
+                '#FF4500': 'Orange Red',
+                '#FF6B6B': 'Light Red',
+                '#4ECDC4': 'Medium Turquoise',
+                '#45B7D1': 'Sky Blue',
+                '#FFA07A': 'Light Salmon',
+                '#98D8C8': 'Light Cyan',
+                '#FF69B4': 'Hot Pink',
+                '#87CEEB': 'Sky Blue',
+                '#DDA0DD': 'Plum',
+                '#F0E68C': 'Khaki',
+                '#FFB6C1': 'Light Pink',
+                '#2F2F2F': 'Dark Gray',
+                '#800080': 'Purple',
+                '#4B0082': 'Indigo',
+                '#191970': 'Midnight Blue'
+            };
+            return colorNames[hex] || 'Unknown';
+        }
+
+        function createCartridge(game) {
+            const cartridge = document.createElement('div');
+            cartridge.className = 'cartridge';
+            cartridge.onclick = (e) => {
+                // Don't open modal if clicking on video navigation or palette
+                if (e.target.closest('.video-nav-overlay') || e.target.closest('.palette-preview')) return;
+                openModal(game);
+            };
+
+            const currentTrailer = game.trailers[game.currentTrailer];
+            
+            const palettePreview = currentTrailer.dominantColors.map((color, index) =>
+                `<div class="palette-bar" style="background-color: ${color};" onclick="copyPaletteColor('${color}', this)" title="Click to copy ${color}"></div>`
+            ).join('');
+
+            // Video indicator for multiple trailers
+            let videoIndicator = '';
+            let videoNavOverlay = '';
+            if (game.trailers.length > 1) {
+                const videoDots = game.trailers.map((_, index) =>
+                    `<div class="video-dot ${index === game.currentTrailer ? 'active' : ''}"></div>`
+                ).join('');
+
+                videoIndicator = `
+                    <div class="video-indicator">
+                        ${game.trailers.length} VIDS
+                        <div class="video-dots">${videoDots}</div>
+                    </div>
+                `;
+
+                videoNavOverlay = `
+                    <div class="video-nav-overlay">
+                        <div class="video-nav-btn" onclick="switchVideo(${game.id}, -1)">‹</div>
+                        <div class="video-nav-btn" onclick="switchVideo(${game.id}, 1)">›</div>
+                    </div>
+                `;
+            }
+
+            cartridge.innerHTML = `
+                ${videoIndicator}
+                <div class="cartridge-header">
+                    <div class="cartridge-title">${game.title}</div>
+                    <div class="cartridge-meta">${game.developer} • ${game.year}</div>
+                </div>
+                <div class="cartridge-image">
+                    <img src="${currentTrailer.image}" alt="${game.title}" class="game-image">
+                    <div class="palette-preview">${palettePreview}</div>
+                    ${videoNavOverlay}
+                </div>
+                <div class="cartridge-footer">
+                    <div class="trailer-info">${currentTrailer.name}</div>
+                </div>
+            `;
+            
+            return cartridge;
+        }
+
+        function switchVideo(gameId, direction) {
+            const game = gameData.find(g => g.id === gameId);
+            if (!game || game.trailers.length <= 1) return;
+
+            const newIndex = (game.currentTrailer + direction + game.trailers.length) % game.trailers.length;
+            game.currentTrailer = newIndex;
+
+            // Update the specific cartridge
+            const cartridgeElement = document.querySelector(`[onclick*="${gameId}"]`).closest('.cartridge');
+            if (cartridgeElement) {
+                updateCartridgeContent(cartridgeElement, game);
+            }
+
+            showStatus(`Switched to ${game.trailers[game.currentTrailer].name}`);
+        }
+
+        function updateCartridgeContent(cartridgeElement, game) {
+            const currentTrailer = game.trailers[game.currentTrailer];
+            
+            // Update image
+            const gameImage = cartridgeElement.querySelector('.game-image');
+            if (gameImage) {
+                gameImage.src = currentTrailer.image;
+            }
+            
+            // Update trailer name
+            const trailerInfo = cartridgeElement.querySelector('.trailer-info');
+            if (trailerInfo) {
+                trailerInfo.textContent = currentTrailer.name;
+            }
+            
+            // Update palette preview
+            const palettePreview = cartridgeElement.querySelector('.palette-preview');
+            if (palettePreview) {
+                const newPalette = currentTrailer.dominantColors.map(color =>
+                    `<div class="palette-bar" style="background-color: ${color};"></div>`
+                ).join('');
+                palettePreview.innerHTML = newPalette;
+            }
+            
+            // Update video dots
+            const videoDots = cartridgeElement.querySelectorAll('.video-dot');
+            videoDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === game.currentTrailer);
+            });
+        }
+
+        function applyFilters() {
+            filteredData = gameData.filter(game => {
+                const genreMatch = currentGenreFilters.length === 0 || currentGenreFilters.includes('all') ||
+                    currentGenreFilters.some(genre => game.genre.includes(genre));
+                
+                const colorMatch = currentColorFilters.length === 0 ||
+                    (game.colorCategories && currentColorFilters.some(color => game.colorCategories.includes(color)));
+                
+                return genreMatch && colorMatch;
+            });
+        }
+
+        function renderVault() {
+            const vault = document.getElementById('vaultGrid');
+            vault.innerHTML = '';
+            
+            showStatus('Loading archive...');
+            
+            setTimeout(() => {
+                filteredData.forEach((game, index) => {
+                    setTimeout(() => {
+                        const cartridge = createCartridge(game);
+                        vault.appendChild(cartridge);
+                    }, index * 50);
+                });
+                
+                setTimeout(() => {
+                    updateCount();
+                    showStatus(`${filteredData.length} items loaded`);
+                }, filteredData.length * 50 + 200);
+            }, 200);
+        }
+
+        function toggleGenreFilter(filter) {
+            if (filter === 'all') {
+                currentGenreFilters = ['all'];
+            } else {
+                // Remove 'all' if selecting specific genres
+                currentGenreFilters = currentGenreFilters.filter(f => f !== 'all');
+                
+                if (currentGenreFilters.includes(filter)) {
+                    currentGenreFilters = currentGenreFilters.filter(f => f !== filter);
+                } else {
+                    currentGenreFilters.push(filter);
+                }
+                
+                // If no specific genres selected, default to 'all'
+                if (currentGenreFilters.length === 0) {
+                    currentGenreFilters = ['all'];
+                }
+            }
+            
+            updateGenreFilterUI();
+            applyFilters();
+            renderVault();
+        }
+
+        function toggleColorFilter(colorFilter) {
+            if (currentColorFilters.includes(colorFilter)) {
+                currentColorFilters = currentColorFilters.filter(f => f !== colorFilter);
+            } else {
+                currentColorFilters.push(colorFilter);
+            }
+            
+            updateColorFilterUI();
+            applyFilters();
+            renderVault();
+        }
+
+        function updateGenreFilterUI() {
+            document.querySelectorAll('.genre-pill').forEach(pill => {
+                const filter = pill.dataset.filter;
+                if (filter === 'all') {
+                    pill.classList.toggle('active', currentGenreFilters.includes('all'));
+                } else {
+                    pill.classList.toggle('multi-selected', currentGenreFilters.includes(filter));
+                    pill.classList.toggle('active', false);
+                }
+            });
+        }
+
+        function updateColorFilterUI() {
+            document.querySelectorAll('.color-chip').forEach(chip => {
+                const filter = chip.dataset.colorFilter;
+                chip.classList.toggle('multi-selected', currentColorFilters.includes(filter));
+            });
+        }
+
+        function clearAllFilters() {
+            currentGenreFilters = ['all'];
+            currentColorFilters = [];
+            
+            updateGenreFilterUI();
+            updateColorFilterUI();
+            
+            // Reset search
+            document.getElementById('searchInput').value = '';
+            
+            applyFilters();
+            renderVault();
+            showStatus('Filters cleared');
+        }
+
+        function openModal(game) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const currentTrailer = game.trailers[game.currentTrailer];
+            const analysis = currentTrailer.colorAnalysis;
+            
+            let trailerControls = '';
+            if (game.trailers.length > 1) {
+                trailerControls = `
+                    <div class="trailer-controls">
+                        <div class="controls-title">AVAILABLE TRAILERS</div>
+                        <div class="trailer-buttons">
+                            ${game.trailers.map((trailer, index) => `
+                                <button class="trailer-btn ${index === game.currentTrailer ? 'active' : ''}" 
+                                        onclick="switchTrailer(${game.id}, ${index})">${trailer.name}</button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            modalContent.innerHTML = `
+                <div class="detail-grid">
+                    <div class="left-panel">
+                        <div class="video-section">
+                            <iframe width="100%" height="100%" src="${currentTrailer.url}?autoplay=1" 
+                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen></iframe>
+                        </div>
+                        
+                        <div class="game-info-section">
+                            <h2 class="game-title-large">${game.title}</h2>
+                            <p class="game-meta-large">${game.developer} • ${game.year}</p>
+                            <p class="current-trailer-info">CURRENT: ${currentTrailer.name}</p>
+                        </div>
+                        
+                        ${trailerControls}
+                    </div>
+                    
+                    <div class="right-panel">
+                        <div class="color-section">
+                            <h3 class="section-title">COLOR PALETTE</h3>
+                            
+                            <div class="color-lines">
+                                ${currentTrailer.dominantColors.map(color => `
+                                    <div class="color-line" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
+                                        <div class="color-line-info">
+                                            <div class="color-hex-large">${color}</div>
+                                            <div class="color-name-large">${getColorName(color)}</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-section">
+                            <h3 class="section-title">ANALYSIS METRICS</h3>
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-label">SATURATION</div>
+                                    <div class="metric-value">${analysis.avgSaturation}%</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: ${analysis.avgSaturation}%;"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">BRIGHTNESS</div>
+                                    <div class="metric-value">${analysis.avgBrightness}%</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: ${analysis.avgBrightness}%;"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">CONTRAST</div>
+                                    <div class="metric-value">${analysis.contrast}%</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: ${analysis.contrast}%;"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">COLORFULNESS</div>
+                                    <div class="metric-value">${analysis.colorfulness}%</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: ${analysis.colorfulness}%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function switchTrailer(gameId, trailerIndex) {
+            const game = gameData.find(g => g.id === gameId);
+            if (game && game.trailers[trailerIndex]) {
+                game.currentTrailer = trailerIndex;
+                openModal(game);
+                showStatus(`Switched to ${game.trailers[trailerIndex].name}`);
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            const iframe = modal.querySelector('iframe');
+            if (iframe) iframe.src = '';
+
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Add New Genre/Color Functions
+        function showNewGenreInput() {
+            document.getElementById('newGenreInput').classList.add('active');
+        }
+
+        function hideNewGenreInput() {
+            document.getElementById('newGenreInput').classList.remove('active');
+            document.getElementById('newGenreText').value = '';
+        }
+
+        function addNewGenre() {
+            const newGenreText = document.getElementById('newGenreText').value.trim().toLowerCase();
+            if (!newGenreText) return;
+
+            // Check if genre already exists
+            const existingGenres = Array.from(document.querySelectorAll('#genreCheckboxes .checkbox-item input')).map(input => input.value);
+            if (existingGenres.includes(newGenreText)) {
+                showStatus('Genre already exists');
+                return;
+            }
+
+            // Create new checkbox item
+            const newGenreItem = document.createElement('label');
+            newGenreItem.className = 'checkbox-item';
+            newGenreItem.innerHTML = `<input type="checkbox" value="${newGenreText}">${newGenreText.toUpperCase()}`;
+            
+            // Add event listener for the new item
+            newGenreItem.addEventListener('click', function() {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('selected', checkbox.checked);
+            });
+
+            // Insert before the "Add New" button
+            const addNewButton = document.querySelector('#genreCheckboxes .add-new-item');
+            addNewButton.parentNode.insertBefore(newGenreItem, addNewButton);
+
+            // Hide input and clear
+            hideNewGenreInput();
+            showStatus(`Added genre: ${newGenreText}`);
+        }
+
+        function showNewColorInput() {
+            document.getElementById('newColorInput').classList.add('active');
+        }
+
+        function hideNewColorInput() {
+            document.getElementById('newColorInput').classList.remove('active');
+            document.getElementById('newColorText').value = '';
+        }
+
+        function addNewColor() {
+            const newColorText = document.getElementById('newColorText').value.trim().toLowerCase();
+            if (!newColorText) return;
+
+            // Check if color already exists
+            const existingColors = Array.from(document.querySelectorAll('#colorCheckboxes .checkbox-item input')).map(input => input.value);
+            if (existingColors.includes(newColorText)) {
+                showStatus('Color category already exists');
+                return;
+            }
+
+            // Create new checkbox item
+            const newColorItem = document.createElement('label');
+            newColorItem.className = 'checkbox-item';
+            newColorItem.innerHTML = `<input type="checkbox" value="${newColorText}">${newColorText.toUpperCase()}`;
+            
+            // Add event listener for the new item
+            newColorItem.addEventListener('click', function() {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('selected', checkbox.checked);
+            });
+
+            // Insert before the "Add New" button
+            const addNewButton = document.querySelector('#colorCheckboxes .add-new-item');
+            addNewButton.parentNode.insertBefore(newColorItem, addNewButton);
+
+            // Hide input and clear
+            hideNewColorInput();
+            showStatus(`Added color category: ${newColorText}`);
+        }
+
+        function addNewGame() {
+            // Collect form data
+            const title = document.getElementById('gameTitle').value;
+            const developer = document.getElementById('gameDeveloper').value;
+            const year = parseInt(document.getElementById('gameYear').value);
+            const trailerName = document.getElementById('trailerName').value;
+            const youtubeUrl = document.getElementById('youtubeUrl').dataset.embedUrl;
+            const thumbnailUrl = document.getElementById('youtubeUrl').dataset.thumbnailUrl;
+            
+            // Collect colors
+            const dominantColors = [];
+            for (let i = 1; i <= 5; i++) {
+                const colorValue = document.getElementById(`colorHex${i}`).value;
+                if (colorValue) {
+                    dominantColors.push(colorValue.toUpperCase());
+                }
+            }
+            
+            // Collect metrics
+            const colorAnalysis = {
+                avgSaturation: parseInt(document.getElementById('saturation').value),
+                avgBrightness: parseInt(document.getElementById('brightness').value),
+                contrast: parseInt(document.getElementById('contrast').value),
+                colorfulness: parseInt(document.getElementById('colorfulness').value)
+            };
+            
+            // Collect genres
+            const genres = [];
+            document.querySelectorAll('#genreCheckboxes .checkbox-item input[type="checkbox"]:checked').forEach(checkbox => {
+                genres.push(checkbox.value);
+            });
+            
+            // Collect color categories
+            const colorCategories = [];
+            document.querySelectorAll('#colorCheckboxes .checkbox-item input[type="checkbox"]:checked').forEach(checkbox => {
+                colorCategories.push(checkbox.value);
+            });
+            
+            // Validation
+            if (!youtubeUrl || !thumbnailUrl) {
+                showStatus('Please enter a valid YouTube URL');
+                return;
+            }
+            
+            if (dominantColors.length !== 5) {
+                showStatus('Please enter all 5 color hex codes');
+                return;
+            }
+            
+            if (genres.length === 0) {
+                showStatus('Please select at least one genre');
+                return;
+            }
+            
+            // Get the next ID
+            const nextId = Math.max(...gameData.map(g => g.id), 0) + 1;
+            
+            // Create new game object
+            const newGame = {
+                id: nextId,
+                title: title,
+                developer: developer,
+                year: year,
+                genre: genres,
+                trailers: [
+                    {
+                        name: trailerName,
+                        url: youtubeUrl,
+                        image: thumbnailUrl,
+                        dominantColors: dominantColors,
+                        colorAnalysis: colorAnalysis
+                    }
+                ],
+                currentTrailer: 0,
+                tags: [], // Empty tags array since we removed the tags section
+                colorCategories: colorCategories
+            };
+            
+            // Add to gameData (temporarily for immediate preview)
+            gameData.push(newGame);
+            
+            // Update filters and render
+            applyFilters();
+            renderVault();
+            
+            // Close modal and show success
+            closeAddGameModal();
+            showStatus(`${title} added successfully!`);
+            
+            // Show code generation modal
+            openCodeModal(newGame);
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load data from external JSON file
+            loadGameData();
+            
+            // Initialize with 'all' selected
+            currentGenreFilters = ['all'];
+            
+            document.querySelectorAll('.genre-pill').forEach(pill => {
+                pill.addEventListener('click', function() {
+                    toggleGenreFilter(this.getAttribute('data-filter'));
+                });
+            });
+            
+            document.querySelectorAll('.color-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    toggleColorFilter(this.getAttribute('data-color-filter'));
+                });
+            });
+            
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filteredData = gameData.filter(game => {
+                    const genreMatch = currentGenreFilters.length === 0 || currentGenreFilters.includes('all') ||
+                        currentGenreFilters.some(genre => game.genre.includes(genre));
+                    
+                    const colorMatch = currentColorFilters.length === 0 ||
+                        (game.colorCategories && currentColorFilters.some(color => game.colorCategories.includes(color)));
+                    
+                    const searchMatch = !searchTerm || 
+                        game.title.toLowerCase().includes(searchTerm) ||
+                        game.developer.toLowerCase().includes(searchTerm) ||
+                        game.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                    
+                    return genreMatch && colorMatch && searchMatch;
+                });
+                
+                renderVault();
+                
+                if (searchTerm) {
+                    showStatus(`Searching for "${searchTerm}"`);
+                }
+            });
+            
+            document.getElementById('modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+            
+            document.getElementById('addGameModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeAddGameModal();
+                }
+            });
+
+            document.getElementById('codeModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeCodeModal();
+                }
+            });
+            
+            // Checkbox styling for add game form
+            document.querySelectorAll('.checkbox-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    this.classList.toggle('selected', checkbox.checked);
+                });
+            });
+            
+            // Add game form submission
+            document.getElementById('addGameForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addNewGame();
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    closeAddGameModal();
+                    closeCodeModal();
+                }
+            });
+        });
+
+        // Global function exports for onclick handlers
+        window.switchVideo = switchVideo;
+        window.switchTrailer = switchTrailer;
+        window.clearAllFilters = clearAllFilters;
+        window.toggleFilter = toggleFilter;
+        window.resetToMainPage = resetToMainPage;
+        window.copyToClipboard = copyToClipboard;
+        window.copyPaletteColor = copyPaletteColor;
+        window.copyCodeToClipboard = copyCodeToClipboard;
+        window.openAddGameModal = openAddGameModal;
+        window.closeAddGameModal = closeAddGameModal;
+        window.openCodeModal = openCodeModal;
+        window.closeCodeModal = closeCodeModal;
+        window.extractYouTubeId = extractYouTubeId;
+        window.updateColorHex = updateColorHex;
+        window.updateColorPicker = updateColorPicker;
+        window.showNewGenreInput = showNewGenreInput;
+        window.hideNewGenreInput = hideNewGenreInput;
+        window.addNewGenre = addNewGenre;
+        window.showNewColorInput = showNewColorInput;
+        window.hideNewColorInput = hideNewColorInput;
+        window.addNewColor = addNewColor;
+    </script>
+</body>
+</html>
