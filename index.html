@@ -33,6 +33,20 @@
             overflow-x: hidden;
         }
 
+        /* Themed Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            background-color: var(--gray-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--black);
+            border: 2px solid var(--gray-dark);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-medium);
+        }
+
+
         /* Brutalist Navigation */
         .nav-bar {
             background: var(--black);
@@ -314,7 +328,6 @@
             box-shadow: 8px 8px 0 var(--black);
         }
 
-        /* NEW: Video Indicator */
         .video-indicator {
             position: absolute;
             top: 10px;
@@ -348,7 +361,6 @@
             background: var(--white);
         }
 
-        /* NEW: Video Navigation on Cover Art */
         .video-nav-overlay {
             position: absolute;
             top: 50%;
@@ -869,7 +881,6 @@
             flex-direction: column;
         }
 
-        /* FIXED HEADER */
         .modal-header {
             background: var(--black);
             color: var(--white);
@@ -907,10 +918,9 @@
             color: var(--white);
         }
 
-        /* SCROLLABLE CONTENT */
         .modal-content {
             flex: 1;
-            overflow: hidden;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
         }
@@ -920,38 +930,34 @@
             grid-template-columns: 1fr 1fr;
             flex: 1;
             min-height: 0;
+        }
+
+        /* Panels for Desktop (side-by-side scrolling) */
+        .left-panel, .right-panel {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
             height: 100%;
         }
 
-        /* LEFT PANEL - WHITE BACKGROUND */
         .left-panel {
             background: var(--white);
             border-right: 4px solid var(--black);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            overflow-y: auto;
         }
 
-        /* RIGHT PANEL - BLACK BACKGROUND */
         .right-panel {
             background: var(--black);
             color: var(--white);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 100%;
-            overflow-y: auto;
         }
 
-        /* LEFT PANEL SECTIONS - WHITE BACKGROUND */
+        /* Panel Sections */
         .video-section {
-            background: var(--white);
+            background: var(--black);
             aspect-ratio: 16/9;
             position: relative;
             flex-shrink: 0;
         }
-
+        
         .game-info-section {
             padding: 2rem;
             background: var(--white);
@@ -989,7 +995,7 @@
             padding: 1.5rem 2rem;
             background: var(--white);
             color: var(--black);
-            flex: 1;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
@@ -1031,7 +1037,6 @@
             background: var(--gray-lighter);
         }
 
-        /* RIGHT PANEL SECTIONS - BLACK BACKGROUND */
         .color-section {
             padding: 1.5rem;
             display: flex;
@@ -1055,7 +1060,6 @@
             width: 100%;
         }
 
-        /* THINNER COLOR LINES */
         .color-lines {
             display: flex;
             flex-direction: column;
@@ -1064,7 +1068,6 @@
         }
 
         .color-line {
-            height: 8px;
             border: 1px solid var(--white);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1112,7 +1115,6 @@
             text-align: right;
         }
 
-        /* METRICS SECTION FILLS REMAINING SPACE */
         .metrics-section {
             padding: 1rem 1.5rem;
             background: var(--black);
@@ -1183,6 +1185,105 @@
             background: var(--black);
             transition: width 1s ease;
         }
+
+        /* === NEW GAMEPLAY ANALYSIS LAYOUT === */
+        .gameplay-view {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: var(--white);
+        }
+
+        .gameplay-container {
+            width: 100%;
+            max-width: 1400px;
+            height: 100%;
+            max-height: 800px;
+            border: 4px solid var(--black);
+            display: grid;
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--white);
+        }
+
+        .gameplay-top-section {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 1rem;
+            border-bottom: 3px solid var(--black);
+            padding-bottom: 1rem;
+        }
+
+        .gameplay-cover-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 2px solid var(--black);
+        }
+
+        .gameplay-info-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .gameplay-info-controls .game-info-section {
+            border-bottom: none;
+            padding: 0;
+        }
+
+        .gameplay-info-controls .trailer-controls {
+            border: 3px solid var(--black);
+            padding: 1rem;
+            flex-grow: 1;
+        }
+
+        .gameplay-bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            min-height: 0; /* Fix for grid blowout */
+        }
+
+        .gameplay-bottom-section .color-section {
+            background: var(--white);
+            color: var(--black);
+            border: 3px solid var(--black);
+            aspect-ratio: auto;
+            padding: 1rem;
+        }
+
+        .gameplay-bottom-section .color-section .section-title {
+            color: var(--black);
+            border-color: var(--black);
+            text-align: left;
+        }
+
+        .gameplay-bottom-section .metrics-section {
+            background: var(--white);
+            color: var(--black);
+            border: 3px solid var(--black);
+            padding: 1rem;
+        }
+
+        .gameplay-bottom-section .metrics-section .section-title {
+            color: var(--black);
+            border-color: var(--black);
+            text-align: left;
+        }
+        
+        .gameplay-bottom-section .metrics-section .metric-card {
+            background: var(--white);
+            border: 2px solid var(--black);
+        }
+        
+        .gameplay-bottom-section .metric-value {
+            color: var(--black);
+        }
+
 
         /* CODE GENERATOR MODAL */
         .code-modal {
@@ -1301,42 +1402,43 @@
             border: 1px solid var(--gray-medium);
             margin-bottom: 1rem;
         }
-
+        
         /* Responsive Design */
         @media (max-width: 1024px) {
-            .detail-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .filter-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .left-panel {
-                border-right: none;
-                border-bottom: 4px solid var(--black);
-                max-height: 60vh;
-            }
-
-            .right-panel {
-                max-height: 60vh;
-            }
-
             .vault-grid {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
-
             .nav-container {
                 padding: 0 1rem;
             }
-
             .logo {
                 font-size: 1.2rem;
                 letter-spacing: 1px;
             }
-
             .system-status {
                 font-size: 0.8rem;
+            }
+             /* Responsive Modal: Stack panels and enable scrolling */
+            .detail-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .left-panel, .right-panel {
+                border-right: none;
+                height: auto;
+                overflow-y: visible; /* Let parent scroll */
+            }
+            .left-panel {
+                border-bottom: 4px solid var(--black);
+            }
+            .gameplay-top-section {
+                grid-template-columns: 200px 1fr;
+            }
+            .gameplay-bottom-section {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1345,63 +1447,77 @@
                 font-size: 2.5rem;
                 letter-spacing: 2px;
             }
-            
             .vault-grid {
                 grid-template-columns: 1fr;
                 padding: 1rem;
             }
-            
             .metrics-grid {
                 grid-template-columns: 1fr;
             }
-
             .header {
                 padding: 2rem 1rem 1rem 1rem;
             }
-
             .control-panel {
                 margin: 0 1rem 2rem 1rem;
                 padding: 1rem;
             }
-
             .game-title-large {
                 font-size: 1.5rem;
             }
-
             .color-inputs {
                 grid-template-columns: repeat(3, 1fr);
             }
-
             .metrics-inputs {
                 grid-template-columns: repeat(2, 1fr);
             }
-
             .trailer-buttons {
                 flex-direction: column;
             }
-
             .add-game-container, .code-container {
                 margin: 1rem;
                 min-height: calc(100vh - 2rem);
             }
-
             .add-game-form, .code-content {
                 padding: 1rem;
             }
-
             .status-overlay {
                 left: 1rem;
                 bottom: 1rem;
                 font-size: 0.7rem;
                 padding: 0.8rem 1rem;
             }
-
             .add-game-btn {
                 bottom: 1rem;
                 right: 1rem;
                 width: 50px;
                 height: 50px;
                 font-size: 0.8rem;
+            }
+             /* Improve touch targets for mobile */
+            .genre-pill, .color-chip, .action-btn, .trailer-btn {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .color-line {
+                min-height: 12px;
+            }
+            .palette-bar {
+                min-height: 40px;
+            }
+            .video-section, .image-section, .color-section {
+                min-height: 200px;
+                aspect-ratio: auto;
+            }
+            .metrics-section {
+                min-height: 300px;
+            }
+            .gameplay-top-section {
+                grid-template-columns: 1fr;
+            }
+            .gameplay-view {
+                padding: 1rem;
             }
         }
 
@@ -1410,65 +1526,51 @@
                 font-size: 2rem;
                 letter-spacing: 1px;
             }
-            
             .subtitle {
                 font-size: 0.9rem;
                 letter-spacing: 1px;
             }
-
             .cartridge-title {
                 font-size: 0.9rem;
             }
-
             .cartridge-meta {
                 font-size: 0.7rem;
             }
-
             .color-inputs {
                 grid-template-columns: repeat(2, 1fr);
             }
-
             .color-input {
                 width: 50px;
                 height: 50px;
             }
-
             .color-hex-input {
                 width: 70px;
                 font-size: 0.8rem;
             }
-
             .modal-title, .code-title {
                 font-size: 1rem;
             }
-
             .game-title-large {
                 font-size: 1.2rem;
             }
-
             .game-meta-large {
                 font-size: 0.8rem;
             }
-
             .section-title {
                 font-size: 0.8rem;
             }
-
             .metric-value {
                 font-size: 1rem;
             }
-
             .video-nav-btn {
                 width: 35px;
                 height: 35px;
                 font-size: 1rem;
             }
-
             .video-indicator {
                 font-size: 0.6rem;
                 padding: 0.2rem 0.4rem;
             }
-
             .code-block {
                 font-size: 0.7rem;
                 padding: 1rem;
@@ -1479,81 +1581,30 @@
             .main-title {
                 font-size: 1.5rem;
             }
-
             .logo {
                 font-size: 1rem;
             }
-
             .vault-grid {
                 padding: 0.5rem;
                 gap: 1rem;
             }
-
             .control-panel {
                 margin: 0 0.5rem 1rem 0.5rem;
                 padding: 0.8rem;
             }
-
             .color-inputs {
                 grid-template-columns: 1fr 1fr;
                 gap: 0.3rem;
             }
-
             .metrics-inputs {
                 grid-template-columns: 1fr;
             }
-
             .checkbox-group {
                 flex-direction: column;
             }
-
             .checkbox-item {
                 font-size: 0.6rem;
                 padding: 0.4rem 0.6rem;
-            }
-        }
-
-        /* Additional mobile-specific improvements */
-        @media (max-width: 768px) {
-            .modal-content {
-                overflow-y: auto;
-            }
-
-            .left-panel, .right-panel {
-                overflow-y: visible;
-                height: auto;
-                max-height: none;
-            }
-
-            .video-section {
-                min-height: 200px;
-            }
-
-            .color-section {
-                min-height: 200px;
-                aspect-ratio: auto;
-            }
-
-            .metrics-section {
-                min-height: 300px;
-            }
-        }
-
-        /* Improve touch targets for mobile */
-        @media (max-width: 768px) {
-            .genre-pill, .color-chip, .action-btn, .trailer-btn {
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .color-line {
-                min-height: 12px;
-            }
-
-            .palette-bar {
-                min-height: 40px;
             }
         }
     </style>
@@ -1627,7 +1678,7 @@
                                     <div class="color-swatch" style="background: #424242;"></div>
                                     <h4>MONO</h4>
                                 </div>
-                                                                <div class="color-chip" data-color-filter="brown">
+                                <div class="color-chip" data-color-filter="brown">
                                     <div class="color-swatch" style="background: #7c5708;"></div>
                                     <h4>BROWN</h4>
                                 </div>
@@ -1654,7 +1705,6 @@
         +
     </button>
 
-    <!-- Add Game Modal -->
     <div class="add-game-modal" id="addGameModal">
         <div class="add-game-container">
             <div class="add-game-header">
@@ -1829,7 +1879,6 @@
         </div>
     </div>
 
-    <!-- Code Generator Modal -->
     <div class="code-modal" id="codeModal">
         <div class="code-container">
             <div class="code-header">
@@ -1852,75 +1901,55 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="instruction-section">
-                    <div class="instruction-header">STEP 2: FILE STRUCTURE</div>
+                 <div class="instruction-section">
+                    <div class="instruction-header">STEP 2: ADD GAMEPLAY DATA (OPTIONAL)</div>
                     <div class="instruction-content">
                         <div class="instruction-text">
-                            Make sure your files are organized like this:
+                            To add gameplay analysis, insert a <strong>"gameplayAnalysis"</strong> object into the game's entry in <strong>games-data.json</strong>.
+                            It should have the same structure as a trailer, but without a "url". Make sure to include an "image" for the card view.
                         </div>
                         <div class="code-block">
-                            <span style="color: #ffff00;">📁 your-project-folder/</span>
-├── <span style="color: #00ffff;">video-game-colors.html</span>
-└── <span style="color: #00ffff;">games-data.json</span>
-                        </div>
-                        <div class="instruction-text">
-                            Both files must be in the same directory for the app to load the data correctly.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="instruction-section">
-                    <div class="instruction-header">STEP 3: HOW TO ADD THE CODE</div>
-                    <div class="instruction-content">
-                        <div class="instruction-text">
-                            1. Open your <strong>games-data.json</strong> file in a text editor<br>
-                            2. Find the end of the last game entry (look for the closing <strong>}</strong>)<br>
-                            3. Add a comma <strong>,</strong> after that closing <strong>}</strong><br>
-                            4. Paste the JSON code from Step 1<br>
-                            5. Save the file<br>
-                            6. Refresh your browser to see the new game!
+"gameplayAnalysis": {
+  "name": "Gameplay Analysis",
+  "image": "http://googleusercontent.com/youtube.com/...",
+  "dominantColors": [ "#FFFFFF", ... ],
+  "colorAnalysis": { ... }
+},
+"trailers": [ ... ]
                         </div>
                     </div>
                 </div>
-
                 <button class="submit-btn" onclick="closeCodeModal()" style="margin-top: 2rem;">GOT IT - CLOSE</button>
             </div>
         </div>
     </div>
 
-    <!-- Main Detail Modal -->
     <div class="modal" id="modal">
         <div class="modal-container">
             <div class="modal-header">
                 <div class="modal-title">CHROMATIC ANALYSIS</div>
                 <button class="close-btn" onclick="closeModal()">×</button>
             </div>
-            <div class="modal-content">
-                <div id="modalContent">
+            <div class="modal-content" id="modalContent">
                 </div>
-            </div>
         </div>
     </div>
 
     <script>
-        // Game data - will be loaded from external JSON file
         let gameData = [];
         let filteredData = [];
-        let currentGenreFilters = [];
+        let currentGenreFilters = ['all'];
         let currentColorFilters = [];
         let adminMode = false;
-
-        // Admin mode activation (secret key combination)
         let keySequence = [];
         const adminSequence = ['a', 'd', 'm', 'i', 'n'];
 
         document.addEventListener('keydown', function(e) {
+            if (document.activeElement.tagName === 'INPUT') return;
             keySequence.push(e.key.toLowerCase());
             if (keySequence.length > adminSequence.length) {
                 keySequence.shift();
             }
-            
             if (JSON.stringify(keySequence) === JSON.stringify(adminSequence)) {
                 adminMode = !adminMode;
                 document.querySelector('.add-game-btn').classList.toggle('admin-mode', adminMode);
@@ -1929,65 +1958,45 @@
             }
         });
 
-        // Load game data from external JSON file
         async function loadGameData() {
             try {
                 showStatus('Loading game data...');
-                const response = await fetch('./games-data.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                gameData = await response.json();
+                const response = await fetch('./games-data.json?cachebust=' + new Date().getTime());
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const rawData = await response.json();
+                
+                // Process data to include gameplay analysis
+                gameData = rawData.map(game => {
+                    const displayItems = [];
+                    if (game.gameplayAnalysis) {
+                        displayItems.push({ ...game.gameplayAnalysis, type: 'gameplay' });
+                    }
+                    if (game.trailers) {
+                        game.trailers.forEach(trailer => {
+                            displayItems.push({ ...trailer, type: 'trailer' });
+                        });
+                    }
+                    return {
+                        ...game,
+                        displayItems,
+                        currentDisplayIndex: 0
+                    };
+                });
+
                 filteredData = [...gameData];
                 showStatus('Game data loaded successfully');
                 renderVault();
             } catch (error) {
                 console.error('Error loading game data:', error);
-                showStatus('Error loading game data - using fallback');
-                // Fallback to embedded data if JSON file is not available
-                loadFallbackData();
+                showStatus('Error: Could not load game data.');
             }
-        }
-
-        // Fallback data if JSON file is not available
-        function loadFallbackData() {
-            gameData = [
-                {
-                    id: 1,
-                    title: "Cyberpunk 2077",
-                    developer: "CD Projekt RED",
-                    year: 2020,
-                    genre: ["action", "rpg"],
-                    trailers: [
-                        {
-                            name: "Reveal Trailer",
-                            url: "https://www.youtube.com/embed/8X2kIfS6fb8",
-                            image: "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&h=300&fit=crop&crop=center",
-                            dominantColors: ["#FF0080", "#00FFFF", "#FFFF00", "#8000FF", "#FF4000"],
-                            colorAnalysis: {
-                                avgSaturation: 85,
-                                avgBrightness: 72,
-                                contrast: 92,
-                                colorfulness: 88
-                            }
-                        }
-                    ],
-                    currentTrailer: 0,
-                    tags: ["futuristic", "neon", "high-contrast", "vibrant"],
-                    colorCategories: ["red", "blue", "yellow", "purple"]
-                }
-            ];
-            filteredData = [...gameData];
-            renderVault();
         }
 
         function showStatus(message) {
             const overlay = document.getElementById('statusOverlay');
             overlay.textContent = message.toUpperCase();
             overlay.classList.add('active');
-            setTimeout(() => {
-                overlay.classList.remove('active');
-            }, 2000);
+            setTimeout(() => overlay.classList.remove('active'), 2000);
         }
 
         function updateCount() {
@@ -2002,38 +2011,26 @@
         }
 
         function copyToClipboard(text, element) {
-            navigator.clipboard.writeText(text).then(function() {
+            navigator.clipboard.writeText(text).then(() => {
                 showCopyIndicator(element);
                 showStatus(`Copied ${text} to clipboard`);
-            }, function(err) {
-                showStatus('Failed to copy');
-            });
+            }, () => showStatus('Failed to copy'));
         }
 
         function copyCodeToClipboard(elementId) {
             const codeContent = document.getElementById(elementId + 'Content').textContent;
-            navigator.clipboard.writeText(codeContent).then(function() {
+            navigator.clipboard.writeText(codeContent).then(() => {
                 showStatus('Code copied to clipboard');
-            }, function(err) {
-                showStatus('Failed to copy code');
-            });
+            }, () => showStatus('Failed to copy code'));
         }
 
         function showCopyIndicator(element) {
             const indicator = document.getElementById('copyIndicator');
             const rect = element.getBoundingClientRect();
-            
-            indicator.style.left = (rect.left + rect.width / 2) + 'px';
-            indicator.style.top = (rect.top + rect.height / 2) + 'px';
+            indicator.style.left = `${rect.left + rect.width / 2}px`;
+            indicator.style.top = `${rect.top + rect.height / 2}px`;
             indicator.classList.add('active');
-            
-            setTimeout(() => {
-                indicator.classList.remove('active');
-            }, 1000);
-        }
-
-        function copyPaletteColor(color, element) {
-            copyToClipboard(color, element);
+            setTimeout(() => indicator.classList.remove('active'), 1000);
         }
 
         function openAddGameModal() {
@@ -2046,20 +2043,12 @@
             document.body.style.overflow = 'auto';
             document.getElementById('addGameForm').reset();
             document.getElementById('previewSection').style.display = 'none';
-            // Reset checkbox styling
-            document.querySelectorAll('.checkbox-item').forEach(item => {
-                item.classList.remove('selected');
-            });
+            document.querySelectorAll('.checkbox-item').forEach(item => item.classList.remove('selected'));
         }
 
         function openCodeModal(gameJson) {
             const modal = document.getElementById('codeModal');
-            const jsonCodeContent = document.getElementById('jsonCodeContent');
-            
-            // Format the JSON with proper indentation
-            const formattedJson = JSON.stringify(gameJson, null, 2);
-            jsonCodeContent.textContent = formattedJson;
-            
+            document.getElementById('jsonCodeContent').textContent = JSON.stringify(gameJson, null, 2);
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -2073,237 +2062,142 @@
             const url = document.getElementById('youtubeUrl').value;
             const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
             const match = url.match(regex);
-            
+            const previewSection = document.getElementById('previewSection');
+            const youtubeUrlInput = document.getElementById('youtubeUrl');
+
             if (match) {
                 const videoId = match[1];
                 const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
                 const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                
                 document.getElementById('thumbnailPreview').src = thumbnailUrl;
-                document.getElementById('previewSection').style.display = 'block';
-                
-                // Store the embed URL for later use
-                document.getElementById('youtubeUrl').dataset.embedUrl = embedUrl;
-                document.getElementById('youtubeUrl').dataset.thumbnailUrl = thumbnailUrl;
+                previewSection.style.display = 'block';
+                youtubeUrlInput.dataset.embedUrl = embedUrl;
+                youtubeUrlInput.dataset.thumbnailUrl = thumbnailUrl;
             } else {
-                document.getElementById('previewSection').style.display = 'none';
+                previewSection.style.display = 'none';
             }
         }
-
+        
         function updateColorHex(index) {
-            const colorPicker = document.getElementById(`color${index}`);
-            const hexInput = document.getElementById(`colorHex${index}`);
-            hexInput.value = colorPicker.value.toUpperCase();
+            document.getElementById(`colorHex${index}`).value = document.getElementById(`color${index}`).value.toUpperCase();
         }
 
         function updateColorPicker(index) {
-            const colorPicker = document.getElementById(`color${index}`);
             const hexInput = document.getElementById(`colorHex${index}`);
-            let hexValue = hexInput.value;
-            
-            // Ensure hex value starts with #
-            if (!hexValue.startsWith('#')) {
-                hexValue = '#' + hexValue;
-            }
-            
-            // Validate hex color
+            let hexValue = hexInput.value.startsWith('#') ? hexInput.value : `#${hexInput.value}`;
             if (/^#[0-9A-F]{6}$/i.test(hexValue)) {
-                colorPicker.value = hexValue;
+                document.getElementById(`color${index}`).value = hexValue;
                 hexInput.value = hexValue.toUpperCase();
             }
         }
-
+        
         function toggleFilter(filterId) {
             const filterSection = document.getElementById(filterId);
             const isExpanded = filterSection.classList.contains('expanded');
-            
-            // Close all filters first
             document.querySelectorAll('.filter-section').forEach(section => {
                 section.classList.remove('expanded');
                 section.querySelector('.filter-header').classList.remove('active');
             });
-            
-            // Open the clicked filter if it wasn't already open
             if (!isExpanded) {
                 filterSection.classList.add('expanded');
                 filterSection.querySelector('.filter-header').classList.add('active');
             }
         }
 
-        function getColorName(hex) {
-            const colorNames = {
-                '#FF0080': 'Hot Pink',
-                '#00FFFF': 'Cyan',
-                '#FFFF00': 'Yellow',
-                '#8000FF': 'Electric Purple',
-                '#FF4000': 'Red Orange',
-                '#FF0040': 'Crimson',
-                '#0080FF': 'Azure',
-                '#FFFF80': 'Light Yellow',
-                '#8040FF': 'Blue Purple',
-                '#FF8000': 'Orange',
-                '#8B4513': 'Saddle Brown',
-                '#228B22': 'Forest Green',
-                '#2F4F4F': 'Dark Slate Gray',
-                '#CD853F': 'Peru',
-                '#556B2F': 'Dark Olive',
-                '#DC143C': 'Crimson',
-                '#FF6347': 'Tomato',
-                '#FFD700': 'Gold',
-                '#8B0000': 'Dark Red',
-                '#FF4500': 'Orange Red',
-                '#FF6B6B': 'Light Red',
-                '#4ECDC4': 'Medium Turquoise',
-                '#45B7D1': 'Sky Blue',
-                '#FFA07A': 'Light Salmon',
-                '#98D8C8': 'Light Cyan',
-                '#FF69B4': 'Hot Pink',
-                '#87CEEB': 'Sky Blue',
-                '#DDA0DD': 'Plum',
-                '#F0E68C': 'Khaki',
-                '#FFB6C1': 'Light Pink',
-                '#2F2F2F': 'Dark Gray',
-                '#800080': 'Purple',
-                '#4B0082': 'Indigo',
-                '#191970': 'Midnight Blue'
-            };
-            return colorNames[hex] || 'Unknown';
-        }
-
         function createCartridge(game) {
             const cartridge = document.createElement('div');
             cartridge.className = 'cartridge';
-            cartridge.onclick = (e) => {
-                // Don't open modal if clicking on video navigation or palette
-                if (e.target.closest('.video-nav-overlay') || e.target.closest('.palette-preview')) return;
-                openModal(game);
-            };
+            cartridge.onclick = () => openModal(game, game.currentDisplayIndex);
 
-            const currentTrailer = game.trailers[game.currentTrailer];
-            
-            const palettePreview = currentTrailer.dominantColors.map((color, index) =>
-                `<div class="palette-bar" style="background-color: ${color};" onclick="copyPaletteColor('${color}', this)" title="Click to copy ${color}"></div>`
+            const currentDisplay = game.displayItems[game.currentDisplayIndex];
+            if (!currentDisplay) return null; // Skip if no displayable items
+
+            const palettePreview = currentDisplay.dominantColors.map(color =>
+                `<div class="palette-bar" style="background-color: ${color};" onclick="event.stopPropagation(); copyToClipboard('${color}', this);" title="Click to copy ${color}"></div>`
             ).join('');
 
-            // Video indicator for multiple trailers
-            let videoIndicator = '';
-            let videoNavOverlay = '';
-            if (game.trailers.length > 1) {
-                const videoDots = game.trailers.map((_, index) =>
-                    `<div class="video-dot ${index === game.currentTrailer ? 'active' : ''}"></div>`
+            let indicator = '';
+            let navOverlay = '';
+            if (game.displayItems.length > 1) {
+                const dots = game.displayItems.map((_, index) =>
+                    `<div class="video-dot ${index === game.currentDisplayIndex ? 'active' : ''}"></div>`
                 ).join('');
-
-                videoIndicator = `
-                    <div class="video-indicator">
-                        ${game.trailers.length} VIDS
-                        <div class="video-dots">${videoDots}</div>
-                    </div>
-                `;
-
-                videoNavOverlay = `
+                const typeLabel = game.displayItems[0].type === 'gameplay' ? "VIEWS" : "VIDS";
+                indicator = `<div class="video-indicator">${game.displayItems.length} ${typeLabel}<div class="video-dots">${dots}</div></div>`;
+                navOverlay = `
                     <div class="video-nav-overlay">
-                        <div class="video-nav-btn" onclick="switchVideo(${game.id}, -1)">‹</div>
-                        <div class="video-nav-btn" onclick="switchVideo(${game.id}, 1)">›</div>
-                    </div>
-                `;
+                        <div class="video-nav-btn" onclick="event.stopPropagation(); switchDisplay(${game.id}, -1)">‹</div>
+                        <div class="video-nav-btn" onclick="event.stopPropagation(); switchDisplay(${game.id}, 1)">›</div>
+                    </div>`;
             }
 
             cartridge.innerHTML = `
-                ${videoIndicator}
+                ${indicator}
                 <div class="cartridge-header">
                     <div class="cartridge-title">${game.title}</div>
                     <div class="cartridge-meta">${game.developer} • ${game.year}</div>
                 </div>
                 <div class="cartridge-image">
-                    <img src="${currentTrailer.image}" alt="${game.title}" class="game-image">
+                    <img src="${currentDisplay.image}" alt="${game.title}" class="game-image">
                     <div class="palette-preview">${palettePreview}</div>
-                    ${videoNavOverlay}
+                    ${navOverlay}
                 </div>
                 <div class="cartridge-footer">
-                    <div class="trailer-info">${currentTrailer.name}</div>
-                </div>
-            `;
-            
+                    <div class="trailer-info">${currentDisplay.name}</div>
+                </div>`;
             return cartridge;
         }
-
-        function switchVideo(gameId, direction) {
+        
+        function switchDisplay(gameId, direction) {
             const game = gameData.find(g => g.id === gameId);
-            if (!game || game.trailers.length <= 1) return;
+            if (!game || game.displayItems.length <= 1) return;
 
-            const newIndex = (game.currentTrailer + direction + game.trailers.length) % game.trailers.length;
-            game.currentTrailer = newIndex;
+            const newIndex = (game.currentDisplayIndex + direction + game.displayItems.length) % game.displayItems.length;
+            game.currentDisplayIndex = newIndex;
+            
+            // Re-render the vault to find the correct cartridge element to update
+            const vault = document.getElementById('vaultGrid');
+            const cartridges = Array.from(vault.children);
+            const gameIndex = filteredData.findIndex(g => g.id === gameId);
+            const cartridgeElement = cartridges[gameIndex];
 
-            // Update the specific cartridge
-            const cartridgeElement = document.querySelector(`[onclick*="${gameId}"]`).closest('.cartridge');
             if (cartridgeElement) {
-                updateCartridgeContent(cartridgeElement, game);
+                const newCartridge = createCartridge(game);
+                if (newCartridge) {
+                    cartridgeElement.replaceWith(newCartridge);
+                }
             }
-
-            showStatus(`Switched to ${game.trailers[game.currentTrailer].name}`);
-        }
-
-        function updateCartridgeContent(cartridgeElement, game) {
-            const currentTrailer = game.trailers[game.currentTrailer];
-            
-            // Update image
-            const gameImage = cartridgeElement.querySelector('.game-image');
-            if (gameImage) {
-                gameImage.src = currentTrailer.image;
-            }
-            
-            // Update trailer name
-            const trailerInfo = cartridgeElement.querySelector('.trailer-info');
-            if (trailerInfo) {
-                trailerInfo.textContent = currentTrailer.name;
-            }
-            
-            // Update palette preview
-            const palettePreview = cartridgeElement.querySelector('.palette-preview');
-            if (palettePreview) {
-                const newPalette = currentTrailer.dominantColors.map(color =>
-                    `<div class="palette-bar" style="background-color: ${color};"></div>`
-                ).join('');
-                palettePreview.innerHTML = newPalette;
-            }
-            
-            // Update video dots
-            const videoDots = cartridgeElement.querySelectorAll('.video-dot');
-            videoDots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === game.currentTrailer);
-            });
+            showStatus(`Switched to ${game.displayItems[game.currentDisplayIndex].name}`);
         }
 
         function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             filteredData = gameData.filter(game => {
-                const genreMatch = currentGenreFilters.length === 0 || currentGenreFilters.includes('all') ||
-                    currentGenreFilters.some(genre => game.genre.includes(genre));
-                
-                const colorMatch = currentColorFilters.length === 0 ||
-                    (game.colorCategories && currentColorFilters.some(color => game.colorCategories.includes(color)));
-                
-                return genreMatch && colorMatch;
+                const genreMatch = currentGenreFilters.includes('all') || currentGenreFilters.some(genre => game.genre.includes(genre));
+                const colorMatch = currentColorFilters.length === 0 || (game.colorCategories && currentColorFilters.some(color => game.colorCategories.includes(color)));
+                const searchMatch = !searchTerm || game.title.toLowerCase().includes(searchTerm) || game.developer.toLowerCase().includes(searchTerm);
+                return genreMatch && colorMatch && searchMatch;
             });
+            renderVault();
         }
 
         function renderVault() {
             const vault = document.getElementById('vaultGrid');
             vault.innerHTML = '';
-            
             showStatus('Loading archive...');
             
             setTimeout(() => {
                 filteredData.forEach((game, index) => {
                     setTimeout(() => {
                         const cartridge = createCartridge(game);
-                        vault.appendChild(cartridge);
-                    }, index * 50);
+                        if (cartridge) vault.appendChild(cartridge);
+                    }, index * 25);
                 });
                 
                 setTimeout(() => {
                     updateCount();
                     showStatus(`${filteredData.length} items loaded`);
-                }, filteredData.length * 50 + 200);
+                }, filteredData.length * 25 + 200);
             }, 200);
         }
 
@@ -2311,24 +2205,18 @@
             if (filter === 'all') {
                 currentGenreFilters = ['all'];
             } else {
-                // Remove 'all' if selecting specific genres
                 currentGenreFilters = currentGenreFilters.filter(f => f !== 'all');
-                
                 if (currentGenreFilters.includes(filter)) {
                     currentGenreFilters = currentGenreFilters.filter(f => f !== filter);
                 } else {
                     currentGenreFilters.push(filter);
                 }
-                
-                // If no specific genres selected, default to 'all'
                 if (currentGenreFilters.length === 0) {
                     currentGenreFilters = ['all'];
                 }
             }
-            
             updateGenreFilterUI();
             applyFilters();
-            renderVault();
         }
 
         function toggleColorFilter(colorFilter) {
@@ -2337,435 +2225,249 @@
             } else {
                 currentColorFilters.push(colorFilter);
             }
-            
             updateColorFilterUI();
             applyFilters();
-            renderVault();
         }
 
         function updateGenreFilterUI() {
             document.querySelectorAll('.genre-pill').forEach(pill => {
                 const filter = pill.dataset.filter;
-                if (filter === 'all') {
-                    pill.classList.toggle('active', currentGenreFilters.includes('all'));
-                } else {
-                    pill.classList.toggle('multi-selected', currentGenreFilters.includes(filter));
-                    pill.classList.toggle('active', false);
-                }
+                pill.classList.toggle('active', currentGenreFilters.includes('all') && filter === 'all');
+                pill.classList.toggle('multi-selected', currentGenreFilters.includes(filter) && filter !== 'all');
             });
         }
 
         function updateColorFilterUI() {
             document.querySelectorAll('.color-chip').forEach(chip => {
-                const filter = chip.dataset.colorFilter;
-                chip.classList.toggle('multi-selected', currentColorFilters.includes(filter));
+                chip.classList.toggle('multi-selected', currentColorFilters.includes(chip.dataset.colorFilter));
             });
         }
 
         function clearAllFilters() {
             currentGenreFilters = ['all'];
             currentColorFilters = [];
-            
             updateGenreFilterUI();
             updateColorFilterUI();
-            
-            // Reset search
             document.getElementById('searchInput').value = '';
-            
             applyFilters();
-            renderVault();
             showStatus('Filters cleared');
         }
 
-        function openModal(game) {
-            const modal = document.getElementById('modal');
+        function openModal(game, displayIndex) {
+            game.currentDisplayIndex = displayIndex;
+            const displayItem = game.displayItems[displayIndex];
+            if (!displayItem) return;
+            const analysis = displayItem.colorAnalysis;
             const modalContent = document.getElementById('modalContent');
-            
-            const currentTrailer = game.trailers[game.currentTrailer];
-            const analysis = currentTrailer.colorAnalysis;
-            
-            let trailerControls = '';
-            if (game.trailers.length > 1) {
-                trailerControls = `
-                    <div class="trailer-controls">
-                        <div class="controls-title">AVAILABLE TRAILERS</div>
-                        <div class="trailer-buttons">
-                            ${game.trailers.map((trailer, index) => `
-                                <button class="trailer-btn ${index === game.currentTrailer ? 'active' : ''}" 
-                                        onclick="switchTrailer(${game.id}, ${index})">${trailer.name}</button>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-            
-            modalContent.innerHTML = `
-                <div class="detail-grid">
-                    <div class="left-panel">
-                        <div class="video-section">
-                            <iframe width="100%" height="100%" src="${currentTrailer.url}?autoplay=1" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen></iframe>
-                        </div>
-                        
-                        <div class="game-info-section">
-                            <h2 class="game-title-large">${game.title}</h2>
-                            <p class="game-meta-large">${game.developer} • ${game.year}</p>
-                            <p class="current-trailer-info">CURRENT: ${currentTrailer.name}</p>
-                        </div>
-                        
-                        ${trailerControls}
-                    </div>
-                    
-                    <div class="right-panel">
-                        <div class="color-section">
-                            <h3 class="section-title">COLOR PALETTE</h3>
-                            
-                            <div class="color-lines">
-                                ${currentTrailer.dominantColors.map(color => `
-                                    <div class="color-line" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
-                                        <div class="color-line-info">
-                                            <div class="color-hex-large">${color}</div>
-                                            <div class="color-name-large">${getColorName(color)}</div>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        
-                        <div class="metrics-section">
-                            <h3 class="section-title">ANALYSIS METRICS</h3>
-                            <div class="metrics-grid">
-                                <div class="metric-card">
-                                    <div class="metric-label">SATURATION</div>
-                                    <div class="metric-value">${analysis.avgSaturation}%</div>
-                                    <div class="metric-bar">
-                                        <div class="metric-fill" style="width: ${analysis.avgSaturation}%;"></div>
-                                    </div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-label">BRIGHTNESS</div>
-                                    <div class="metric-value">${analysis.avgBrightness}%</div>
-                                    <div class="metric-bar">
-                                        <div class="metric-fill" style="width: ${analysis.avgBrightness}%;"></div>
-                                    </div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-label">CONTRAST</div>
-                                    <div class="metric-value">${analysis.contrast}%</div>
-                                    <div class="metric-bar">
-                                        <div class="metric-fill" style="width: ${analysis.contrast}%;"></div>
-                                    </div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-label">COLORFULNESS</div>
-                                    <div class="metric-value">${analysis.colorfulness}%</div>
-                                    <div class="metric-bar">
-                                        <div class="metric-fill" style="width: ${analysis.colorfulness}%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            const modal = document.getElementById('modal');
+
+            // Clear previous content and classes
+            modalContent.innerHTML = '';
+            modalContent.className = 'modal-content';
+
+            const controls = `
+                <div class="trailer-controls">
+                    <div class="controls-title">AVAILABLE VIEWS</div>
+                    <div class="trailer-buttons">
+                        ${game.displayItems.map((item, index) => `
+                            <button class="trailer-btn ${index === displayIndex ? 'active' : ''}" 
+                                    onclick="switchModalView(${game.id}, ${index})">${item.name}</button>
+                        `).join('')}
                     </div>
                 </div>
             `;
-            
+
+            if (displayItem.type === 'trailer') {
+                const rightPanel = `
+                    <div class="right-panel">
+                        <div class="color-section">
+                            <h3 class="section-title">COLOR PALETTE</h3>
+                            <div class="color-lines">
+                                ${displayItem.dominantColors.map(color => `
+                                    <div class="color-line" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
+                                        <div class="color-line-info"><div class="color-hex-large">${color}</div></div>
+                                    </div>`).join('')}
+                            </div>
+                        </div>
+                        <div class="metrics-section">
+                            <h3 class="section-title">ANALYSIS METRICS</h3>
+                            <div class="metrics-grid">
+                                <div class="metric-card"><div class="metric-label">SATURATION</div><div class="metric-value">${analysis.avgSaturation}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgSaturation}%;"></div></div></div>
+                                <div class="metric-card"><div class="metric-label">BRIGHTNESS</div><div class="metric-value">${analysis.avgBrightness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgBrightness}%;"></div></div></div>
+                                <div class="metric-card"><div class="metric-label">CONTRAST</div><div class="metric-value">${analysis.contrast}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.contrast}%;"></div></div></div>
+                                <div class="metric-card"><div class="metric-label">COLORFULNESS</div><div class="metric-value">${analysis.colorfulness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.colorfulness}%;"></div></div></div>
+                            </div>
+                        </div>
+                    </div>`;
+
+                const leftPanel = `
+                    <div class="left-panel">
+                        <div class="video-section">
+                            <iframe width="100%" height="100%" src="${displayItem.url}" 
+                                    frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen></iframe>
+                        </div>
+                        <div class="game-info-section">
+                            <h2 class="game-title-large">${game.title}</h2>
+                            <p class="game-meta-large">${game.developer} • ${game.year}</p>
+                            <p class="current-trailer-info">CURRENT: ${displayItem.name}</p>
+                        </div>
+                        ${controls}
+                    </div>`;
+                modalContent.innerHTML = `<div class="detail-grid">${leftPanel}${rightPanel}</div>`;
+
+            } else { // Gameplay view - NEW "at a glance" LAYOUT
+                modalContent.classList.add('gameplay-view');
+
+                const gameplayLayout = `
+                    <div class="gameplay-container">
+                        <div class="gameplay-top-section">
+                            <div class="gameplay-cover-art">
+                                <img src="${displayItem.image}" alt="${game.title} cover art">
+                            </div>
+                            <div class="gameplay-info-controls">
+                                <div class="game-info-section">
+                                    <h2 class="game-title-large">${game.title}</h2>
+                                    <p class="game-meta-large">${game.developer} • ${game.year}</p>
+                                    <p class="current-trailer-info">VIEWING: ${displayItem.name}</p>
+                                </div>
+                                ${controls}
+                            </div>
+                        </div>
+                        <div class="gameplay-bottom-section">
+                            <div class="color-section">
+                                <h3 class="section-title">COLOR PALETTE</h3>
+                                <div class="color-lines">
+                                    ${displayItem.dominantColors.map(color => `
+                                        <div class="color-line" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
+                                            <div class="color-line-info"><div class="color-hex-large">${color}</div></div>
+                                        </div>`).join('')}
+                                </div>
+                            </div>
+                            <div class="metrics-section">
+                                <h3 class="section-title">ANALYSIS METRICS</h3>
+                                <div class="metrics-grid">
+                                    <div class="metric-card"><div class="metric-label">SATURATION</div><div class="metric-value">${analysis.avgSaturation}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgSaturation}%;"></div></div></div>
+                                    <div class="metric-card"><div class="metric-label">BRIGHTNESS</div><div class="metric-value">${analysis.avgBrightness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgBrightness}%;"></div></div></div>
+                                    <div class="metric-card"><div class="metric-label">CONTRAST</div><div class="metric-value">${analysis.contrast}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.contrast}%;"></div></div></div>
+                                    <div class="metric-card"><div class="metric-label">COLORFULNESS</div><div class="metric-value">${analysis.colorfulness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.colorfulness}%;"></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                modalContent.innerHTML = gameplayLayout;
+            }
+
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        function switchTrailer(gameId, trailerIndex) {
+        function switchModalView(gameId, displayIndex) {
             const game = gameData.find(g => g.id === gameId);
-            if (game && game.trailers[trailerIndex]) {
-                game.currentTrailer = trailerIndex;
-                openModal(game);
-                showStatus(`Switched to ${game.trailers[trailerIndex].name}`);
+            if (game) {
+                openModal(game, displayIndex); // Re-render the modal with the new view
+                showStatus(`Switched to ${game.displayItems[displayIndex].name}`);
             }
         }
 
         function closeModal() {
             const modal = document.getElementById('modal');
-            const iframe = modal.querySelector('iframe');
-            if (iframe) iframe.src = '';
-
+            modal.querySelector('#modalContent').innerHTML = ''; // Clear content to stop video
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
-
-        // Add New Genre/Color Functions
-        function showNewGenreInput() {
-            document.getElementById('newGenreInput').classList.add('active');
-        }
-
-        function hideNewGenreInput() {
-            document.getElementById('newGenreInput').classList.remove('active');
-            document.getElementById('newGenreText').value = '';
-        }
-
+        
+        // Add new item functions (unchanged, but provided for completeness)
+        function showNewGenreInput() { document.getElementById('newGenreInput').classList.add('active'); }
+        function hideNewGenreInput() { document.getElementById('newGenreInput').classList.remove('active'); document.getElementById('newGenreText').value = ''; }
         function addNewGenre() {
-            const newGenreText = document.getElementById('newGenreText').value.trim().toLowerCase();
-            if (!newGenreText) return;
-
-            // Check if genre already exists
-            const existingGenres = Array.from(document.querySelectorAll('#genreCheckboxes .checkbox-item input')).map(input => input.value);
-            if (existingGenres.includes(newGenreText)) {
-                showStatus('Genre already exists');
-                return;
-            }
-
-            // Create new checkbox item
-            const newGenreItem = document.createElement('label');
-            newGenreItem.className = 'checkbox-item';
-            newGenreItem.innerHTML = `<input type="checkbox" value="${newGenreText}">${newGenreText.toUpperCase()}`;
-            
-            // Add event listener for the new item
-            newGenreItem.addEventListener('click', function() {
-                const checkbox = this.querySelector('input[type="checkbox"]');
-                checkbox.checked = !checkbox.checked;
-                this.classList.toggle('selected', checkbox.checked);
-            });
-
-            // Insert before the "Add New" button
-            const addNewButton = document.querySelector('#genreCheckboxes .add-new-item');
-            addNewButton.parentNode.insertBefore(newGenreItem, addNewButton);
-
-            // Hide input and clear
+            const text = document.getElementById('newGenreText').value.trim().toLowerCase();
+            if (!text || Array.from(document.querySelectorAll('#genreCheckboxes input')).some(i => i.value === text)) return;
+            const newItem = document.createElement('label');
+            newItem.className = 'checkbox-item';
+            newItem.innerHTML = `<input type="checkbox" value="${text}">${text.toUpperCase()}`;
+            newItem.addEventListener('click', function() { this.classList.toggle('selected'); });
+            const addButton = document.querySelector('#genreCheckboxes .add-new-item');
+            addButton.parentNode.insertBefore(newItem, addButton);
             hideNewGenreInput();
-            showStatus(`Added genre: ${newGenreText}`);
         }
-
-        function showNewColorInput() {
-            document.getElementById('newColorInput').classList.add('active');
-        }
-
-        function hideNewColorInput() {
-            document.getElementById('newColorInput').classList.remove('active');
-            document.getElementById('newColorText').value = '';
-        }
-
+        function showNewColorInput() { document.getElementById('newColorInput').classList.add('active'); }
+        function hideNewColorInput() { document.getElementById('newColorInput').classList.remove('active'); document.getElementById('newColorText').value = ''; }
         function addNewColor() {
-            const newColorText = document.getElementById('newColorText').value.trim().toLowerCase();
-            if (!newColorText) return;
-
-            // Check if color already exists
-            const existingColors = Array.from(document.querySelectorAll('#colorCheckboxes .checkbox-item input')).map(input => input.value);
-            if (existingColors.includes(newColorText)) {
-                showStatus('Color category already exists');
-                return;
-            }
-
-            // Create new checkbox item
-            const newColorItem = document.createElement('label');
-            newColorItem.className = 'checkbox-item';
-            newColorItem.innerHTML = `<input type="checkbox" value="${newColorText}">${newColorText.toUpperCase()}`;
-            
-            // Add event listener for the new item
-            newColorItem.addEventListener('click', function() {
-                const checkbox = this.querySelector('input[type="checkbox"]');
-                checkbox.checked = !checkbox.checked;
-                this.classList.toggle('selected', checkbox.checked);
-            });
-
-            // Insert before the "Add New" button
-            const addNewButton = document.querySelector('#colorCheckboxes .add-new-item');
-            addNewButton.parentNode.insertBefore(newColorItem, addNewButton);
-
-            // Hide input and clear
+             const text = document.getElementById('newColorText').value.trim().toLowerCase();
+            if (!text || Array.from(document.querySelectorAll('#colorCheckboxes input')).some(i => i.value === text)) return;
+            const newItem = document.createElement('label');
+            newItem.className = 'checkbox-item';
+            newItem.innerHTML = `<input type="checkbox" value="${text}">${text.toUpperCase()}`;
+            newItem.addEventListener('click', function() { this.classList.toggle('selected'); });
+            const addButton = document.querySelector('#colorCheckboxes .add-new-item');
+            addButton.parentNode.insertBefore(newItem, addButton);
             hideNewColorInput();
-            showStatus(`Added color category: ${newColorText}`);
         }
 
         function addNewGame() {
-            // Collect form data
-            const title = document.getElementById('gameTitle').value;
-            const developer = document.getElementById('gameDeveloper').value;
-            const year = parseInt(document.getElementById('gameYear').value);
-            const trailerName = document.getElementById('trailerName').value;
-            const youtubeUrl = document.getElementById('youtubeUrl').dataset.embedUrl;
-            const thumbnailUrl = document.getElementById('youtubeUrl').dataset.thumbnailUrl;
-            
-            // Collect colors
-            const dominantColors = [];
-            for (let i = 1; i <= 5; i++) {
-                const colorValue = document.getElementById(`colorHex${i}`).value;
-                if (colorValue) {
-                    dominantColors.push(colorValue.toUpperCase());
-                }
+            const youtubeUrlInput = document.getElementById('youtubeUrl');
+            if (!youtubeUrlInput.dataset.embedUrl || !youtubeUrlInput.dataset.thumbnailUrl) {
+                return showStatus('Please enter a valid YouTube URL');
             }
+            const dominantColors = Array.from({length: 5}, (_, i) => document.getElementById(`colorHex${i+1}`).value.toUpperCase()).filter(Boolean);
+            if (dominantColors.length !== 5) return showStatus('Please enter all 5 color hex codes');
             
-            // Collect metrics
-            const colorAnalysis = {
-                avgSaturation: parseInt(document.getElementById('saturation').value),
-                avgBrightness: parseInt(document.getElementById('brightness').value),
-                contrast: parseInt(document.getElementById('contrast').value),
-                colorfulness: parseInt(document.getElementById('colorfulness').value)
-            };
-            
-            // Collect genres
-            const genres = [];
-            document.querySelectorAll('#genreCheckboxes .checkbox-item input[type="checkbox"]:checked').forEach(checkbox => {
-                genres.push(checkbox.value);
-            });
-            
-            // Collect color categories
-            const colorCategories = [];
-            document.querySelectorAll('#colorCheckboxes .checkbox-item input[type="checkbox"]:checked').forEach(checkbox => {
-                colorCategories.push(checkbox.value);
-            });
-            
-            // Validation
-            if (!youtubeUrl || !thumbnailUrl) {
-                showStatus('Please enter a valid YouTube URL');
-                return;
-            }
-            
-            if (dominantColors.length !== 5) {
-                showStatus('Please enter all 5 color hex codes');
-                return;
-            }
-            
-            if (genres.length === 0) {
-                showStatus('Please select at least one genre');
-                return;
-            }
-            
-            // Get the next ID
-            const nextId = Math.max(...gameData.map(g => g.id), 0) + 1;
-            
-            // Create new game object
+            const genres = Array.from(document.querySelectorAll('#genreCheckboxes input:checked')).map(cb => cb.value);
+            if (genres.length === 0) return showStatus('Please select at least one genre');
+
             const newGame = {
-                id: nextId,
-                title: title,
-                developer: developer,
-                year: year,
+                id: Math.max(...gameData.map(g => g.id), 0) + 1,
+                title: document.getElementById('gameTitle').value,
+                developer: document.getElementById('gameDeveloper').value,
+                year: parseInt(document.getElementById('gameYear').value),
                 genre: genres,
-                trailers: [
-                    {
-                        name: trailerName,
-                        url: youtubeUrl,
-                        image: thumbnailUrl,
-                        dominantColors: dominantColors,
-                        colorAnalysis: colorAnalysis
+                trailers: [{
+                    name: document.getElementById('trailerName').value,
+                    url: youtubeUrlInput.dataset.embedUrl,
+                    image: youtubeUrlInput.dataset.thumbnailUrl,
+                    dominantColors: dominantColors,
+                    colorAnalysis: {
+                        avgSaturation: parseInt(document.getElementById('saturation').value),
+                        avgBrightness: parseInt(document.getElementById('brightness').value),
+                        contrast: parseInt(document.getElementById('contrast').value),
+                        colorfulness: parseInt(document.getElementById('colorfulness').value)
                     }
-                ],
-                currentTrailer: 0,
-                tags: [], // Empty tags array since we removed the tags section
-                colorCategories: colorCategories
+                }],
+                colorCategories: Array.from(document.querySelectorAll('#colorCheckboxes input:checked')).map(cb => cb.value),
             };
-            
-            // Add to gameData (temporarily for immediate preview)
-            gameData.push(newGame);
-            
-            // Update filters and render
-            applyFilters();
-            renderVault();
-            
-            // Close modal and show success
+
             closeAddGameModal();
-            showStatus(`${title} added successfully!`);
-            
-            // Show code generation modal
+            showStatus(`${newGame.title} added! Opening code generator...`);
             openCodeModal(newGame);
         }
 
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load data from external JSON file
+        // Initializer
+        document.addEventListener('DOMContentLoaded', () => {
             loadGameData();
             
-            // Initialize with 'all' selected
-            currentGenreFilters = ['all'];
-            
-            document.querySelectorAll('.genre-pill').forEach(pill => {
-                pill.addEventListener('click', function() {
-                    toggleGenreFilter(this.getAttribute('data-filter'));
-                });
-            });
-            
-            document.querySelectorAll('.color-chip').forEach(chip => {
-                chip.addEventListener('click', function() {
-                    toggleColorFilter(this.getAttribute('data-color-filter'));
-                });
-            });
-            
-            document.getElementById('searchInput').addEventListener('input', function(e) {
-                const searchTerm = e.target.value.toLowerCase();
-                filteredData = gameData.filter(game => {
-                    const genreMatch = currentGenreFilters.length === 0 || currentGenreFilters.includes('all') ||
-                        currentGenreFilters.some(genre => game.genre.includes(genre));
-                    
-                    const colorMatch = currentColorFilters.length === 0 ||
-                        (game.colorCategories && currentColorFilters.some(color => game.colorCategories.includes(color)));
-                    
-                    const searchMatch = !searchTerm || 
-                        game.title.toLowerCase().includes(searchTerm) ||
-                        game.developer.toLowerCase().includes(searchTerm) ||
-                        game.tags.some(tag => tag.toLowerCase().includes(searchTerm));
-                    
-                    return genreMatch && colorMatch && searchMatch;
-                });
-                
-                renderVault();
-                
-                if (searchTerm) {
-                    showStatus(`Searching for "${searchTerm}"`);
-                }
-            });
-            
-            document.getElementById('modal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-            
-            document.getElementById('addGameModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeAddGameModal();
-                }
-            });
-
-            document.getElementById('codeModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeCodeModal();
-                }
-            });
-            
-            // Checkbox styling for add game form
-            document.querySelectorAll('.checkbox-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const checkbox = this.querySelector('input[type="checkbox"]');
-                    checkbox.checked = !checkbox.checked;
-                    this.classList.toggle('selected', checkbox.checked);
-                });
-            });
-            
-            // Add game form submission
-            document.getElementById('addGameForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                addNewGame();
-            });
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeModal();
-                    closeAddGameModal();
-                    closeCodeModal();
-                }
-            });
+            document.querySelectorAll('.genre-pill').forEach(pill => pill.addEventListener('click', () => toggleGenreFilter(pill.dataset.filter)));
+            document.querySelectorAll('.color-chip').forEach(chip => chip.addEventListener('click', () => toggleColorFilter(chip.dataset.colorFilter)));
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('modal').addEventListener('click', e => e.target === e.currentTarget && closeModal());
+            document.getElementById('addGameModal').addEventListener('click', e => e.target === e.currentTarget && closeAddGameModal());
+            document.getElementById('codeModal').addEventListener('click', e => e.target === e.currentTarget && closeCodeModal());
+            document.querySelectorAll('.checkbox-item').forEach(item => item.addEventListener('click', function() { this.classList.toggle('selected'); }));
+            document.getElementById('addGameForm').addEventListener('submit', e => { e.preventDefault(); addNewGame(); });
+            document.addEventListener('keydown', e => e.key === 'Escape' && (closeModal(), closeAddGameModal(), closeCodeModal()));
         });
 
-        // Global function exports for onclick handlers
-        window.switchVideo = switchVideo;
-        window.switchTrailer = switchTrailer;
+        // Global function exports for onclick handlers in HTML strings
+        window.switchDisplay = switchDisplay;
+        window.switchModalView = switchModalView;
         window.clearAllFilters = clearAllFilters;
         window.toggleFilter = toggleFilter;
         window.resetToMainPage = resetToMainPage;
         window.copyToClipboard = copyToClipboard;
-        window.copyPaletteColor = copyPaletteColor;
         window.copyCodeToClipboard = copyCodeToClipboard;
         window.openAddGameModal = openAddGameModal;
         window.closeAddGameModal = closeAddGameModal;
-        window.openCodeModal = openCodeModal;
         window.closeCodeModal = closeCodeModal;
         window.extractYouTubeId = extractYouTubeId;
         window.updateColorHex = updateColorHex;
@@ -2776,6 +2478,7 @@
         window.showNewColorInput = showNewColorInput;
         window.hideNewColorInput = hideNewColorInput;
         window.addNewColor = addNewColor;
+        window.closeModal = closeModal;
     </script>
 </body>
 </html>
