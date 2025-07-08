@@ -13,17 +13,17 @@
       "name": "Gameplay Analysis",
       "image": "https://shared.steamstatic.com/store_item_assets/steam/apps/1086940/48a2fcbda8565bb45025e98fd8ebde8a7203f6a0/header.jpg?t=1748346026",
       "dominantColors": [
-        "#1A1A1A",
-        "#7B6D62",
-        "#4B4039",
-        "#A99A8C",
-        "#D3C5B8"
+        "#2E2421",
+        "#17110F",
+        "#4E3525",
+        "#594C43",
+        "#9A8D84"
       ],
       "colorAnalysis": {
-        "avgSaturation": 20,
-        "avgBrightness": 45,
-        "contrast": 55,
-        "colorfulness": 15
+        "avgSaturation": 100,
+        "avgBrightness": 61,
+        "contrast": 31,
+        "colorfulness": 29
       }
     },
     "trailers": [
