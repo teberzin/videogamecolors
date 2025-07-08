@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Game Colors - Color Archive</title>
+    <meta name="description" content="An interactive archive exploring the color palettes of video games. Analyze and browse the chromatic data of your favorite game trailers and gameplay.">
     <link rel="icon" type="image/x-icon" href="videogamecolors.ico">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700;900&display=swap');
@@ -854,7 +855,7 @@
             color: var(--white);
         }
         
-        /* === MODAL REDESIGN (Task) === */
+        /* === MODAL REDESIGN === */
         .modal {
             display: none;
             position: fixed;
@@ -885,7 +886,7 @@
             position: relative;
         }
 
-        /* Subtle Gradient Background (Task) */
+        /* Subtle Gradient Background */
         .modal-container::before {
             content: '';
             position: absolute;
@@ -955,10 +956,10 @@
             border: 4px solid var(--black);
             padding: 1.5rem;
             flex-shrink: 0;
-            display: flex; /* Changed */
-            justify-content: space-between; /* Changed */
-            align-items: center; /* Changed */
-            gap: 1.5rem; /* Changed */
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 1.5rem; 
         }
         
         .analysis-header-main {
@@ -981,7 +982,7 @@
             text-transform: uppercase;
         }
 
-        /* Gameplay Report in Header (Task) */
+        /* Gameplay Report in Header */
         .header-gameplay-report {
             background: var(--gray-dark);
             border: 4px solid var(--black);
@@ -1011,7 +1012,7 @@
 
         .analysis-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr; /* Flipped for new layout */
+            grid-template-columns: 2fr 1fr; /* Default: Media left, data right */
             gap: 2rem;
             flex: 1;
             min-height: 0;
@@ -1044,7 +1045,7 @@
             object-fit: cover;
         }
 
-        /* "Available Views" Controls Redesign (Task) */
+        /* "Available Views" Controls Redesign */
         .view-controls {
             background: var(--white);
             border: 4px solid var(--black);
@@ -1125,7 +1126,7 @@
             flex-shrink: 0;
         }
         
-        /* Immersive Color Palette (Task) */
+        /* Immersive Color Palette */
         .immersive-color-palette {
             display: flex;
             flex-direction: row;
@@ -1224,7 +1225,7 @@
             transition: width 1s ease;
         }
 
-        /* Image Viewer Modal for Gameplay Analysis (Task) */
+        /* Image Viewer Modal for Gameplay Analysis */
         .image-viewer-modal {
             display: none;
             position: fixed;
@@ -1232,7 +1233,7 @@
             background: rgba(0,0,0,0.9);
             z-index: 4000;
             padding: 2rem;
-            cursor: zoom-out; /* Changed cursor */
+            cursor: zoom-out; 
         }
         .image-viewer-modal.active {
             display: flex;
@@ -1240,11 +1241,11 @@
             justify-content: center;
         }
         .image-viewer-content {
-            max-width: 95%; /* Adjusted max-width/height */
+            max-width: 95%; 
             max-height: 95%;
             object-fit: contain;
             border: 4px solid var(--white);
-            cursor: grab; /* Changed cursor */
+            cursor: grab; 
             transition: transform 0.2s ease;
             transform-origin: center center;
         }
@@ -1384,13 +1385,15 @@
             margin-bottom: 1rem;
         }
         
-        /* Responsive Design */
+        /* ====== RESPONSIVE DESIGN FIXES ====== */
+        
+        /* Laptops & Large Tablets */
         @media (max-width: 1200px) {
             .analysis-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Stack columns */
             }
              .analysis-data-column {
-                overflow-y: visible;
+                overflow-y: visible; /* Allow content to flow */
              }
              .modal {
                 padding: 1rem;
@@ -1400,6 +1403,7 @@
             }
         }
         
+        /* Tablets & Small Laptops */
         @media (max-width: 1024px) {
             .filter-grid {
                 grid-template-columns: 1fr;
@@ -1423,6 +1427,7 @@
             }
         }
 
+        /* Mobile Devices (Landscape & Portrait) */
         @media (max-width: 768px) {
             .main-title {
                 font-size: 2.5rem;
@@ -1433,7 +1438,7 @@
                 padding: 1rem;
             }
             .metrics-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Stack metrics */
             }
             .header {
                 padding: 2rem 1rem 1rem 1rem;
@@ -1474,6 +1479,7 @@
                 height: 50px;
                 font-size: 0.8rem;
             }
+            /* Improve touch targets */
             .genre-pill, .color-chip, .action-btn, .trailer-btn {
                 min-height: 44px;
                 display: flex;
@@ -1485,9 +1491,14 @@
             }
             .data-section.palette {
                 min-height: 200px;
+                flex-direction: column; /* Stack colors vertically */
+            }
+            .immersive-color-palette {
+                flex-direction: column; /* Ensure palette colors stack */
             }
         }
 
+        /* Small Mobile Phones */
         @media (max-width: 480px) {
             .main-title {
                 font-size: 2rem;
@@ -1540,13 +1551,13 @@
                 padding: 1rem;
             }
             .modal {
-                padding: 0.5rem;
+                padding: 0.5rem; /* Reduce padding on smallest screens */
             }
             .modal-content {
                 padding: 0.5rem;
             }
             .analysis-container, .analysis-grid, .analysis-media-column, .analysis-data-column {
-                gap: 1rem;
+                gap: 1rem; /* Reduce gaps */
             }
             .analysis-header, .view-controls, .data-section {
                 padding: 1rem;
@@ -1661,7 +1672,8 @@
                 <button class="close-btn" onclick="closeAddGameModal()">×</button>
             </div>
             <form class="add-game-form" id="addGameForm">
-                <div class="form-section">
+                <!-- Add game form content remains the same -->
+                 <div class="form-section">
                     <div class="form-section-header">BASIC INFORMATION</div>
                     <div class="form-section-content">
                         <div class="form-group">
@@ -1692,7 +1704,7 @@
                         </div>
                         <div class="preview-section" id="previewSection" style="display: none;">
                             <div class="preview-title">THUMBNAIL PREVIEW</div>
-                            <img id="thumbnailPreview" class="youtube-preview" alt="Thumbnail preview">
+                            <img id="thumbnailPreview" class="youtube-preview" alt="YouTube thumbnail preview for the new game entry.">
                         </div>
                     </div>
                 </div>
@@ -1887,7 +1899,7 @@
 
     <div class="image-viewer-modal" id="imageViewerModal">
         <button class="image-viewer-close-btn" onclick="closeImageViewer()">×</button>
-        <img src="" alt="Gameplay Analysis Detail" class="image-viewer-content" id="imageViewerContent">
+        <img src="" alt="Detailed gameplay analysis report" class="image-viewer-content" id="imageViewerContent">
     </div>
 
 
@@ -2028,8 +2040,8 @@
 
             if (match) {
                 const videoId = match[1];
-                const thumbnailUrl = `https://img.youtube.com/vi/$$${videoId}/maxresdefault.jpg`;
-                const embedUrl = `https://www.youtube.com/embed/$$${videoId}`;
+                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                const embedUrl = `https://www.youtube.com/embed/${videoId}`;
                 document.getElementById('thumbnailPreview').src = thumbnailUrl;
                 previewSection.style.display = 'block';
                 youtubeUrlInput.dataset.embedUrl = embedUrl;
@@ -2093,6 +2105,9 @@
                         <div class="video-nav-btn" onclick="event.stopPropagation(); switchDisplay(${game.id}, 1)">›</div>
                     </div>`;
             }
+            
+            // SEO FIX: Improved alt text
+            const imageAltText = `Cover art for ${game.title} - ${currentDisplay.name}`;
 
             cartridge.innerHTML = `
                 ${indicator}
@@ -2101,7 +2116,7 @@
                     <div class="cartridge-meta">${game.developer} • ${game.year}</div>
                 </div>
                 <div class="cartridge-image">
-                    <img src="${currentDisplay.image}" alt="${game.title}" class="game-image">
+                    <img src="${currentDisplay.image}" alt="${imageAltText}" class="game-image">
                     <div class="palette-preview">${palettePreview}</div>
                     ${navOverlay}
                 </div>
@@ -2223,7 +2238,7 @@
             showStatus('Filters cleared');
         }
 
-        // --- REWRITTEN MODAL FUNCTION (Task) ---
+        // --- REWRITTEN MODAL FUNCTION ---
         function openModal(game, displayIndex) {
             game.currentDisplayIndex = displayIndex;
             const displayItem = game.displayItems[displayIndex];
@@ -2234,7 +2249,7 @@
             const modal = document.getElementById('modal');
             const modalContainer = document.getElementById('modalContainer');
 
-            // Set dynamic background gradient (Task)
+            // Set dynamic background gradient
             const colors = displayItem.dominantColors;
             if (colors && colors.length >= 5) {
                 const gradient = `
@@ -2249,21 +2264,21 @@
                  modalContainer.style.setProperty('--modal-gradient', 'none');
             }
             
-            // Media Element
+            // Media Element with improved alt text
             let mediaElement = '';
             if (displayItem.type === 'trailer') {
-                mediaElement = `<iframe src="${displayItem.url}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                mediaElement = `<iframe src="${displayItem.url}" title="${game.title} - ${displayItem.name}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             } else {
-                mediaElement = `<img src="${displayItem.image}" alt="${game.title} cover art">`;
+                mediaElement = `<img src="${displayItem.image}" alt="Key art for ${game.title} - ${displayItem.name}">`;
             }
 
-            // Gameplay Analysis Report (Moved to header)
+            // Gameplay Analysis Report (Moved to header) with improved alt text
             let gameplayReportHTML = '';
             if (displayItem.type === 'gameplay' && displayItem.analysisReportImage) {
                 gameplayReportHTML = `
-                <div class="header-gameplay-report" onclick="openImageViewer('${displayItem.analysisReportImage}')">
+                <div class="header-gameplay-report" onclick="openImageViewer('${displayItem.analysisReportImage}', '${game.title}')">
                     <div class="header-gameplay-report-title">VIEW REPORT</div>
-                    <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Gameplay Report Thumbnail">
+                    <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Thumbnail of gameplay analysis report for ${game.title}">
                 </div>`;
             }
             
@@ -2313,15 +2328,15 @@
                         ${gameplayReportHTML}
                     </header>
                     <div class="analysis-grid">
-                        <div class="analysis-data-column">
-                            ${colorPalette}
-                            ${metrics}
-                        </div>
                         <div class="analysis-media-column">
                             <div class="media-display">
                                 ${mediaElement}
                             </div>
                             ${controls}
+                        </div>
+                        <div class="analysis-data-column">
+                            ${colorPalette}
+                            ${metrics}
                         </div>
                     </div>
                 </div>
@@ -2331,7 +2346,7 @@
             document.body.style.overflow = 'hidden';
         }
         
-        // --- Interactive Gameplay Image Viewer Functions (Task) ---
+        // --- Interactive Gameplay Image Viewer Functions ---
         let imageViewerState = {
             zoom: 1,
             isDragging: false,
@@ -2341,10 +2356,12 @@
             translateY: 0
         };
 
-        function openImageViewer(imageUrl) {
+        function openImageViewer(imageUrl, gameTitle) {
             const modal = document.getElementById('imageViewerModal');
             const content = document.getElementById('imageViewerContent');
             content.src = imageUrl;
+            // SEO FIX: Dynamic alt text for image viewer
+            content.alt = `Detailed gameplay analysis for ${gameTitle}`;
             resetImageViewerState();
             modal.classList.add('active');
         }
@@ -2489,7 +2506,7 @@
             document.querySelectorAll('.checkbox-item').forEach(item => item.addEventListener('click', function() { this.classList.toggle('selected'); }));
             document.getElementById('addGameForm').addEventListener('submit', e => { e.preventDefault(); addNewGame(); });
             
-            // Image Viewer Event Listeners (Task)
+            // Image Viewer Event Listeners
             const imageViewerModal = document.getElementById('imageViewerModal');
             const imageViewerContent = document.getElementById('imageViewerContent');
             imageViewerModal.addEventListener('click', closeImageViewer);
