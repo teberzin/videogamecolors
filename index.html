@@ -1187,6 +1187,16 @@
         }
 
         /* === NEW GAMEPLAY ANALYSIS LAYOUT === */
+        /* Container for the trailer view to give it the same dimensions as the gameplay view box */
+        .trailer-view-container {
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--black);
+            display: flex;
+            background: var(--white);
+            overflow: hidden;
+        }
+
         .gameplay-view {
             display: flex;
             align-items: center;
@@ -2278,6 +2288,8 @@
             `;
 
             if (displayItem.type === 'trailer') {
+                modalContent.classList.add('gameplay-view'); // Add centering wrapper class
+
                 const rightPanel = `
                     <div class="right-panel">
                         <div class="color-section">
@@ -2314,7 +2326,15 @@
                         </div>
                         ${controls}
                     </div>`;
-                modalContent.innerHTML = `<div class="detail-grid">${leftPanel}${rightPanel}</div>`;
+                
+                // Wrap the original detail-grid in the new sized container
+                modalContent.innerHTML = `
+                <div class="trailer-view-container">
+                    <div class="detail-grid">
+                        ${leftPanel}
+                        ${rightPanel}
+                    </div>
+                </div>`;
 
             } else { // Gameplay view - NEW "at a glance" LAYOUT
                 modalContent.classList.add('gameplay-view');
