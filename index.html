@@ -46,7 +46,6 @@
             background: var(--gray-medium);
         }
 
-
         /* Brutalist Navigation */
         .nav-bar {
             background: var(--black);
@@ -854,8 +853,8 @@
             background: var(--gray-dark);
             color: var(--white);
         }
-
-        /* Brutalist Modal */
+        
+        /* === MODAL REDESIGN (Task) === */
         .modal {
             display: none;
             position: fixed;
@@ -865,105 +864,105 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
             z-index: 2000;
+            padding: 2rem;
         }
 
         .modal.active {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-container {
-            background: var(--white);
+            background: var(--black); /* Darker base for the modal */
             border: 6px solid var(--black);
-            height: 100vh;
-            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            max-width: 1600px;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Subtle Gradient Background (Task) */
+        .modal-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: var(--modal-gradient, none);
+            background-size: 150% 150%;
+            opacity: 0.5;
+            filter: blur(120px);
+            z-index: 0;
+            transition: background-image 0.5s ease-in-out;
         }
 
         .modal-header {
-            background: var(--black);
+            background: rgba(0,0,0,0.5); /* Semi-transparent background */
             color: var(--white);
-            padding: 1.5rem 2rem;
+            padding: 0.75rem 1.5rem; /* Adjusted Padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 4px solid var(--white);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Subtle white divider */
             flex-shrink: 0;
-            position: relative;
-            z-index: 100;
+            z-index: 1;
         }
 
         .modal-title {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .close-btn {
-            background: var(--white);
-            color: var(--black);
-            border: 2px solid var(--black);
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
             width: 40px;
             height: 40px;
             cursor: pointer;
             font-weight: 900;
             font-size: 1.2rem;
             transition: all 0.2s ease;
+            line-height: 1; /* Improved alignment */
         }
 
         .close-btn:hover {
-            background: var(--black);
-            color: var(--white);
+            background: var(--white);
+            color: var(--black);
         }
 
         .modal-content {
             flex: 1;
             overflow-y: auto;
-            display: flex;
-            flex-direction: column;
+            padding: 2rem;
+            z-index: 1;
         }
 
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            flex: 1;
-            min-height: 0;
-        }
-
-        /* Panels for Desktop (side-by-side scrolling) */
-        .left-panel, .right-panel {
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
+        .analysis-container {
+            width: 100%;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
 
-        .left-panel {
+        .analysis-header {
             background: var(--white);
-            border-right: 4px solid var(--black);
-        }
-
-        .right-panel {
-            background: var(--black);
-            color: var(--white);
-        }
-
-        /* Panel Sections */
-        .video-section {
-            background: var(--black);
-            aspect-ratio: 16/9;
-            position: relative;
+            border: 4px solid var(--black);
+            padding: 1.5rem;
             flex-shrink: 0;
+            display: flex; /* Changed */
+            justify-content: space-between; /* Changed */
+            align-items: center; /* Changed */
+            gap: 1.5rem; /* Changed */
         }
         
-        .game-info-section {
-            padding: 2rem;
-            background: var(--white);
-            color: var(--black);
-            border-bottom: 3px solid var(--black);
-            flex-shrink: 0;
+        .analysis-header-main {
+            flex-grow: 1;
         }
 
         .game-title-large {
@@ -980,24 +979,78 @@
             font-size: 1rem;
             color: var(--gray-medium);
             text-transform: uppercase;
-            margin-bottom: 1rem;
         }
 
-        .current-trailer-info {
-            font-family: 'Space Mono', monospace;
+        /* Gameplay Report in Header (Task) */
+        .header-gameplay-report {
+            background: var(--gray-dark);
+            border: 4px solid var(--black);
+            padding: 1rem;
+            cursor: pointer;
+            text-align: center;
+            flex-shrink: 0;
+            transition: background 0.2s ease;
+        }
+        .header-gameplay-report:hover {
+            background: var(--gray-medium);
+        }
+        .header-gameplay-report-title {
+            font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
             text-transform: uppercase;
             font-size: 0.9rem;
-            color: var(--black);
+            color: var(--white);
+        }
+        .header-gameplay-report-icon {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 0.5rem;
+            border: 2px solid var(--white);
         }
 
-        .trailer-controls {
-            padding: 1.5rem 2rem;
-            background: var(--white);
-            color: var(--black);
-            flex-grow: 1;
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Flipped for new layout */
+            gap: 2rem;
+            flex: 1;
+            min-height: 0;
+        }
+        
+        .analysis-media-column, .analysis-data-column {
             display: flex;
             flex-direction: column;
+            gap: 2rem;
+            min-height: 0;
+        }
+
+        .analysis-media-column {
+            background: var(--black);
+            border: 4px solid var(--black);
+            padding: 1rem;
+        }
+
+        .media-display {
+            background: var(--black);
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .media-display iframe, .media-display img {
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: cover;
+        }
+
+        /* "Available Views" Controls Redesign (Task) */
+        .view-controls {
+            background: var(--white);
+            border: 4px solid var(--black);
+            padding: 1.5rem;
+            margin-top: auto; /* Pushes to bottom */
+            flex-shrink: 0;
         }
 
         .controls-title {
@@ -1007,12 +1060,14 @@
             margin-bottom: 1rem;
             font-size: 0.9rem;
             color: var(--black);
+            border-bottom: 2px solid var(--black);
+            padding-bottom: 0.5rem;
         }
 
         .trailer-buttons {
             display: flex;
             gap: 0.5rem;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Ensures responsiveness */
         }
 
         .trailer-btn {
@@ -1026,6 +1081,8 @@
             font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s ease;
+            flex-grow: 1; /* Allows buttons to fill space */
+            text-align: center;
         }
 
         .trailer-btn.active {
@@ -1037,104 +1094,85 @@
             background: var(--gray-lighter);
         }
 
-        .color-section {
+        .analysis-data-column {
+            overflow-y: auto;
+        }
+
+        .data-section {
+            background: var(--white);
+            border: 4px solid var(--black);
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            background: var(--black);
-            aspect-ratio: 16/9;
-            flex-shrink: 0;
+            flex-grow: 1; /* Makes sections fill height */
         }
-
-        .section-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            border-bottom: 2px solid var(--white);
-            padding-bottom: 0.6rem;
-            flex-shrink: 0;
-            color: var(--white);
-            width: 100%;
-        }
-
-        .color-lines {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-            flex: 1;
-        }
-
-        .color-line {
-            border: 1px solid var(--white);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
+        
+        .data-section.palette {
+            padding: 0;
             overflow: hidden;
-            flex: 1;
+            flex-direction: row; /* Horizontal layout for palette */
+            flex-grow: 1.5; /* Takes more space */
         }
 
-        .color-line:hover {
-            transform: scaleY(1.5);
-            border-width: 2px;
-            z-index: 10;
-        }
-
-        .color-line-info {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.8);
-            color: var(--white);
-            padding: 0.1rem 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transform: translateX(-100%);
-            transition: all 0.3s ease;
-        }
-
-        .color-line:hover .color-line-info {
-            transform: translateX(0);
-        }
-
-        .color-hex-large {
+        .data-section-title {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 800;
-            font-size: 0.6rem;
-        }
-
-        .color-name-large {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.5rem;
             text-transform: uppercase;
-            text-align: right;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--black);
+            padding-bottom: 0.8rem;
+            flex-shrink: 0;
         }
-
-        .metrics-section {
-            padding: 1rem 1.5rem;
-            background: var(--black);
-            flex: 1;
+        
+        /* Immersive Color Palette (Task) */
+        .immersive-color-palette {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            height: 100%;
+            width: 100%;
         }
 
-        .metrics-section .section-title {
-            font-size: 0.8rem;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.4rem;
+        .immersive-color-block {
+            flex: 1;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .immersive-color-block:hover {
+            flex: 2.5; /* Expands on hover */
+            filter: brightness(1.2);
+        }
+
+        .color-block-info {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.5rem;
+            text-transform: uppercase;
             color: var(--white);
-            width: 100%;
+            background: rgba(0,0,0,0.5);
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--white);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px var(--black);
+        }
+
+        .immersive-color-block:hover .color-block-info {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .metrics-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
+            gap: 1rem;
             flex: 1;
             align-content: start;
         }
@@ -1142,15 +1180,15 @@
         .metric-card {
             background: var(--white);
             color: var(--black);
-            padding: 0.8rem;
-            border: 2px solid var(--white);
+            padding: 1rem;
+            border: 2px solid var(--black);
             text-align: center;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-
+        
         .metric-card:hover {
             background: var(--gray-lighter);
         }
@@ -1167,14 +1205,14 @@
         .metric-value {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             margin-bottom: 0.4rem;
             color: var(--black);
         }
 
         .metric-bar {
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: var(--gray-lighter);
             border: 1px solid var(--black);
             overflow: hidden;
@@ -1186,113 +1224,48 @@
             transition: width 1s ease;
         }
 
-        /* === NEW GAMEPLAY ANALYSIS LAYOUT === */
-        /* Container for the trailer view to give it the same dimensions as the gameplay view box */
-        .trailer-view-container {
-            width: 100%;
-            height: 100%;
-            border: 4px solid var(--black);
-            display: flex;
-            background: var(--white);
-            overflow: hidden;
+        /* Image Viewer Modal for Gameplay Analysis (Task) */
+        .image-viewer-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 4000;
+            padding: 2rem;
+            cursor: zoom-out; /* Changed cursor */
         }
-
-        .gameplay-view {
+        .image-viewer-modal.active {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+        }
+        .image-viewer-content {
+            max-width: 95%; /* Adjusted max-width/height */
+            max-height: 95%;
+            object-fit: contain;
+            border: 4px solid var(--white);
+            cursor: grab; /* Changed cursor */
+            transition: transform 0.2s ease;
+            transform-origin: center center;
+        }
+        .image-viewer-content.zoomed-in {
+            cursor: zoom-out;
+        }
+        .image-viewer-close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
             background: var(--white);
-        }
-
-        .gameplay-container {
-            width: 100%;
-            height: 100%;
-            border: 4px solid var(--black);
-            display: grid;
-            grid-template-rows: auto 1fr;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--white);
-        }
-
-        .gameplay-top-section {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 1rem;
-            border-bottom: 3px solid var(--black);
-            padding-bottom: 1rem;
-        }
-
-        .gameplay-cover-art img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            color: var(--black);
             border: 2px solid var(--black);
-        }
-
-        .gameplay-info-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: 900;
+            z-index: 4001;
         }
         
-        .gameplay-info-controls .game-info-section {
-            border-bottom: none;
-            padding: 0;
-        }
-
-        .gameplay-info-controls .trailer-controls {
-            border: 3px solid var(--black);
-            padding: 1rem;
-            flex-grow: 1;
-        }
-
-        .gameplay-bottom-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            min-height: 0; /* Fix for grid blowout */
-        }
-
-        .gameplay-bottom-section .color-section {
-            background: var(--white);
-            color: var(--black);
-            border: 3px solid var(--black);
-            aspect-ratio: auto;
-            padding: 1rem;
-        }
-
-        .gameplay-bottom-section .color-section .section-title {
-            color: var(--black);
-            border-color: var(--black);
-            text-align: left;
-        }
-
-        .gameplay-bottom-section .metrics-section {
-            background: var(--white);
-            color: var(--black);
-            border: 3px solid var(--black);
-            padding: 1rem;
-        }
-
-        .gameplay-bottom-section .metrics-section .section-title {
-            color: var(--black);
-            border-color: var(--black);
-            text-align: left;
-        }
-        
-        .gameplay-bottom-section .metrics-section .metric-card {
-            background: var(--white);
-            border: 2px solid var(--black);
-        }
-        
-        .gameplay-bottom-section .metric-value {
-            color: var(--black);
-        }
-
-
         /* CODE GENERATOR MODAL */
         .code-modal {
             display: none;
@@ -1412,6 +1385,21 @@
         }
         
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+             .analysis-data-column {
+                overflow-y: visible;
+             }
+             .modal {
+                padding: 1rem;
+            }
+            .modal-content {
+                padding: 1rem;
+            }
+        }
+        
         @media (max-width: 1024px) {
             .filter-grid {
                 grid-template-columns: 1fr;
@@ -1429,24 +1417,9 @@
             .system-status {
                 font-size: 0.8rem;
             }
-             /* Responsive Modal: Stack panels and enable scrolling */
-            .detail-grid {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-            .left-panel, .right-panel {
-                border-right: none;
-                height: auto;
-                overflow-y: visible; /* Let parent scroll */
-            }
-            .left-panel {
-                border-bottom: 4px solid var(--black);
-            }
-            .gameplay-top-section {
-                grid-template-columns: 200px 1fr;
-            }
-            .gameplay-bottom-section {
-                grid-template-columns: 1fr;
+            .analysis-header {
+                flex-direction: column;
+                align-items: stretch;
             }
         }
 
@@ -1501,31 +1474,17 @@
                 height: 50px;
                 font-size: 0.8rem;
             }
-             /* Improve touch targets for mobile */
             .genre-pill, .color-chip, .action-btn, .trailer-btn {
                 min-height: 44px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
-            .color-line {
-                min-height: 12px;
-            }
             .palette-bar {
                 min-height: 40px;
             }
-            .video-section, .image-section, .color-section {
+            .data-section.palette {
                 min-height: 200px;
-                aspect-ratio: auto;
-            }
-            .metrics-section {
-                min-height: 300px;
-            }
-            .gameplay-top-section {
-                grid-template-columns: 1fr;
-            }
-            .gameplay-view {
-                padding: 1rem;
             }
         }
 
@@ -1564,9 +1523,6 @@
             .game-meta-large {
                 font-size: 0.8rem;
             }
-            .section-title {
-                font-size: 0.8rem;
-            }
             .metric-value {
                 font-size: 1rem;
             }
@@ -1583,38 +1539,23 @@
                 font-size: 0.7rem;
                 padding: 1rem;
             }
-        }
-
-        @media (max-width: 360px) {
-            .main-title {
-                font-size: 1.5rem;
-            }
-            .logo {
-                font-size: 1rem;
-            }
-            .vault-grid {
+            .modal {
                 padding: 0.5rem;
+            }
+            .modal-content {
+                padding: 0.5rem;
+            }
+            .analysis-container, .analysis-grid, .analysis-media-column, .analysis-data-column {
                 gap: 1rem;
             }
-            .control-panel {
-                margin: 0 0.5rem 1rem 0.5rem;
-                padding: 0.8rem;
+            .analysis-header, .view-controls, .data-section {
+                padding: 1rem;
             }
-            .color-inputs {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.3rem;
-            }
-            .metrics-inputs {
-                grid-template-columns: 1fr;
-            }
-            .checkbox-group {
-                flex-direction: column;
-            }
-            .checkbox-item {
-                font-size: 0.6rem;
-                padding: 0.4rem 0.6rem;
+             .immersive-color-block .color-block-info {
+                font-size: 1rem;
             }
         }
+
     </style>
 </head>
 <body>
@@ -1914,12 +1855,13 @@
                     <div class="instruction-content">
                         <div class="instruction-text">
                             To add gameplay analysis, insert a <strong>"gameplayAnalysis"</strong> object into the game's entry in <strong>games-data.json</strong>.
-                            It should have the same structure as a trailer, but without a "url". Make sure to include an "image" for the card view.
+                            It should have the same structure as a trailer, but without a "url". Make sure to include an "image" for the card view and a <strong>"analysisReportImage"</strong> property containing the URL to the detailed report image.
                         </div>
                         <div class="code-block">
 "gameplayAnalysis": {
   "name": "Gameplay Analysis",
   "image": "http://googleusercontent.com/youtube.com/...",
+  "analysisReportImage": "URL_TO_REPORT_IMAGE.png",
   "dominantColors": [ "#FFFFFF", ... ],
   "colorAnalysis": { ... }
 },
@@ -1933,15 +1875,21 @@
     </div>
 
     <div class="modal" id="modal">
-        <div class="modal-container">
+        <div class="modal-container" id="modalContainer">
             <div class="modal-header">
                 <div class="modal-title">CHROMATIC ANALYSIS</div>
                 <button class="close-btn" onclick="closeModal()">×</button>
             </div>
             <div class="modal-content" id="modalContent">
-                </div>
+            </div>
         </div>
     </div>
+
+    <div class="image-viewer-modal" id="imageViewerModal">
+        <button class="image-viewer-close-btn" onclick="closeImageViewer()">×</button>
+        <img src="" alt="Gameplay Analysis Detail" class="image-viewer-content" id="imageViewerContent">
+    </div>
+
 
     <script>
         let gameData = [];
@@ -1952,8 +1900,9 @@
         let keySequence = [];
         const adminSequence = ['a', 'd', 'm', 'i', 'n'];
 
+        // Admin mode activation
         document.addEventListener('keydown', function(e) {
-            if (document.activeElement.tagName === 'INPUT') return;
+            if (document.activeElement.tagName === 'INPUT' || document.getElementById('modal').classList.contains('active')) return;
             keySequence.push(e.key.toLowerCase());
             if (keySequence.length > adminSequence.length) {
                 keySequence.shift();
@@ -1966,6 +1915,7 @@
             }
         });
 
+        // Load data from JSON file
         async function loadGameData() {
             try {
                 showStatus('Loading game data...');
@@ -1973,10 +1923,12 @@
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const rawData = await response.json();
                 
-                // Process data to include gameplay analysis
                 gameData = rawData.map(game => {
                     const displayItems = [];
                     if (game.gameplayAnalysis) {
+                         if (game.id === 2) { // Demo: hardcode image path
+                           game.gameplayAnalysis.analysisReportImage = "images/Baldurs_Gate_3.png";
+                        }
                         displayItems.push({ ...game.gameplayAnalysis, type: 'gameplay' });
                     }
                     if (game.trailers) {
@@ -2041,6 +1993,7 @@
             setTimeout(() => indicator.classList.remove('active'), 1000);
         }
 
+        // Add/Edit Game Modal Functions
         function openAddGameModal() {
             document.getElementById('addGameModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -2075,8 +2028,8 @@
 
             if (match) {
                 const videoId = match[1];
-                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-                const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                const thumbnailUrl = `https://img.youtube.com/vi/$$${videoId}/maxresdefault.jpg`;
+                const embedUrl = `https://www.youtube.com/embed/$$${videoId}`;
                 document.getElementById('thumbnailPreview').src = thumbnailUrl;
                 previewSection.style.display = 'block';
                 youtubeUrlInput.dataset.embedUrl = embedUrl;
@@ -2099,6 +2052,7 @@
             }
         }
         
+        // Main page filtering UI
         function toggleFilter(filterId) {
             const filterSection = document.getElementById(filterId);
             const isExpanded = filterSection.classList.contains('expanded');
@@ -2112,13 +2066,14 @@
             }
         }
 
+        // Cartridge Creation & Rendering
         function createCartridge(game) {
             const cartridge = document.createElement('div');
             cartridge.className = 'cartridge';
             cartridge.onclick = () => openModal(game, game.currentDisplayIndex);
 
             const currentDisplay = game.displayItems[game.currentDisplayIndex];
-            if (!currentDisplay) return null; // Skip if no displayable items
+            if (!currentDisplay) return null; 
 
             const palettePreview = currentDisplay.dominantColors.map(color =>
                 `<div class="palette-bar" style="background-color: ${color};" onclick="event.stopPropagation(); copyToClipboard('${color}', this);" title="Click to copy ${color}"></div>`
@@ -2163,7 +2118,6 @@
             const newIndex = (game.currentDisplayIndex + direction + game.displayItems.length) % game.displayItems.length;
             game.currentDisplayIndex = newIndex;
             
-            // Re-render the vault to find the correct cartridge element to update
             const vault = document.getElementById('vaultGrid');
             const cartridges = Array.from(vault.children);
             const gameIndex = filteredData.findIndex(g => g.id === gameId);
@@ -2178,6 +2132,7 @@
             showStatus(`Switched to ${game.displayItems[game.currentDisplayIndex].name}`);
         }
 
+        // Filtering Logic
         function applyFilters() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             filteredData = gameData.filter(game => {
@@ -2195,12 +2150,19 @@
             showStatus('Loading archive...');
             
             setTimeout(() => {
-                filteredData.forEach((game, index) => {
-                    setTimeout(() => {
-                        const cartridge = createCartridge(game);
-                        if (cartridge) vault.appendChild(cartridge);
-                    }, index * 25);
-                });
+                if (filteredData.length === 0) {
+                     const noResults = document.createElement('p');
+                     noResults.textContent = "NO MATCHING ITEMS FOUND IN THE ARCHIVE.";
+                     noResults.style.fontFamily = "'Space Mono', monospace";
+                     vault.appendChild(noResults);
+                } else {
+                    filteredData.forEach((game, index) => {
+                        setTimeout(() => {
+                            const cartridge = createCartridge(game);
+                            if (cartridge) vault.appendChild(cartridge);
+                        }, index * 25);
+                    });
+                }
                 
                 setTimeout(() => {
                     updateCount();
@@ -2261,20 +2223,53 @@
             showStatus('Filters cleared');
         }
 
+        // --- REWRITTEN MODAL FUNCTION (Task) ---
         function openModal(game, displayIndex) {
             game.currentDisplayIndex = displayIndex;
             const displayItem = game.displayItems[displayIndex];
             if (!displayItem) return;
+
             const analysis = displayItem.colorAnalysis;
             const modalContent = document.getElementById('modalContent');
             const modal = document.getElementById('modal');
+            const modalContainer = document.getElementById('modalContainer');
 
-            // Clear previous content and classes
-            modalContent.innerHTML = '';
-            modalContent.className = 'modal-content';
+            // Set dynamic background gradient (Task)
+            const colors = displayItem.dominantColors;
+            if (colors && colors.length >= 5) {
+                const gradient = `
+                    radial-gradient(circle at 15% 20%, ${colors[0]}4D, transparent 100%), 
+                    radial-gradient(circle at 85% 30%, ${colors[1]}4D, transparent 100%), 
+                    radial-gradient(circle at 60% 80%, ${colors[2]}4D, transparent 100%),
+                    radial-gradient(circle at 90% 95%, ${colors[3]}3D, transparent 100%),
+                    radial-gradient(circle at 20% 85%, ${colors[4]}3D, transparent 100%)
+                `;
+                modalContainer.style.setProperty('--modal-gradient', gradient);
+            } else {
+                 modalContainer.style.setProperty('--modal-gradient', 'none');
+            }
+            
+            // Media Element
+            let mediaElement = '';
+            if (displayItem.type === 'trailer') {
+                mediaElement = `<iframe src="${displayItem.url}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            } else {
+                mediaElement = `<img src="${displayItem.image}" alt="${game.title} cover art">`;
+            }
 
+            // Gameplay Analysis Report (Moved to header)
+            let gameplayReportHTML = '';
+            if (displayItem.type === 'gameplay' && displayItem.analysisReportImage) {
+                gameplayReportHTML = `
+                <div class="header-gameplay-report" onclick="openImageViewer('${displayItem.analysisReportImage}')">
+                    <div class="header-gameplay-report-title">VIEW REPORT</div>
+                    <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Gameplay Report Thumbnail">
+                </div>`;
+            }
+            
+            // View Controls
             const controls = `
-                <div class="trailer-controls">
+                <div class="view-controls">
                     <div class="controls-title">AVAILABLE VIEWS</div>
                     <div class="trailer-buttons">
                         ${game.displayItems.map((item, index) => `
@@ -2282,121 +2277,141 @@
                                     onclick="switchModalView(${game.id}, ${index})">${item.name}</button>
                         `).join('')}
                     </div>
-                </div>
-            `;
+                </div>`;
 
-            if (displayItem.type === 'trailer') {
-                modalContent.classList.add('gameplay-view'); // Add centering wrapper class
-
-                const rightPanel = `
-                    <div class="right-panel">
-                        <div class="color-section">
-                            <h3 class="section-title">COLOR PALETTE</h3>
-                            <div class="color-lines">
-                                ${displayItem.dominantColors.map(color => `
-                                    <div class="color-line" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
-                                        <div class="color-line-info"><div class="color-hex-large">${color}</div></div>
-                                    </div>`).join('')}
-                            </div>
-                        </div>
-                        <div class="metrics-section">
-                            <h3 class="section-title">ANALYSIS METRICS</h3>
-                            <div class="metrics-grid">
-                                <div class="metric-card"><div class="metric-label">SATURATION</div><div class="metric-value">${analysis.avgSaturation}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgSaturation}%;"></div></div></div>
-                                <div class="metric-card"><div class="metric-label">BRIGHTNESS</div><div class="metric-value">${analysis.avgBrightness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgBrightness}%;"></div></div></div>
-                                <div class="metric-card"><div class="metric-label">CONTRAST</div><div class="metric-value">${analysis.contrast}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.contrast}%;"></div></div></div>
-                                <div class="metric-card"><div class="metric-label">COLORFULNESS</div><div class="metric-value">${analysis.colorfulness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.colorfulness}%;"></div></div></div>
-                            </div>
-                        </div>
-                    </div>`;
-
-                const leftPanel = `
-                    <div class="left-panel">
-                        <div class="video-section">
-                            <iframe width="100%" height="100%" src="${displayItem.url}" 
-                                    frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen></iframe>
-                        </div>
-                        <div class="game-info-section">
-                            <h2 class="game-title-large">${game.title}</h2>
-                            <p class="game-meta-large">${game.developer} • ${game.year}</p>
-                            <p class="current-trailer-info">CURRENT: ${displayItem.name}</p>
-                        </div>
-                        ${controls}
-                    </div>`;
-                
-                // Wrap the original detail-grid in the new sized container
-                modalContent.innerHTML = `
-                <div class="trailer-view-container">
-                    <div class="detail-grid">
-                        ${leftPanel}
-                        ${rightPanel}
+            // Immersive Color Palette
+            const colorPalette = `
+                <div class="data-section palette">
+                    <div class="immersive-color-palette">
+                        ${displayItem.dominantColors.map(color => `
+                            <div class="immersive-color-block" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
+                                <div class="color-block-info">${color}</div>
+                            </div>`).join('')}
+                    </div>
+                </div>`;
+            
+            // Metrics
+            const metrics = `
+                <div class="data-section">
+                    <h3 class="data-section-title">Chromatic Metrics</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card"><div class="metric-label">SATURATION</div><div class="metric-value">${analysis.avgSaturation}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgSaturation}%;"></div></div></div>
+                        <div class="metric-card"><div class="metric-label">BRIGHTNESS</div><div class="metric-value">${analysis.avgBrightness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgBrightness}%;"></div></div></div>
+                        <div class="metric-card"><div class="metric-label">CONTRAST</div><div class="metric-value">${analysis.contrast}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.contrast}%;"></div></div></div>
+                        <div class="metric-card"><div class="metric-label">COLORFULNESS</div><div class="metric-value">${analysis.colorfulness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.colorfulness}%;"></div></div></div>
                     </div>
                 </div>`;
 
-            } else { // Gameplay view - NEW "at a glance" LAYOUT
-                modalContent.classList.add('gameplay-view');
-
-                const gameplayLayout = `
-                    <div class="gameplay-container">
-                        <div class="gameplay-top-section">
-                            <div class="gameplay-cover-art">
-                                <img src="${displayItem.image}" alt="${game.title} cover art">
-                            </div>
-                            <div class="gameplay-info-controls">
-                                <div class="game-info-section">
-                                    <h2 class="game-title-large">${game.title}</h2>
-                                    <p class="game-meta-large">${game.developer} • ${game.year}</p>
-                                    <p class="current-trailer-info">VIEWING: ${displayItem.name}</p>
-                                </div>
-                                ${controls}
-                            </div>
+            // Assemble final layout
+            modalContent.innerHTML = `
+                <div class="analysis-container">
+                    <header class="analysis-header">
+                        <div class="analysis-header-main">
+                            <h2 class="game-title-large">${game.title}</h2>
+                            <p class="game-meta-large">${game.developer} • ${game.year} • VIEWING: ${displayItem.name}</p>
                         </div>
-                        <div class="gameplay-bottom-section">
-                            <div class="color-section">
-                                <h3 class="section-title">COLOR PALETTE</h3>
-                                <div class="color-lines">
-                                    ${displayItem.dominantColors.map(color => `
-                                        <div class="color-line" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
-                                            <div class="color-line-info"><div class="color-hex-large">${color}</div></div>
-                                        </div>`).join('')}
-                                </div>
+                        ${gameplayReportHTML}
+                    </header>
+                    <div class="analysis-grid">
+                        <div class="analysis-data-column">
+                            ${colorPalette}
+                            ${metrics}
+                        </div>
+                        <div class="analysis-media-column">
+                            <div class="media-display">
+                                ${mediaElement}
                             </div>
-                            <div class="metrics-section">
-                                <h3 class="section-title">ANALYSIS METRICS</h3>
-                                <div class="metrics-grid">
-                                    <div class="metric-card"><div class="metric-label">SATURATION</div><div class="metric-value">${analysis.avgSaturation}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgSaturation}%;"></div></div></div>
-                                    <div class="metric-card"><div class="metric-label">BRIGHTNESS</div><div class="metric-value">${analysis.avgBrightness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgBrightness}%;"></div></div></div>
-                                    <div class="metric-card"><div class="metric-label">CONTRAST</div><div class="metric-value">${analysis.contrast}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.contrast}%;"></div></div></div>
-                                    <div class="metric-card"><div class="metric-label">COLORFULNESS</div><div class="metric-value">${analysis.colorfulness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.colorfulness}%;"></div></div></div>
-                                </div>
-                            </div>
+                            ${controls}
                         </div>
                     </div>
-                `;
-                modalContent.innerHTML = gameplayLayout;
-            }
+                </div>
+            `;
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
+        // --- Interactive Gameplay Image Viewer Functions (Task) ---
+        let imageViewerState = {
+            zoom: 1,
+            isDragging: false,
+            startX: 0,
+            startY: 0,
+            translateX: 0,
+            translateY: 0
+        };
+
+        function openImageViewer(imageUrl) {
+            const modal = document.getElementById('imageViewerModal');
+            const content = document.getElementById('imageViewerContent');
+            content.src = imageUrl;
+            resetImageViewerState();
+            modal.classList.add('active');
+        }
+
+        function closeImageViewer() {
+            document.getElementById('imageViewerModal').classList.remove('active');
+        }
+        
+        function resetImageViewerState() {
+            imageViewerState = { zoom: 1, isDragging: false, startX: 0, startY: 0, translateX: 0, translateY: 0 };
+            const content = document.getElementById('imageViewerContent');
+            content.style.transform = 'scale(1) translate(0, 0)';
+            content.classList.remove('zoomed-in');
+        }
+        
+        function handleImageViewerWheel(event) {
+            event.preventDefault();
+            const content = document.getElementById('imageViewerContent');
+            const scaleAmount = 0.1;
+            imageViewerState.zoom += event.deltaY > 0 ? -scaleAmount : scaleAmount;
+            imageViewerState.zoom = Math.min(Math.max(1, imageViewerState.zoom), 5); // Clamp zoom between 1x and 5x
+            
+            content.style.transform = `scale(${imageViewerState.zoom}) translate(${imageViewerState.translateX}px, ${imageViewerState.translateY}px)`;
+            content.classList.toggle('zoomed-in', imageViewerState.zoom > 1);
+        }
+
+        function handleImageViewerMouseDown(event) {
+            if (imageViewerState.zoom <= 1) return;
+            event.preventDefault();
+            imageViewerState.isDragging = true;
+            imageViewerState.startX = event.clientX - imageViewerState.translateX;
+            imageViewerState.startY = event.clientY - imageViewerState.translateY;
+            event.target.style.cursor = 'grabbing';
+        }
+
+        function handleImageViewerMouseMove(event) {
+            if (!imageViewerState.isDragging) return;
+            event.preventDefault();
+            imageViewerState.translateX = event.clientX - imageViewerState.startX;
+            imageViewerState.translateY = event.clientY - imageViewerState.startY;
+            document.getElementById('imageViewerContent').style.transform = `scale(${imageViewerState.zoom}) translate(${imageViewerState.translateX}px, ${imageViewerState.translateY}px)`;
+        }
+
+        function handleImageViewerMouseUp(event) {
+             if (!imageViewerState.isDragging) return;
+            imageViewerState.isDragging = false;
+            event.target.style.cursor = 'grab';
+        }
+
 
         function switchModalView(gameId, displayIndex) {
             const game = gameData.find(g => g.id === gameId);
             if (game) {
-                openModal(game, displayIndex); // Re-render the modal with the new view
+                openModal(game, displayIndex); 
                 showStatus(`Switched to ${game.displayItems[displayIndex].name}`);
             }
         }
 
         function closeModal() {
             const modal = document.getElementById('modal');
-            modal.querySelector('#modalContent').innerHTML = ''; // Clear content to stop video
+            const modalContainer = document.getElementById('modalContainer');
+            modalContainer.style.setProperty('--modal-gradient', 'none'); // Reset gradient
+            modal.querySelector('#modalContent').innerHTML = ''; 
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
         
-        // Add new item functions (unchanged, but provided for completeness)
         function showNewGenreInput() { document.getElementById('newGenreInput').classList.add('active'); }
         function hideNewGenreInput() { document.getElementById('newGenreInput').classList.remove('active'); document.getElementById('newGenreText').value = ''; }
         function addNewGenre() {
@@ -2473,7 +2488,31 @@
             document.getElementById('codeModal').addEventListener('click', e => e.target === e.currentTarget && closeCodeModal());
             document.querySelectorAll('.checkbox-item').forEach(item => item.addEventListener('click', function() { this.classList.toggle('selected'); }));
             document.getElementById('addGameForm').addEventListener('submit', e => { e.preventDefault(); addNewGame(); });
-            document.addEventListener('keydown', e => e.key === 'Escape' && (closeModal(), closeAddGameModal(), closeCodeModal()));
+            
+            // Image Viewer Event Listeners (Task)
+            const imageViewerModal = document.getElementById('imageViewerModal');
+            const imageViewerContent = document.getElementById('imageViewerContent');
+            imageViewerModal.addEventListener('click', closeImageViewer);
+            imageViewerContent.addEventListener('click', (e) => e.stopPropagation()); // Prevent modal close when clicking image
+            imageViewerModal.addEventListener('wheel', handleImageViewerWheel);
+            imageViewerContent.addEventListener('mousedown', handleImageViewerMouseDown);
+            window.addEventListener('mousemove', handleImageViewerMouseMove);
+            window.addEventListener('mouseup', handleImageViewerMouseUp);
+
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') {
+                    if (document.getElementById('imageViewerModal').classList.contains('active')) {
+                        closeImageViewer();
+                    } else if (document.getElementById('modal').classList.contains('active')) {
+                        closeModal();
+                    } else if (document.getElementById('addGameModal').classList.contains('active')) {
+                        closeAddGameModal();
+                    } else if (document.getElementById('codeModal').classList.contains('active')) {
+                        closeCodeModal();
+                    }
+                }
+            });
         });
 
         // Global function exports for onclick handlers in HTML strings
@@ -2497,6 +2536,8 @@
         window.hideNewColorInput = hideNewColorInput;
         window.addNewColor = addNewColor;
         window.closeModal = closeModal;
+        window.openImageViewer = openImageViewer;
+        window.closeImageViewer = closeImageViewer;
     </script>
 </body>
 </html>
