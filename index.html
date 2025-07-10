@@ -1027,22 +1027,19 @@
             display: flex;
             flex-direction: column;
             gap: 2rem;
-            min-height: 300px; /* Ensure minimum height for media */
-            max-height: 400px; /* Prevent it from getting too large */
+            min-height: 0;
         }
         
         .analysis-controls-section {
             grid-area: controls;
             display: flex;
             flex-direction: column;
-            min-height: auto;
         }
         
         .analysis-palette-section {
             grid-area: palette;
             display: flex;
             flex-direction: column;
-            min-height: 150px; /* Ensure palette has space */
         }
         
         .analysis-data-column {
@@ -1544,7 +1541,6 @@
             }
             
 /* Mobile Modal Layout Fixes */
-/* Mobile Modal Layout Fixes */
             .analysis-grid {
                 grid-template-columns: 1fr !important;
                 grid-template-areas: 
@@ -1557,30 +1553,20 @@
             
             .analysis-media-column {
                 grid-area: media;
-                min-height: 250px !important; /* Ensure media has dedicated space */
-                max-height: 350px !important;
-                order: 1;
             }
             
             .analysis-controls-section {
                 grid-area: controls;
-                margin: 0;
-                order: 2;
-                min-height: auto;
-                flex-shrink: 0; /* Prevent shrinking */
+                margin: 0; /* Reset margin */
             }
             
             .analysis-palette-section {
                 grid-area: palette;
-                order: 3;
-                min-height: 150px;
-                flex-shrink: 0; /* Prevent shrinking */
             }
             
             .analysis-data-column {
                 grid-area: data;
                 gap: 1rem;
-                order: 4;
             }
             
             .data-section.palette {
@@ -1599,14 +1585,7 @@
                 align-items: center;
                 justify-content: center;
             }
-            
-            /* Ensure view controls have proper spacing */
-            .view-controls {
-                background: var(--white) !important;
-                border: 4px solid var(--black) !important;
-                padding: 1.5rem !important;
-                margin: 1rem 0 !important;
-            }
+        }
 
         /* Small Mobile Phones */
         @media (max-width: 480px) {
