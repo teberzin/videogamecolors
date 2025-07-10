@@ -1010,40 +1010,15 @@
         }
 
 
-.analysis-grid {
+        .analysis-grid {
             display: grid;
             grid-template-columns: 2fr 1fr; /* Default: Media left, data right */
-            grid-template-areas: 
-                "media data"
-                "controls data"
-                "palette data";
             gap: 2rem;
             flex: 1;
             min-height: 0;
         }
         
-        .analysis-media-column {
-            grid-area: media;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            min-height: 0;
-        }
-        
-        .analysis-controls-section {
-            grid-area: controls;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .analysis-palette-section {
-            grid-area: palette;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .analysis-data-column {
-            grid-area: data;
+        .analysis-media-column, .analysis-data-column {
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -1061,7 +1036,6 @@
             aspect-ratio: 16 / 9;
             width: 100%;
             flex-shrink: 0;
-            min-height: 200px; /* Ensure minimum visibility */
         }
 
         .media-display iframe, .media-display img {
@@ -1453,7 +1427,7 @@
             }
         }
 
-/* Mobile Devices (Landscape & Portrait) */
+        /* Mobile Devices (Landscape & Portrait) */
         @media (max-width: 768px) {
             .main-title {
                 font-size: 2.5rem;
@@ -1515,75 +1489,12 @@
             .palette-bar {
                 min-height: 40px;
             }
-
-            /* Mobile Media Display Fixes */
-            .media-display {
-                aspect-ratio: 16 / 9 !important;
-                min-height: 180px !important;
-                max-height: 250px !important;
-                background: var(--black);
-                border: 2px solid var(--white);
-                margin-bottom: 1rem;
-            }
-            
-            .media-display iframe, 
-            .media-display img {
-                width: 100% !important;
-                height: 100% !important;
-                object-fit: contain !important; /* Change from cover to contain for better visibility */
-                border: none;
-            }
-            
-            .analysis-media-column {
-                background: transparent !important;
-                padding: 0 !important;
-                border: none !important;
-            }
-            
-/* Mobile Modal Layout Fixes */
-            .analysis-grid {
-                grid-template-columns: 1fr !important;
-                grid-template-areas: 
-                    "media"
-                    "controls" 
-                    "palette"
-                    "data" !important;
-                gap: 1.5rem;
-            }
-            
-            .analysis-media-column {
-                grid-area: media;
-            }
-            
-            .analysis-controls-section {
-                grid-area: controls;
-                margin: 0; /* Reset margin */
-            }
-            
-            .analysis-palette-section {
-                grid-area: palette;
-            }
-            
-            .analysis-data-column {
-                grid-area: data;
-                gap: 1rem;
-            }
-            
             .data-section.palette {
-                min-height: 150px;
-                flex-direction: column;
+                min-height: 200px;
+                flex-direction: column; /* Stack colors vertically */
             }
-            
             .immersive-color-palette {
-                flex-direction: column;
-                min-height: 120px;
-            }
-            
-            .immersive-color-block {
-                min-height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                flex-direction: column; /* Ensure palette colors stack */
             }
         }
 
@@ -2365,7 +2276,7 @@
             let gameplayReportHTML = '';
             if (displayItem.type === 'gameplay' && displayItem.analysisReportImage) {
                 gameplayReportHTML = `
-                <div class="header-gameplay-report" onclick="event.stopPropagation(); openImageViewer('${displayItem.analysisReportImage}', '${game.title}')">
+                <div class="header-gameplay-report" data-image-url="${displayItem.analysisReportImage}" data-game-title="${game.title}">
                     <div class="header-gameplay-report-title">VIEW REPORT</div>
                     <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Thumbnail of gameplay analysis report for ${game.title}">
                 </div>`;
@@ -2406,7 +2317,7 @@
                     </div>
                 </div>`;
 
-// Assemble final layout
+            // Assemble final layout
             modalContent.innerHTML = `
                 <div class="analysis-container">
                     <header class="analysis-header">
@@ -2421,14 +2332,10 @@
                             <div class="media-display">
                                 ${mediaElement}
                             </div>
-                        </div>
-                        <div class="analysis-controls-section">
                             ${controls}
                         </div>
-                        <div class="analysis-palette-section">
-                            ${colorPalette}
-                        </div>
                         <div class="analysis-data-column">
+                            ${colorPalette}
                             ${metrics}
                         </div>
                     </div>
@@ -2624,6 +2531,17 @@
                 }
             });
         });
+        
+        // Add click handler for gameplay reports
+            document.addEventListener('click', function(e) {
+                const gameplayReport = e.target.closest('.header-gameplay-report');
+                if (gameplayReport) {
+                    e.stopPropagation();
+                    const imageUrl = gameplayReport.dataset.imageUrl;
+                    const gameTitle = gameplayReport.dataset.gameTitle;
+                    openImageViewer(imageUrl, gameTitle);
+                }
+            });
 
 // Global function exports for onclick handlers in HTML strings
         window.switchDisplay = switchDisplay;
