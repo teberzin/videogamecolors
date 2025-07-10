@@ -1387,7 +1387,6 @@
         
         /* ====== RESPONSIVE DESIGN FIXES ====== */
         
-        /* Laptops & Large Tablets */
         @media (max-width: 1200px) {
             .analysis-grid {
                 grid-template-columns: 1fr; /* Stack columns */
@@ -1400,6 +1399,11 @@
             }
             .modal-content {
                 padding: 1rem;
+            }
+            .view-controls {
+                /* On mobile, remove the 'push to bottom' behavior.
+                   This lets the parent's flex-gap handle spacing so elements don't overlap. */
+                margin-top: initial;
             }
         }
         
