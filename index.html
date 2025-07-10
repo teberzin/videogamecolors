@@ -2276,7 +2276,7 @@
             let gameplayReportHTML = '';
             if (displayItem.type === 'gameplay' && displayItem.analysisReportImage) {
                 gameplayReportHTML = `
-                <div class="header-gameplay-report" onclick="openImageViewer('${displayItem.analysisReportImage}', '${game.title}')">
+                <div class="header-gameplay-report" onclick="event.stopPropagation(); openImageViewer('${displayItem.analysisReportImage}', '${game.title}')">
                     <div class="header-gameplay-report-title">VIEW REPORT</div>
                     <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Thumbnail of gameplay analysis report for ${game.title}">
                 </div>`;
@@ -2532,7 +2532,7 @@
             });
         });
 
-        // Global function exports for onclick handlers in HTML strings
+// Global function exports for onclick handlers in HTML strings
         window.switchDisplay = switchDisplay;
         window.switchModalView = switchModalView;
         window.clearAllFilters = clearAllFilters;
