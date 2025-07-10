@@ -1010,15 +1010,40 @@
         }
 
 
-        .analysis-grid {
+.analysis-grid {
             display: grid;
             grid-template-columns: 2fr 1fr; /* Default: Media left, data right */
+            grid-template-areas: 
+                "media data"
+                "controls data"
+                "palette data";
             gap: 2rem;
             flex: 1;
             min-height: 0;
         }
         
-        .analysis-media-column, .analysis-data-column {
+        .analysis-media-column {
+            grid-area: media;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-height: 0;
+        }
+        
+        .analysis-controls-section {
+            grid-area: controls;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .analysis-palette-section {
+            grid-area: palette;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .analysis-data-column {
+            grid-area: data;
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -1490,29 +1515,50 @@
                 min-height: 40px;
             }
             
-            /* Mobile Modal Layout Fixes */
+/* Mobile Modal Layout Fixes */
+            .analysis-grid {
+                grid-template-columns: 1fr !important;
+                grid-template-areas: 
+                    "media"
+                    "controls" 
+                    "palette"
+                    "data" !important;
+                gap: 1.5rem;
+            }
+            
             .analysis-media-column {
-                order: 1; /* Media first */
+                grid-area: media;
             }
+            
+            .analysis-controls-section {
+                grid-area: controls;
+                margin: 0; /* Reset margin */
+            }
+            
+            .analysis-palette-section {
+                grid-area: palette;
+            }
+            
             .analysis-data-column {
-                order: 2; /* Data second */
-                gap: 1rem; /* Reduce gap between sections */
+                grid-area: data;
+                gap: 1rem;
             }
-            .view-controls {
-                margin-top: 1rem; /* Add space above controls */
-                order: 3; /* Controls last */
-            }
+            
             .data-section.palette {
-                min-height: 150px; /* Reduce height */
-                flex-direction: column; /* Stack colors vertically */
-                margin-bottom: 1rem; /* Add bottom margin */
+                min-height: 150px;
+                flex-direction: column;
             }
+            
             .immersive-color-palette {
-                flex-direction: column; /* Ensure palette colors stack */
-                min-height: 120px; /* Set minimum height */
+                flex-direction: column;
+                min-height: 120px;
             }
+            
             .immersive-color-block {
-                min-height: 24px; /* Ensure touch-friendly height */
+                min-height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
 
@@ -2335,7 +2381,7 @@
                     </div>
                 </div>`;
 
-            // Assemble final layout
+// Assemble final layout
             modalContent.innerHTML = `
                 <div class="analysis-container">
                     <header class="analysis-header">
@@ -2350,10 +2396,14 @@
                             <div class="media-display">
                                 ${mediaElement}
                             </div>
+                        </div>
+                        <div class="analysis-controls-section">
                             ${controls}
                         </div>
-                        <div class="analysis-data-column">
+                        <div class="analysis-palette-section">
                             ${colorPalette}
+                        </div>
+                        <div class="analysis-data-column">
                             ${metrics}
                         </div>
                     </div>
