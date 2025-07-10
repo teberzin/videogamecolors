@@ -1402,64 +1402,6 @@
                 padding: 1rem;
             }
         }
-        /* Mobile Devices (Landscape & Portrait) */
-@media (max-width: 768px) {
-    /*
-     * MOBILE LAYOUT FIX FOR CHROMATIC ANALYSIS MODAL
-     * This ensures the grid items stack vertically without overlapping.
-     */
-
-    .analysis-grid {
-        grid-template-columns: 1fr;      /* Ensures a single column layout */
-        grid-template-rows: auto auto auto; /* Creates three distinct rows for content */
-    }
-
-    /* Reorder the grid items for a logical mobile flow */
-    .analysis-media-column {
-        order: 1; /* Cover art/video appears first */
-        margin-bottom: 1rem; /* Adds space below the media element */
-    }
-
-    .analysis-data-column {
-        order: 2; /* Color palette/metrics appear second */
-        overflow-y: visible; /* Prevents content from being cut off */
-        margin-bottom: 1rem; /* Adds space below the data column */
-    }
-
-    .view-controls {
-        order: 3; /* View switcher buttons appear last */
-        margin-top: 0; /* Resets the auto margin used for the desktop layout */
-    }
-
-    /*
-     * Ensures the color palette itself stacks vertically on mobile.
-     */
-    .data-section.palette {
-        flex-direction: column; /* Stacks color blocks */
-        min-height: 200px;
-    }
-
-    .immersive-color-palette {
-        flex-direction: column; /* Stacks color blocks */
-    }
-}
-    
-    /* Ensure each color block has minimum height in mobile */
-    .immersive-color-block {
-        min-height: 40px;
-        flex: none; /* Remove flex grow */
-    }
-    
-    /* Add spacing between sections */
-    .data-section {
-        margin-bottom: 1rem;
-    }
-    
-    /* Ensure proper spacing for the analysis container */
-    .analysis-container {
-        gap: 1rem;
-    }
-}
         
         /* Tablets & Small Laptops */
         @media (max-width: 1024px) {
@@ -2376,38 +2318,29 @@
                 </div>`;
 
             // Assemble final layout
-// Assemble final layout
-modalContent.innerHTML = `
-    <div class="analysis-container">
-        <header class="analysis-header">
-            <div class="analysis-header-main">
-                <h2 class="game-title-large">${game.title}</h2>
-                <p class="game-meta-large">${game.developer} • ${game.year} • VIEWING: ${displayItem.name}</p>
-            </div>
-            ${gameplayReportHTML}
-        </header>
-        <div class="analysis-grid">
-            <div class="analysis-media-column">
-                <div class="media-display">
-                    ${mediaElement}
+            modalContent.innerHTML = `
+                <div class="analysis-container">
+                    <header class="analysis-header">
+                        <div class="analysis-header-main">
+                            <h2 class="game-title-large">${game.title}</h2>
+                            <p class="game-meta-large">${game.developer} • ${game.year} • VIEWING: ${displayItem.name}</p>
+                        </div>
+                        ${gameplayReportHTML}
+                    </header>
+                    <div class="analysis-grid">
+                        <div class="analysis-media-column">
+                            <div class="media-display">
+                                ${mediaElement}
+                            </div>
+                            ${controls}
+                        </div>
+                        <div class="analysis-data-column">
+                            ${colorPalette}
+                            ${metrics}
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="analysis-data-column">
-                ${colorPalette}
-                ${metrics}
-            </div>
-            <div class="view-controls">
-                <div class="controls-title">AVAILABLE VIEWS</div>
-                <div class="trailer-buttons">
-                    ${game.displayItems.map((item, index) => `
-                        <button class="trailer-btn ${index === displayIndex ? 'active' : ''}" 
-                                onclick="switchModalView(${game.id}, ${index})">${item.name}</button>
-                    `).join('')}
-                </div>
-            </div>
-        </div>
-    </div>
-`;
+            `;
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
