@@ -1061,6 +1061,7 @@
             aspect-ratio: 16 / 9;
             width: 100%;
             flex-shrink: 0;
+            min-height: 200px; /* Ensure minimum visibility */
         }
 
         .media-display iframe, .media-display img {
@@ -1513,6 +1514,30 @@
             }
             .palette-bar {
                 min-height: 40px;
+            }
+
+            /* Mobile Media Display Fixes */
+            .media-display {
+                aspect-ratio: 16 / 9 !important;
+                min-height: 180px !important;
+                max-height: 250px !important;
+                background: var(--black);
+                border: 2px solid var(--white);
+                margin-bottom: 1rem;
+            }
+            
+            .media-display iframe, 
+            .media-display img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important; /* Change from cover to contain for better visibility */
+                border: none;
+            }
+            
+            .analysis-media-column {
+                background: transparent !important;
+                padding: 0 !important;
+                border: none !important;
             }
             
 /* Mobile Modal Layout Fixes */
