@@ -2365,7 +2365,7 @@
             let gameplayReportHTML = '';
             if (displayItem.type === 'gameplay' && displayItem.analysisReportImage) {
                 gameplayReportHTML = `
-                <div class="header-gameplay-report" data-image-url="${displayItem.analysisReportImage}" data-game-title="${game.title}">
+                <div class="header-gameplay-report" onclick="event.stopPropagation(); openImageViewer('${displayItem.analysisReportImage}', '${game.title}')">
                     <div class="header-gameplay-report-title">VIEW REPORT</div>
                     <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Thumbnail of gameplay analysis report for ${game.title}">
                 </div>`;
@@ -2624,17 +2624,6 @@
                 }
             });
         });
-        
-        // Add click handler for gameplay reports
-            document.addEventListener('click', function(e) {
-                const gameplayReport = e.target.closest('.header-gameplay-report');
-                if (gameplayReport) {
-                    e.stopPropagation();
-                    const imageUrl = gameplayReport.dataset.imageUrl;
-                    const gameTitle = gameplayReport.dataset.gameTitle;
-                    openImageViewer(imageUrl, gameTitle);
-                }
-            });
 
 // Global function exports for onclick handlers in HTML strings
         window.switchDisplay = switchDisplay;
