@@ -1388,9 +1388,22 @@
         /* ====== RESPONSIVE DESIGN FIXES ====== */
         
         @media (max-width: 1200px) {
+            /* Convert the main grid into a simple vertical stack */
             .analysis-grid {
-                grid-template-columns: 1fr; /* Stack columns */
+                display: flex;
+                flex-direction: column;
+                grid-template-columns: 1fr; /* Keep for consistency, but flexbox now controls flow */
             }
+            
+            /* THIS IS THE KEY FIX:
+               Make the column wrappers "disappear" from the layout.
+               This promotes their children (media, controls, palette, metrics)
+               to become direct flex items of the .analysis-grid,
+               forcing them to stack cleanly with the parent's "gap". */
+            .analysis-media-column, .analysis-data-column {
+                display: contents;
+            }
+
              .analysis-data-column {
                 overflow-y: visible; /* Allow content to flow */
              }
@@ -1399,11 +1412,6 @@
             }
             .modal-content {
                 padding: 1rem;
-            }
-            .view-controls {
-                /* On mobile, remove the 'push to bottom' behavior.
-                   This lets the parent's flex-gap handle spacing so elements don't overlap. */
-                margin-top: initial;
             }
         }
         
