@@ -1402,6 +1402,65 @@
                 padding: 1rem;
             }
         }
+        /* Mobile Devices (Landscape & Portrait) */
+@media (max-width: 768px) {
+    .analysis-grid {
+        grid-template-columns: 1fr; /* Single column for mobile */
+        grid-template-rows: auto auto auto; /* Define explicit rows */
+    }
+    
+    /* Reorder elements for mobile */
+    .analysis-media-column {
+        order: 1; /* Media first */
+        margin-bottom: 1rem;
+    }
+    
+    .analysis-data-column {
+        order: 2; /* Data second */
+        overflow-y: visible;
+        margin-bottom: 1rem;
+    }
+    
+    /* Separate the view controls to prevent overlap */
+    .view-controls {
+        order: 3; /* Controls last */
+        margin-top: 0; /* Remove auto margin */
+        margin-bottom: 1rem;
+    }
+    
+    /* Ensure media display has proper spacing */
+    .media-display {
+        margin-bottom: 1rem;
+    }
+    
+    /* Stack color palette vertically with proper spacing */
+    .data-section.palette {
+        min-height: 200px;
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+    
+    .immersive-color-palette {
+        flex-direction: column;
+        min-height: 200px;
+    }
+    
+    /* Ensure each color block has minimum height in mobile */
+    .immersive-color-block {
+        min-height: 40px;
+        flex: none; /* Remove flex grow */
+    }
+    
+    /* Add spacing between sections */
+    .data-section {
+        margin-bottom: 1rem;
+    }
+    
+    /* Ensure proper spacing for the analysis container */
+    .analysis-container {
+        gap: 1rem;
+    }
+}
         
         /* Tablets & Small Laptops */
         @media (max-width: 1024px) {
@@ -2318,29 +2377,38 @@
                 </div>`;
 
             // Assemble final layout
-            modalContent.innerHTML = `
-                <div class="analysis-container">
-                    <header class="analysis-header">
-                        <div class="analysis-header-main">
-                            <h2 class="game-title-large">${game.title}</h2>
-                            <p class="game-meta-large">${game.developer} • ${game.year} • VIEWING: ${displayItem.name}</p>
-                        </div>
-                        ${gameplayReportHTML}
-                    </header>
-                    <div class="analysis-grid">
-                        <div class="analysis-media-column">
-                            <div class="media-display">
-                                ${mediaElement}
-                            </div>
-                            ${controls}
-                        </div>
-                        <div class="analysis-data-column">
-                            ${colorPalette}
-                            ${metrics}
-                        </div>
-                    </div>
+// Assemble final layout
+modalContent.innerHTML = `
+    <div class="analysis-container">
+        <header class="analysis-header">
+            <div class="analysis-header-main">
+                <h2 class="game-title-large">${game.title}</h2>
+                <p class="game-meta-large">${game.developer} • ${game.year} • VIEWING: ${displayItem.name}</p>
+            </div>
+            ${gameplayReportHTML}
+        </header>
+        <div class="analysis-grid">
+            <div class="analysis-media-column">
+                <div class="media-display">
+                    ${mediaElement}
                 </div>
-            `;
+            </div>
+            <div class="analysis-data-column">
+                ${colorPalette}
+                ${metrics}
+            </div>
+            <div class="view-controls">
+                <div class="controls-title">AVAILABLE VIEWS</div>
+                <div class="trailer-buttons">
+                    ${game.displayItems.map((item, index) => `
+                        <button class="trailer-btn ${index === displayIndex ? 'active' : ''}" 
+                                onclick="switchModalView(${game.id}, ${index})">${item.name}</button>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+    </div>
+`;
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
