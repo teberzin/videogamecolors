@@ -1034,14 +1034,15 @@
             flex-direction: row;
             gap: 4rem;
             margin-bottom: 4rem;
+            align-items: center; /* Vertically align thumbnail and info for balance */
         }
         
         .analysis-left-col {
-            flex: 1.5;
+            flex: 1.2;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
-            background: transparent; /* No black area behind thumbnail as requested */
+            background: transparent;
             overflow: visible;
         }
 
@@ -1049,7 +1050,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 2.5rem;
+            justify-content: center; /* Center content vertically */
         }
 
         .game-title-large {
@@ -2201,16 +2203,19 @@
                 }
             }
 
-            // Dynamic Gradient Background formulation
-            let inlineGradientStyle = '';
+            // Dynamic Gradient Background formulation (Subtle minimalist circles)
             if (displayItem.dominantColors && displayItem.dominantColors.length >= 3) {
                  const colors = displayItem.dominantColors;
-                 inlineGradientStyle = `
-                     background-image: 
-                        radial-gradient(circle at 20% 20%, ${colors[0]}33 0%, transparent 50%),
-                        radial-gradient(circle at 80% 30%, ${colors[1]}33 0%, transparent 50%),
-                        radial-gradient(circle at 50% 80%, ${colors[2]}33 0%, transparent 60%);
+                 modalContent.style.backgroundImage = `
+                    radial-gradient(circle at 10% 10%, ${colors[0]}15 0%, transparent 40%),
+                    radial-gradient(circle at 90% 20%, ${colors[1]}15 0%, transparent 40%),
+                    radial-gradient(circle at 50% 50%, ${colors[2]}10 0%, transparent 60%),
+                    radial-gradient(circle at 20% 80%, ${colors[3]}10 0%, transparent 40%),
+                    radial-gradient(circle at 80% 90%, ${colors[4]}10 0%, transparent 40%)
                  `;
+                 modalContent.style.backgroundAttachment = 'fixed';
+            } else {
+                 modalContent.style.backgroundImage = 'none';
             }
 
             // Gameplay Analysis Report (Moved to its own full-width section)
@@ -2281,7 +2286,7 @@
 
             // Assemble final layout
             modalContent.innerHTML = `
-                <div class="analysis-container" style="${inlineGradientStyle}">
+                <div class="analysis-container">
                     <div class="analysis-left-col">
                         <div class="media-display">
                             ${mediaElement}
