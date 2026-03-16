@@ -181,6 +181,9 @@
             padding: 4rem 2rem 2rem 2rem;
             text-align: center;
             border-bottom: 8px solid var(--black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .main-title {
@@ -191,6 +194,7 @@
             letter-spacing: 4px;
             margin-bottom: 1rem;
             color: var(--black);
+            display: inline-block;
         }
 
         .subtitle {
@@ -200,6 +204,7 @@
             font-weight: 600;
             letter-spacing: 2px;
             margin-bottom: 2rem;
+            display: inline-block;
         }
 
         /* Brutalist Control Panel */
@@ -965,8 +970,10 @@
         }
 
         .modal-container {
-            background: var(--black); /* Darker base for the modal */
-            border: 6px solid var(--black);
+            background: #0f0f0f; /* Slightly elevated background */
+            border: 2px solid #333; /* Subtle border */
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             width: 100%;
             height: 100%;
             max-width: 1600px;
@@ -1037,53 +1044,67 @@
             width: 100%;
             height: 100%;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 2rem;
         }
-
-        .analysis-header {
-            background: var(--white);
-            border: 4px solid var(--black);
-            padding: 1.5rem;
-            flex-shrink: 0;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 1.5rem; 
-        }
         
-        .analysis-header-main {
-            flex-grow: 1;
+        .analysis-left-col {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--black);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #222;
+        }
+
+        .analysis-right-col {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+            padding-right: 0.5rem;
         }
 
         .game-title-large {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 800;
-            font-size: 2rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            color: var(--black);
+            margin-bottom: 0.2rem;
+            color: var(--white);
         }
 
         .game-meta-large {
             font-family: 'Space Mono', monospace;
             font-size: 1rem;
-            color: var(--gray-medium);
+            color: var(--gray-light);
             text-transform: uppercase;
+            border-bottom: 2px solid #333;
+            padding-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         /* Gameplay Report in Header */
         .header-gameplay-report {
-            background: var(--gray-dark);
-            border: 4px solid var(--black);
-            padding: 1rem;
+            background: transparent;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 0;
             cursor: pointer;
             text-align: center;
             flex-shrink: 0;
-            transition: background 0.2s ease;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         .header-gameplay-report:hover {
-            background: var(--gray-medium);
+            border-color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
         .header-gameplay-report-title {
             font-family: 'JetBrains Mono', monospace;
@@ -1091,48 +1112,31 @@
             text-transform: uppercase;
             font-size: 0.9rem;
             color: var(--white);
+            background: #1a1a1a;
+            padding: 0.8rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #333;
         }
         .header-gameplay-report-icon {
             width: 100%;
-            max-width: 600px;
-            margin-top: 0.5rem;
-            border: 2px solid var(--white);
+            max-height: 250px;
+            object-fit: cover;
         }
 
-
-        .analysis-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* Default: Media left, data right */
-            gap: 2rem;
-            flex: 1;
-            min-height: 0;
-        }
-        
-        .analysis-media-column, .analysis-data-column {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            min-height: 0;
-        }
-
-        .analysis-media-column {
-            background: var(--black);
-            border: 4px solid var(--black);
-            padding: 1rem;
-        }
 
         .media-display {
-            background: var(--black);
-            aspect-ratio: 16 / 9;
             width: 100%;
-            flex-shrink: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .media-display iframe, .media-display img {
-            width: 100%;
-            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
             border: none;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         /* "Available Views" Controls Redesign */
@@ -1185,24 +1189,19 @@
             background: var(--gray-lighter);
         }
 
-        .analysis-data-column {
-            overflow-y: auto;
-        }
-
         .data-section {
-            background: var(--white);
-            border: 4px solid var(--black);
-            padding: 1.5rem;
+            background: transparent;
             display: flex;
             flex-direction: column;
-            flex-grow: 1; /* Makes sections fill height */
         }
         
         .data-section.palette {
-            padding: 0;
+            border-radius: 8px;
             overflow: hidden;
-            flex-direction: row; /* Horizontal layout for palette */
-            flex-grow: 1.5; /* Takes more space */
+            flex-direction: row;
+            height: 120px;
+            border: 2px solid #333;
+            margin-bottom: 1rem;
         }
 
         .data-section-title {
@@ -1210,9 +1209,9 @@
             font-weight: 800;
             text-transform: uppercase;
             font-size: 1rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 3px solid var(--black);
-            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            color: var(--white);
             flex-shrink: 0;
         }
         
@@ -1478,25 +1477,18 @@
         /* ====== RESPONSIVE DESIGN FIXES ====== */
         
         @media (max-width: 1200px) {
-            /* Convert the main grid into a simple vertical stack */
-            .analysis-grid {
-                display: flex;
+            .analysis-container {
                 flex-direction: column;
-                grid-template-columns: 1fr; /* Keep for consistency, but flexbox now controls flow */
             }
-            
-            /* THIS IS THE KEY FIX:
-               Make the column wrappers "disappear" from the layout.
-               This promotes their children (media, controls, palette, metrics)
-               to become direct flex items of the .analysis-grid,
-               forcing them to stack cleanly with the parent's "gap". */
-            .analysis-media-column, .analysis-data-column {
-                display: contents;
+            .analysis-left-col {
+                aspect-ratio: 16 / 9;
+                flex: none;
+                height: auto;
             }
-
-             .analysis-data-column {
-                overflow-y: visible; /* Allow content to flow */
-             }
+            .analysis-right-col {
+                flex: none;
+                height: auto;
+            }
              .modal {
                 padding: 1rem;
             }
@@ -1522,10 +1514,6 @@
             }
             .system-status {
                 font-size: 0.8rem;
-            }
-            .analysis-header {
-                flex-direction: column;
-                align-items: stretch;
             }
         }
 
@@ -1658,7 +1646,7 @@
             .modal-content {
                 padding: 0.5rem;
             }
-            .analysis-container, .analysis-grid, .analysis-media-column, .analysis-data-column {
+            .analysis-container {
                 gap: 1rem; /* Reduce gaps */
             }
             .analysis-header, .view-controls, .data-section {
@@ -2381,38 +2369,26 @@
                             </div>`).join('')}
                     </div>
                 </div>`;
-            
-            // Details description
-            const metrics = `
-                <div class="data-section">
-                    <h3 class="data-section-title">Dominant LUT Details</h3>
-                    <div class="metrics-grid" style="display: block;">
-                        <p style="font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--gray-medium);">
-                            Game and game color details.
-                        </p>
-                    </div>
-                </div>`;
+             // Remove obsolete metrics variable totally.
 
-            // Assemble final layout
+            // Assemble final side-by-side layout
             modalContent.innerHTML = `
                 <div class="analysis-container">
-                    <header class="analysis-header">
+                    <div class="analysis-left-col">
+                        <div class="media-display">
+                            ${mediaElement}
+                        </div>
+                    </div>
+                    <div class="analysis-right-col">
                         <div class="analysis-header-main">
                             <h2 class="game-title-large">${game.title}</h2>
                             <p class="game-meta-large">${game.developer} • ${game.year}</p>
                         </div>
+                        <div class="data-section">
+                            <h3 class="data-section-title">Dominant Colors</h3>
+                        </div>
+                        ${colorPalette}
                         ${gameplayReportHTML}
-                    </header>
-                    <div class="analysis-grid">
-                        <div class="analysis-media-column">
-                            <div class="media-display">
-                                ${mediaElement}
-                            </div>
-                        </div>
-                        <div class="analysis-data-column">
-                            ${colorPalette}
-                            ${metrics}
-                        </div>
                     </div>
                 </div>
             `;
