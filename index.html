@@ -2322,18 +2322,18 @@
             }
 
             // Dynamic Gradient Background formulation (Subtle minimalist circles)
+            let inlineGradientStyle = '';
             if (displayItem.dominantColors && displayItem.dominantColors.length >= 3) {
                  const colors = displayItem.dominantColors;
-                 modalContent.style.backgroundImage = `
-                    radial-gradient(circle at 10% 10%, ${colors[0]}4D 0%, transparent 40%),
-                    radial-gradient(circle at 90% 20%, ${colors[1]}4D 0%, transparent 40%),
-                    radial-gradient(circle at 50% 50%, ${colors[2]}3D 0%, transparent 60%),
-                    radial-gradient(circle at 20% 80%, ${colors[3]}33 0%, transparent 40%),
-                    radial-gradient(circle at 80% 90%, ${colors[4]}33 0%, transparent 40%)
+                 inlineGradientStyle = `
+                     background-image: 
+                        radial-gradient(circle at 10% 10%, ${colors[0]}33 0%, transparent 40%),
+                        radial-gradient(circle at 90% 20%, ${colors[1]}33 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, ${colors[2]}26 0%, transparent 60%),
+                        radial-gradient(circle at 20% 80%, ${colors[3]}26 0%, transparent 40%),
+                        radial-gradient(circle at 80% 90%, ${colors[4]}26 0%, transparent 40%);
+                     background-attachment: fixed;
                  `;
-                 modalContent.style.backgroundAttachment = 'fixed';
-            } else {
-                 modalContent.style.backgroundImage = 'none';
             }
 
             // Gameplay Analysis Report (Moved to its own full-width section)
@@ -2404,7 +2404,7 @@
 
             // Assemble final layout
             modalContent.innerHTML = `
-                <div class="analysis-container">
+                <div class="analysis-container" style="${inlineGradientStyle}">
                     <div class="analysis-left-col">
                         <div class="media-display">
                             ${mediaElement}
@@ -2479,8 +2479,13 @@
         function handleImageViewerMouseMove(event) {
             if (!imageViewerState.isDragging) return;
             event.preventDefault();
-            imageViewerState.translateX = event.clientX - imageViewerState.startX;
-            imageViewerState.translateY = event.clientY - imageViewerState.startY;
+            // Calculate raw translation in screen space
+            let targetX = event.clientX - imageViewerState.startX;
+            let targetY = event.clientY - imageViewerState.startY;
+            
+            imageViewerState.translateX = targetX;
+            imageViewerState.translateY = targetY;
+            
             document.getElementById('imageViewerContent').style.transform = `translate(${imageViewerState.translateX}px, ${imageViewerState.translateY}px) scale(${imageViewerState.zoom})`;
         }
 
