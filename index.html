@@ -1268,6 +1268,124 @@
             justify-content: center;
         }
         
+        /* CODE GENERATOR MODAL */
+        .code-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            overflow-y: auto;
+        }
+
+        .code-modal.active {
+            display: block;
+        }
+
+        .code-container {
+            background: var(--white);
+            border: 6px solid var(--black);
+            max-width: 900px;
+            margin: 2rem auto;
+            min-height: calc(100vh - 4rem);
+        }
+
+        .code-header {
+            background: var(--green);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--white);
+        }
+
+        .code-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .code-content {
+            padding: 2rem;
+        }
+
+        .instruction-section {
+            margin-bottom: 2rem;
+            border: 2px solid var(--green);
+            background: var(--white);
+        }
+
+        .instruction-header {
+            background: var(--green);
+            color: var(--white);
+            padding: 0.8rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .instruction-content {
+            padding: 1.5rem;
+        }
+
+        .instruction-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #00ff00;
+            border: 2px solid var(--black);
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .copy-code-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--green);
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 0.5rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-code-btn:hover {
+            background: var(--white);
+            color: var(--green);
+            border-color: var(--green);
+        }
+
+        .file-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--green);
+            background: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-medium);
+            margin-bottom: 1rem;
+        }
+        
         /* Similar Games Component */
         .similar-games-section {
             margin-bottom: 4rem;
@@ -2207,11 +2325,11 @@
             if (displayItem.dominantColors && displayItem.dominantColors.length >= 3) {
                  const colors = displayItem.dominantColors;
                  modalContent.style.backgroundImage = `
-                    radial-gradient(circle at 10% 10%, ${colors[0]}15 0%, transparent 40%),
-                    radial-gradient(circle at 90% 20%, ${colors[1]}15 0%, transparent 40%),
-                    radial-gradient(circle at 50% 50%, ${colors[2]}10 0%, transparent 60%),
-                    radial-gradient(circle at 20% 80%, ${colors[3]}10 0%, transparent 40%),
-                    radial-gradient(circle at 80% 90%, ${colors[4]}10 0%, transparent 40%)
+                    radial-gradient(circle at 10% 10%, ${colors[0]}4D 0%, transparent 40%),
+                    radial-gradient(circle at 90% 20%, ${colors[1]}4D 0%, transparent 40%),
+                    radial-gradient(circle at 50% 50%, ${colors[2]}3D 0%, transparent 60%),
+                    radial-gradient(circle at 20% 80%, ${colors[3]}33 0%, transparent 40%),
+                    radial-gradient(circle at 80% 90%, ${colors[4]}33 0%, transparent 40%)
                  `;
                  modalContent.style.backgroundAttachment = 'fixed';
             } else {
@@ -2334,7 +2452,7 @@
         function resetImageViewerState() {
             imageViewerState = { zoom: 1, isDragging: false, startX: 0, startY: 0, translateX: 0, translateY: 0 };
             const content = document.getElementById('imageViewerContent');
-            content.style.transform = 'scale(1) translate(0, 0)';
+            content.style.transform = 'translate(0px, 0px) scale(1)';
             content.classList.remove('zoomed-in');
         }
         
@@ -2343,9 +2461,10 @@
             const content = document.getElementById('imageViewerContent');
             const scaleAmount = 0.2;
             imageViewerState.zoom += event.deltaY > 0 ? -scaleAmount : scaleAmount;
-            imageViewerState.zoom = Math.min(Math.max(0.5, imageViewerState.zoom), 5); 
+            // Allow zoom out down to 0.1 for maximum flexibility
+            imageViewerState.zoom = Math.min(Math.max(0.1, imageViewerState.zoom), 5); 
             
-            content.style.transform = `scale(${imageViewerState.zoom}) translate(${imageViewerState.translateX}px, ${imageViewerState.translateY}px)`;
+            content.style.transform = `translate(${imageViewerState.translateX}px, ${imageViewerState.translateY}px) scale(${imageViewerState.zoom})`;
             content.classList.toggle('zoomed-in', imageViewerState.zoom > 1);
         }
 
@@ -2354,7 +2473,7 @@
             imageViewerState.isDragging = true;
             imageViewerState.startX = event.clientX - imageViewerState.translateX;
             imageViewerState.startY = event.clientY - imageViewerState.translateY;
-            event.target.style.cursor = 'grabbing';
+            document.getElementById('imageViewerContent').style.cursor = 'grabbing';
         }
 
         function handleImageViewerMouseMove(event) {
@@ -2362,7 +2481,7 @@
             event.preventDefault();
             imageViewerState.translateX = event.clientX - imageViewerState.startX;
             imageViewerState.translateY = event.clientY - imageViewerState.startY;
-            document.getElementById('imageViewerContent').style.transform = `scale(${imageViewerState.zoom}) translate(${imageViewerState.translateX}px, ${imageViewerState.translateY}px)`;
+            document.getElementById('imageViewerContent').style.transform = `translate(${imageViewerState.translateX}px, ${imageViewerState.translateY}px) scale(${imageViewerState.zoom})`;
         }
 
         function handleImageViewerMouseUp(event) {
