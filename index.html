@@ -1408,6 +1408,65 @@
             background: var(--white);
         }
 
+        /* === NEW CSS CLASSES === */
+        
+        /* Game Thumbnail Hover Link Effect */
+        .game-thumbnail-link {
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .game-thumbnail-link:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 4px; /* Optional slight rounding for depth */
+        }
+
+        /* Similar Games Component */
+        .similar-games-grid {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .similar-game-card {
+            flex: 1;
+            min-width: 120px;
+            background: #111;
+            border: 2px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .similar-game-card:hover {
+            border-color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
+
+        .similar-game-card img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+        }
+
+        .similar-game-title {
+            padding: 0.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gray-lighter);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .instruction-header {
             background: var(--green);
             color: var(--white);
@@ -2311,17 +2370,16 @@
             document.getElementById('searchInput').value = '';
             applyFilters();
             showStatus('Filters cleared');
-        }
-
         // --- REWRITTEN MODAL FUNCTION ---
-        function openModal(game, displayIndex) {
-            game.currentDisplayIndex = displayIndex;
-            const displayItem = game.displayItems[displayIndex];
+        function openModal(game, defaultDisplayIndex = 0) {
+            game.currentDisplayIndex = defaultDisplayIndex;
+            const displayItem = game.displayItems[defaultDisplayIndex];
             if (!displayItem) return;
 
             const analysis = displayItem.colorAnalysis;
-            const modalContent = document.getElementById('modalContent');
+            
             const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
             const modalContainer = document.getElementById('modalContainer');
 
             // Set dynamic background gradient
@@ -2332,19 +2390,48 @@
                     radial-gradient(circle at 85% 30%, ${colors[1]}4D, transparent 100%), 
                     radial-gradient(circle at 60% 80%, ${colors[2]}4D, transparent 100%),
                     radial-gradient(circle at 90% 95%, ${colors[3]}3D, transparent 100%),
-                    radial-gradient(circle at 20% 85%, ${colors[4]}3D, transparent 100%)
-                `;
-                modalContainer.style.setProperty('--modal-gradient', gradient);
-            } else {
-                 modalContainer.style.setProperty('--modal-gradient', 'none');
+                    radial-gradient(circle at 20% 85%, ${colors[4]}3D, transparent 100%)`; // Fixed missing backtick
             }
-            
-            // Media Element with improved alt text
+             // Clean up old events
+            const oldViewer = document.getElementById('imageViewerContent');
+            if(oldViewer) {
+                 oldViewer.removeEventListener('wheel', handleImageViewerWheel);
+                 oldViewer.removeEventListener('mousedown', handleImageViewerMouseDown);
+                 oldViewer.style.cursor = '';
+            }
+
+            // Create Steam Link (or search query)
+            let steamSearchUrl = `https://store.steampowered.com/search/?term=${encodeURIComponent(game.title)}`;
+
+            // Set current display index for the game
+            game.currentDisplayIndex = defaultDisplayIndex;
+
+            // Media Element with Steam link and animated hover wrapper
             let mediaElement = '';
             if (displayItem.type === 'trailer') {
                 mediaElement = `<iframe src="${displayItem.url}" title="${game.title} - ${displayItem.name}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             } else {
-                mediaElement = `<img src="${displayItem.image}" alt="Key art for ${game.title} - ${displayItem.name}">`;
+                mediaElement = `
+                    <a href="${steamSearchUrl}" target="_blank" class="game-thumbnail-link">
+                        <img src="${displayItem.image}" alt="Key art for ${game.title} - ${displayItem.name}">
+                    </a>
+                `;
+            }
+
+            // Dynamic Gradient Background formulation based on Dominant Colors
+            let inlineGradientStyle = '';
+            if (displayItem.dominantColors && displayItem.dominantColors.length >= 3) {
+                 // Create a soft multi-radial gradient
+                 const colors = displayItem.dominantColors;
+                 inlineGradientStyle = `
+                     background-color: var(--black);
+                     background-image: 
+                        radial-gradient(circle at 20% 20%, ${colors[0]}40 0%, transparent 40%),
+                        radial-gradient(circle at 80% 30%, ${colors[1]}40 0%, transparent 40%),
+                        radial-gradient(circle at 50% 80%, ${colors[2]}40 0%, transparent 50%);
+                 `;
+            } else {
+                 inlineGradientStyle = "background-color: var(--black);";
             }
 
             // Gameplay Analysis Report (Moved to header) with improved alt text
@@ -2371,10 +2458,55 @@
                 </div>`;
              // Remove obsolete metrics variable totally.
 
+             // Similar Games Algorithm
+            let similarGamesHTML = '';
+            // Basic algorithmic scoring: Genre match (+2), Color category match (+1)
+            const scoredGames = gameData.filter(g => g.id !== game.id).map(g => {
+                let score = 0;
+                if (game.genre && g.genre) {
+                    const sharedGenres = g.genre.filter(genre => game.genre.includes(genre));
+                    score += sharedGenres.length * 2;
+                }
+                if (game.colorCategories && g.colorCategories) {
+                    const sharedColors = g.colorCategories.filter(c => game.colorCategories.includes(c));
+                    score += sharedColors.length;
+                }
+                return { ...g, similarityScore: score };
+            });
+
+            // Sort by top score and grab top 3
+            scoredGames.sort((a, b) => b.similarityScore - a.similarityScore);
+            const topSimilar = scoredGames.slice(0, 3);
+
+            if (topSimilar.length > 0) {
+                let similarCardsHTML = topSimilar.map(similarGame => {
+                     // Get image of similar game
+                     let simImage = '';
+                     if (similarGame.displayItems && similarGame.displayItems.length > 0) {
+                          simImage = similarGame.displayItems[0].image;
+                     }
+                     return `
+                        <div class="similar-game-card" onclick="window.scrollTo(0, 0); setTimeout(() => switchModalView(${similarGame.id}, 0), 10)">
+                            <img src="${simImage}" alt="Thumbnail for ${similarGame.title}">
+                            <div class="similar-game-title">${similarGame.title}</div>
+                        </div>
+                     `;
+                }).join('');
+
+                similarGamesHTML = `
+                    <div class="data-section similar-games-section">
+                        <h3 class="data-section-title">Similar Aesthetics & Genres</h3>
+                        <div class="similar-games-grid">
+                            ${similarCardsHTML}
+                        </div>
+                    </div>
+                `;
+            }
+
             // Assemble final side-by-side layout
             modalContent.innerHTML = `
                 <div class="analysis-container">
-                    <div class="analysis-left-col">
+                    <div class="analysis-left-col" style="${inlineGradientStyle}">
                         <div class="media-display">
                             ${mediaElement}
                         </div>
@@ -2389,6 +2521,7 @@
                         </div>
                         ${colorPalette}
                         ${gameplayReportHTML}
+                        ${similarGamesHTML}
                     </div>
                 </div>
             `;
@@ -2473,8 +2606,6 @@
 
         function closeModal() {
             const modal = document.getElementById('modal');
-            const modalContainer = document.getElementById('modalContainer');
-            modalContainer.style.setProperty('--modal-gradient', 'none'); // Reset gradient
             modal.querySelector('#modalContent').innerHTML = ''; 
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
