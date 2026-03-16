@@ -958,7 +958,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.98);
             z-index: 2000;
             padding: 2rem;
         }
@@ -970,9 +970,9 @@
         }
 
         .modal-container {
-            background: #0f0f0f; /* Slightly elevated background */
-            border: 2px solid #333; /* Subtle border */
-            border-radius: 12px;
+            background: #000000; /* Very background black as requested */
+            border: 1px solid #222;
+            border-radius: 4px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             width: 100%;
             height: 100%;
@@ -983,27 +983,14 @@
             position: relative;
         }
 
-        /* Subtle Gradient Background */
-        .modal-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: var(--modal-gradient, none);
-            background-size: 150% 150%;
-            opacity: 0.5;
-            filter: blur(120px);
-            z-index: 0;
-            transition: background-image 0.5s ease-in-out;
-        }
-
         .modal-header {
-            background: rgba(0,0,0,0.5); /* Semi-transparent background */
+            background: #000000; /* Chromatic analysis title's background black */
             color: var(--white);
-            padding: 0.75rem 1.5rem; /* Adjusted Padding */
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Subtle white divider */
+            border-bottom: 2px solid #222;
             flex-shrink: 0;
             z-index: 1;
         }
@@ -1012,7 +999,8 @@
             font-family: 'JetBrains Mono', monospace;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
         }
 
         .close-btn {
@@ -1025,7 +1013,7 @@
             font-weight: 900;
             font-size: 1.2rem;
             transition: all 0.2s ease;
-            line-height: 1; /* Improved alignment */
+            line-height: 1;
         }
 
         .close-btn:hover {
@@ -1036,186 +1024,164 @@
         .modal-content {
             flex: 1;
             overflow-y: auto;
-            padding: 2rem;
+            padding: 3rem;
             z-index: 1;
         }
 
         .analysis-container {
             width: 100%;
-            height: 100%;
             display: flex;
             flex-direction: row;
-            gap: 2rem;
+            gap: 4rem;
+            margin-bottom: 4rem;
         }
         
         .analysis-left-col {
-            flex: 2;
+            flex: 1.5;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
-            background: var(--black);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid #222;
+            background: transparent; /* No black area behind thumbnail as requested */
+            overflow: visible;
         }
 
         .analysis-right-col {
-            flex: 1.5;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            overflow-y: auto;
-            padding-right: 0.5rem;
+            gap: 2rem;
         }
 
         .game-title-large {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 800;
-            font-size: 2.5rem;
+            font-size: 3rem;
             text-transform: uppercase;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.5rem;
             color: var(--white);
+            line-height: 1;
         }
 
         .game-meta-large {
             font-family: 'Space Mono', monospace;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--gray-light);
             text-transform: uppercase;
-            border-bottom: 2px solid #333;
-            padding-bottom: 1rem;
-            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1.5rem;
         }
 
-        /* Gameplay Report in Header */
+        /* Gameplay Report Redesign - Bigger Horizontally */
+        .gameplay-report-section {
+            width: 100%;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
+        }
+
         .header-gameplay-report {
-            background: transparent;
-            border: 2px solid #333;
-            border-radius: 8px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 4px;
             padding: 0;
             cursor: pointer;
             text-align: center;
-            flex-shrink: 0;
-            transition: all 0.2s ease;
+            width: 100%;
+            transition: all 0.3s ease;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
+
         .header-gameplay-report:hover {
-            border-color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-color: #555;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,1);
         }
+
         .header-gameplay-report-title {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--white);
-            background: #1a1a1a;
-            padding: 0.8rem;
-            letter-spacing: 1px;
+            background: #111;
+            padding: 1rem;
+            letter-spacing: 2px;
             border-bottom: 1px solid #333;
         }
+
         .header-gameplay-report-icon {
             width: 100%;
-            max-height: 250px;
+            height: auto;
+            max-height: 600px;
             object-fit: cover;
+            filter: brightness(0.8);
+            transition: filter 0.3s ease;
+        }
+
+        .header-gameplay-report:hover .header-gameplay-report-icon {
+            filter: brightness(1);
         }
 
 
         .media-display {
             width: 100%;
-            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
-        .media-display iframe, .media-display img {
-            max-width: 100%;
-            max-height: 100%;
+        .media-display iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
             border: none;
-            object-fit: contain;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        /* "Available Views" Controls Redesign */
-        .view-controls {
-            background: var(--white);
-            border: 4px solid var(--black);
-            padding: 1.5rem;
-            margin-top: auto; /* Pushes to bottom */
-            flex-shrink: 0;
+        .media-display img {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .controls-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: var(--black);
-            border-bottom: 2px solid var(--black);
-            padding-bottom: 0.5rem;
-        }
-
-        .trailer-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap; /* Ensures responsiveness */
-        }
-
-        .trailer-btn {
-            background: var(--white);
-            border: 2px solid var(--black);
-            color: var(--black);
-            padding: 0.8rem 1.2rem;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            flex-grow: 1; /* Allows buttons to fill space */
-            text-align: center;
-        }
-
-        .trailer-btn.active {
-            background: var(--black);
-            color: var(--white);
-        }
-
-        .trailer-btn:hover:not(.active) {
-            background: var(--gray-lighter);
-        }
-
-        .data-section {
-            background: transparent;
-            display: flex;
-            flex-direction: column;
+        /* Direct Steam Link and No Hover if missing */
+        .game-thumbnail-link {
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            max-width: 100%;
+            cursor: default;
         }
         
-        .data-section.palette {
-            border-radius: 8px;
-            overflow: hidden;
-            flex-direction: row;
-            height: 120px;
-            border: 2px solid #333;
-            margin-bottom: 1rem;
+        .game-thumbnail-link.has-link {
+            cursor: pointer;
+        }
+
+        .game-thumbnail-link.has-link:hover {
+            transform: scale(1.02) translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
         }
 
         .data-section-title {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 1rem;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             color: var(--white);
-            flex-shrink: 0;
+            border-bottom: 1px solid #333;
+            letter-spacing: 1px;
         }
         
-        /* Immersive Color Palette */
+        .data-section.palette {
+            height: 120px;
+            border: 1px solid #333;
+            margin-bottom: 1rem;
+            display: flex;
+        }
+
         .immersive-color-palette {
             display: flex;
             flex-direction: row;
@@ -1227,7 +1193,7 @@
             flex: 1;
             cursor: pointer;
             position: relative;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -1235,93 +1201,35 @@
         }
 
         .immersive-color-block:hover {
-            flex: 2.5; /* Expands on hover */
-            filter: brightness(1.2);
+            flex: 3;
+            filter: brightness(1.1);
         }
 
         .color-block-info {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 800;
-            font-size: 1.5rem;
-            text-transform: uppercase;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 1rem;
             color: var(--white);
-            background: rgba(0,0,0,0.5);
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--white);
+            background: rgba(0,0,0,0.7);
+            padding: 0.4rem 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
             opacity: 0;
-            transform: scale(0.8);
+            transform: translateY(10px);
             transition: all 0.3s ease;
-            text-shadow: 2px 2px 4px var(--black);
         }
 
         .immersive-color-block:hover .color-block-info {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
 
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            flex: 1;
-            align-content: start;
-        }
-
-        .metric-card {
-            background: var(--white);
-            color: var(--black);
-            padding: 1rem;
-            border: 2px solid var(--black);
-            text-align: center;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .metric-card:hover {
-            background: var(--gray-lighter);
-        }
-
-        .metric-label {
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.6rem;
-            margin-bottom: 0.3rem;
-            color: var(--gray-medium);
-        }
-
-        .metric-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 800;
-            font-size: 1.4rem;
-            margin-bottom: 0.4rem;
-            color: var(--black);
-        }
-
-        .metric-bar {
-            width: 100%;
-            height: 4px;
-            background: var(--gray-lighter);
-            border: 1px solid var(--black);
-            overflow: hidden;
-        }
-
-        .metric-fill {
-            height: 100%;
-            background: var(--black);
-            transition: width 1s ease;
-        }
-
-        /* Image Viewer Modal for Gameplay Analysis */
+        /* Image Viewer Modal for Gameplay Analysis - Improved Drag */
         .image-viewer-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 4000;
-            padding: 2rem;
             cursor: zoom-out; 
         }
         .image-viewer-modal.active {
@@ -1330,229 +1238,105 @@
             justify-content: center;
         }
         .image-viewer-content {
-            max-width: 95%; 
-            max-height: 95%;
+            max-width: none; 
+            max-height: none;
             object-fit: contain;
-            border: 4px solid var(--white);
             cursor: grab; 
-            transition: transform 0.2s ease;
+            transition: transform 0.1s ease-out;
             transform-origin: center center;
         }
-        .image-viewer-content.zoomed-in {
-            cursor: zoom-out;
+        .image-viewer-content:active {
+            cursor: grabbing;
         }
         .image-viewer-close-btn {
             position: absolute;
             top: 2rem;
             right: 2rem;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: var(--white);
             color: var(--black);
-            border: 2px solid var(--black);
+            border: none;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 900;
             z-index: 4001;
-        }
-        
-        /* CODE GENERATOR MODAL */
-        .code-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3000;
-            overflow-y: auto;
-        }
-
-        .code-modal.active {
-            display: block;
-        }
-
-        .code-container {
-            background: var(--white);
-            border: 6px solid var(--black);
-            max-width: 900px;
-            margin: 2rem auto;
-            min-height: calc(100vh - 4rem);
-        }
-
-        .code-header {
-            background: var(--green);
-            color: var(--white);
-            padding: 1.5rem 2rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            border-bottom: 4px solid var(--white);
-        }
-
-        .code-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-        }
-
-        .code-content {
-            padding: 2rem;
-        }
-
-        .instruction-section {
-            margin-bottom: 2rem;
-            border: 2px solid var(--green);
-            background: var(--white);
-        }
-
-        /* === NEW CSS CLASSES === */
-        
-        /* Game Thumbnail Hover Link Effect */
-        .game-thumbnail-link {
-            display: inline-block;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 100%;
-            max-height: 100%;
+            justify-content: center;
         }
         
-        .game-thumbnail-link:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-radius: 4px; /* Optional slight rounding for depth */
-        }
-
         /* Similar Games Component */
+        .similar-games-section {
+            margin-bottom: 4rem;
+        }
+
         .similar-games-grid {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
         }
 
         .similar-game-card {
-            flex: 1;
-            min-width: 120px;
-            background: #111;
-            border: 2px solid #333;
-            border-radius: 8px;
+            background: #0a0a0a;
+            border: 1px solid #222;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
+            transition: all 0.3s ease;
         }
 
         .similar-game-card:hover {
-            border-color: var(--white);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            border-color: #444;
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         .similar-game-card img {
             width: 100%;
-            height: 80px;
+            aspect-ratio: 16 / 9;
             object-fit: cover;
-            border-bottom: 1px solid #333;
+            filter: grayscale(0.5);
+            transition: filter 0.3s ease;
+        }
+
+        .similar-game-card:hover img {
+            filter: grayscale(0);
         }
 
         .similar-game-title {
-            padding: 0.5rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
             color: var(--gray-lighter);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .instruction-header {
-            background: var(--green);
-            color: var(--white);
-            padding: 0.8rem 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            text-align: center;
+            letter-spacing: 1px;
         }
 
-        .instruction-content {
-            padding: 1.5rem;
-        }
-
-        .instruction-text {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .code-block {
-            background: #1a1a1a;
-            color: #00ff00;
-            border: 2px solid var(--black);
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            white-space: pre-wrap;
-            overflow-x: auto;
-            margin: 1rem 0;
-            position: relative;
-        }
-
-        .copy-code-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--green);
-            color: var(--white);
-            border: 2px solid var(--white);
-            padding: 0.5rem 1rem;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .copy-code-btn:hover {
-            background: var(--white);
-            color: var(--green);
-            border-color: var(--green);
-        }
-
-        .file-path {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            color: var(--green);
-            background: #f0f0f0;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--gray-medium);
-            margin-bottom: 1rem;
-        }
-        
         /* ====== RESPONSIVE DESIGN FIXES ====== */
         
         @media (max-width: 1200px) {
             .analysis-container {
                 flex-direction: column;
+                gap: 2rem;
             }
             .analysis-left-col {
-                aspect-ratio: 16 / 9;
                 flex: none;
-                height: auto;
+                width: 100%;
             }
             .analysis-right-col {
                 flex: none;
-                height: auto;
+                width: 100%;
             }
              .modal {
                 padding: 1rem;
             }
             .modal-content {
-                padding: 1rem;
+                padding: 1.5rem;
+            }
+            .game-title-large {
+                font-size: 2rem;
             }
         }
         
@@ -2378,23 +2162,10 @@
             const displayItem = game.displayItems[defaultDisplayIndex];
             if (!displayItem) return;
 
-            const analysis = displayItem.colorAnalysis;
-            
             const modal = document.getElementById('modal');
             const modalContent = document.getElementById('modalContent');
-            const modalContainer = document.getElementById('modalContainer');
-
-            // Set dynamic background gradient
-            const colors = displayItem.dominantColors;
-            if (colors && colors.length >= 5) {
-                const gradient = `
-                    radial-gradient(circle at 15% 20%, ${colors[0]}4D, transparent 100%), 
-                    radial-gradient(circle at 85% 30%, ${colors[1]}4D, transparent 100%), 
-                    radial-gradient(circle at 60% 80%, ${colors[2]}4D, transparent 100%),
-                    radial-gradient(circle at 90% 95%, ${colors[3]}3D, transparent 100%),
-                    radial-gradient(circle at 20% 85%, ${colors[4]}3D, transparent 100%)`; // Fixed missing backtick
-            }
-             // Clean up old events
+            
+            // Clean up old events
             const oldViewer = document.getElementById('imageViewerContent');
             if(oldViewer) {
                  oldViewer.removeEventListener('wheel', handleImageViewerWheel);
@@ -2402,67 +2173,75 @@
                  oldViewer.style.cursor = '';
             }
 
-            // Create Steam Link (or search query)
-            let steamSearchUrl = `https://store.steampowered.com/search/?term=${encodeURIComponent(game.title)}`;
+            // Create Steam Link
+            let steamUrl = "";
+            let hasSteamLink = false;
+            if (game.steamId) {
+                steamUrl = `https://store.steampowered.com/app/${game.steamId}`;
+                hasSteamLink = true;
+            }
 
-            // Set current display index for the game
-            game.currentDisplayIndex = defaultDisplayIndex;
-
-            // Media Element with Steam link and animated hover wrapper
+            // Media Element with direct Steam link
             let mediaElement = '';
             if (displayItem.type === 'trailer') {
                 mediaElement = `<iframe src="${displayItem.url}" title="${game.title} - ${displayItem.name}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             } else {
-                mediaElement = `
-                    <a href="${steamSearchUrl}" target="_blank" class="game-thumbnail-link">
-                        <img src="${displayItem.image}" alt="Key art for ${game.title} - ${displayItem.name}">
-                    </a>
-                `;
+                if (hasSteamLink) {
+                    mediaElement = `
+                        <a href="${steamUrl}" target="_blank" class="game-thumbnail-link has-link">
+                            <img src="${displayItem.image}" alt="Key art for ${game.title} - ${displayItem.name}">
+                        </a>
+                    `;
+                } else {
+                    mediaElement = `
+                        <div class="game-thumbnail-link">
+                            <img src="${displayItem.image}" alt="Key art for ${game.title} - ${displayItem.name}">
+                        </div>
+                    `;
+                }
             }
 
-            // Dynamic Gradient Background formulation based on Dominant Colors
+            // Dynamic Gradient Background formulation
             let inlineGradientStyle = '';
             if (displayItem.dominantColors && displayItem.dominantColors.length >= 3) {
-                 // Create a soft multi-radial gradient
                  const colors = displayItem.dominantColors;
                  inlineGradientStyle = `
-                     background-color: var(--black);
                      background-image: 
-                        radial-gradient(circle at 20% 20%, ${colors[0]}40 0%, transparent 40%),
-                        radial-gradient(circle at 80% 30%, ${colors[1]}40 0%, transparent 40%),
-                        radial-gradient(circle at 50% 80%, ${colors[2]}40 0%, transparent 50%);
+                        radial-gradient(circle at 20% 20%, ${colors[0]}33 0%, transparent 50%),
+                        radial-gradient(circle at 80% 30%, ${colors[1]}33 0%, transparent 50%),
+                        radial-gradient(circle at 50% 80%, ${colors[2]}33 0%, transparent 60%);
                  `;
-            } else {
-                 inlineGradientStyle = "background-color: var(--black);";
             }
 
-            // Gameplay Analysis Report (Moved to header) with improved alt text
+            // Gameplay Analysis Report (Moved to its own full-width section)
             let gameplayReportHTML = '';
             if (displayItem.type === 'gameplay' && displayItem.analysisReportImage) {
                 gameplayReportHTML = `
-                <div class="header-gameplay-report" data-image-url="${displayItem.analysisReportImage}" data-game-title="${game.title}">
-                    <div class="header-gameplay-report-title">FULL GAME ANALYSIS</div>
-                    <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Thumbnail of full game analysis report for ${game.title}">
+                <div class="gameplay-report-section">
+                    <h3 class="data-section-title">Full Chromatic Analysis Report</h3>
+                    <div class="header-gameplay-report" data-image-url="${displayItem.analysisReportImage}" data-game-title="${game.title}">
+                        <div class="header-gameplay-report-title">CLICK TO INTERACT / ZOOM</div>
+                        <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Full game analysis report for ${game.title}">
+                    </div>
                 </div>`;
             }
             
-            // View Controls removed as per user request
-
             // Immersive Color Palette
             const colorPalette = `
-                <div class="data-section palette">
-                    <div class="immersive-color-palette">
-                        ${displayItem.dominantColors.map(color => `
-                            <div class="immersive-color-block" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
-                                <div class="color-block-info">${color}</div>
-                            </div>`).join('')}
+                <div class="data-section">
+                    <h3 class="data-section-title">Dominant Palette</h3>
+                    <div class="data-section palette">
+                        <div class="immersive-color-palette">
+                            ${displayItem.dominantColors.map(color => `
+                                <div class="immersive-color-block" style="background: ${color};" onclick="copyToClipboard('${color}', this)">
+                                    <div class="color-block-info">${color}</div>
+                                </div>`).join('')}
+                        </div>
                     </div>
                 </div>`;
-             // Remove obsolete metrics variable totally.
 
              // Similar Games Algorithm
             let similarGamesHTML = '';
-            // Basic algorithmic scoring: Genre match (+2), Color category match (+1)
             const scoredGames = gameData.filter(g => g.id !== game.id).map(g => {
                 let score = 0;
                 if (game.genre && g.genre) {
@@ -2476,19 +2255,14 @@
                 return { ...g, similarityScore: score };
             });
 
-            // Sort by top score and grab top 3
             scoredGames.sort((a, b) => b.similarityScore - a.similarityScore);
-            const topSimilar = scoredGames.slice(0, 3);
+            const topSimilar = scoredGames.slice(0, 4);
 
             if (topSimilar.length > 0) {
                 let similarCardsHTML = topSimilar.map(similarGame => {
-                     // Get image of similar game
-                     let simImage = '';
-                     if (similarGame.displayItems && similarGame.displayItems.length > 0) {
-                          simImage = similarGame.displayItems[0].image;
-                     }
+                     let simImage = similarGame.displayItems && similarGame.displayItems.length > 0 ? similarGame.displayItems[0].image : '';
                      return `
-                        <div class="similar-game-card" onclick="window.scrollTo(0, 0); setTimeout(() => switchModalView(${similarGame.id}, 0), 10)">
+                        <div class="similar-game-card" onclick="document.getElementById('modalContent').scrollTo(0, 0); switchModalView(${similarGame.id}, 0)">
                             <img src="${simImage}" alt="Thumbnail for ${similarGame.title}">
                             <div class="similar-game-title">${similarGame.title}</div>
                         </div>
@@ -2496,8 +2270,8 @@
                 }).join('');
 
                 similarGamesHTML = `
-                    <div class="data-section similar-games-section">
-                        <h3 class="data-section-title">Similar Aesthetics & Genres</h3>
+                    <div class="similar-games-section">
+                        <h3 class="data-section-title">Similar Aesthetic Profiles</h3>
                         <div class="similar-games-grid">
                             ${similarCardsHTML}
                         </div>
@@ -2505,10 +2279,10 @@
                 `;
             }
 
-            // Assemble final side-by-side layout
+            // Assemble final layout
             modalContent.innerHTML = `
-                <div class="analysis-container">
-                    <div class="analysis-left-col" style="${inlineGradientStyle}">
+                <div class="analysis-container" style="${inlineGradientStyle}">
+                    <div class="analysis-left-col">
                         <div class="media-display">
                             ${mediaElement}
                         </div>
@@ -2518,14 +2292,11 @@
                             <h2 class="game-title-large">${game.title}</h2>
                             <p class="game-meta-large">${game.developer} • ${game.year}</p>
                         </div>
-                        <div class="data-section">
-                            <h3 class="data-section-title">Dominant Colors</h3>
-                        </div>
                         ${colorPalette}
-                        ${gameplayReportHTML}
-                        ${similarGamesHTML}
                     </div>
                 </div>
+                ${gameplayReportHTML}
+                ${similarGamesHTML}
             `;
 
             modal.classList.add('active');
@@ -2546,7 +2317,6 @@
             const modal = document.getElementById('imageViewerModal');
             const content = document.getElementById('imageViewerContent');
             content.src = imageUrl;
-            // SEO FIX: Dynamic alt text for image viewer
             content.alt = `Detailed gameplay analysis for ${gameTitle}`;
             resetImageViewerState();
             modal.classList.add('active');
@@ -2566,16 +2336,15 @@
         function handleImageViewerWheel(event) {
             event.preventDefault();
             const content = document.getElementById('imageViewerContent');
-            const scaleAmount = 0.1;
+            const scaleAmount = 0.2;
             imageViewerState.zoom += event.deltaY > 0 ? -scaleAmount : scaleAmount;
-            imageViewerState.zoom = Math.min(Math.max(1, imageViewerState.zoom), 5); // Clamp zoom between 1x and 5x
+            imageViewerState.zoom = Math.min(Math.max(0.5, imageViewerState.zoom), 5); 
             
             content.style.transform = `scale(${imageViewerState.zoom}) translate(${imageViewerState.translateX}px, ${imageViewerState.translateY}px)`;
             content.classList.toggle('zoomed-in', imageViewerState.zoom > 1);
         }
 
         function handleImageViewerMouseDown(event) {
-            if (imageViewerState.zoom <= 1) return;
             event.preventDefault();
             imageViewerState.isDragging = true;
             imageViewerState.startX = event.clientX - imageViewerState.translateX;
