@@ -137,7 +137,31 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes subtleChroma {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hover-chroma-light:hover {
+            background: linear-gradient(90deg, #ffffff, #a8ffb2, #94d2ff, #e3a2ff, #ffffff);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: subtleChroma 3s ease infinite;
+        }
+
+        .hover-chroma-dark:hover {
+            background: linear-gradient(90deg, #000000, #146B3A, #0A4275, #67147A, #000000);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: subtleChroma 3s ease infinite;
         }
 
         .logo:hover {
@@ -1650,16 +1674,16 @@
 <body>
     <nav class="nav-bar">
         <div class="nav-container">
-            <div class="logo" onclick="resetToMainPage()">VIDEO GAME COLORS</div>
-            <div class="system-status">
+            <div class="logo hover-chroma-light" onclick="resetToMainPage()">VIDEO GAME COLORS</div>
+            <div class="system-status hover-chroma-light">
                 <span id="cartridgeCount">0</span> ITEMS LOADED
             </div>
         </div>
     </nav>
 
     <header class="header">
-        <h1 class="main-title">EXPLORE VIDEO GAME COLORS</h1>
-        <p class="subtitle">VIDEO GAME COLOR DATA ARCHIVE</p>
+        <h1 class="main-title hover-chroma-dark">EXPLORE VIDEO GAME COLORS</h1>
+        <p class="subtitle hover-chroma-dark">VIDEO GAME COLOR DATA ARCHIVE</p>
         
         <div class="control-panel">
             <div class="search-container">
@@ -1820,20 +1844,9 @@
                     <div class="form-section-content">
                         <div class="metrics-inputs">
                             <div class="form-group">
-                                <label class="form-label">SATURATION %</label>
-                                <input type="number" class="form-input" id="saturation" min="0" max="100" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">BRIGHTNESS %</label>
-                                <input type="number" class="form-input" id="brightness" min="0" max="100" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">CONTRAST %</label>
-                                <input type="number" class="form-input" id="contrast" min="0" max="100" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">COLORFULNESS %</label>
-                                <input type="number" class="form-input" id="colorfulness" min="0" max="100" required>
+                                <p class="form-label" style="text-transform: none; color: var(--gray-medium);">
+                                    Color analysis metrics have been simplified. Only dominant color palettes are stored now.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -2020,11 +2033,9 @@
                            game.gameplayAnalysis.analysisReportImage = "images/Baldurs_Gate_3.png";
                         }
                         displayItems.push({ ...game.gameplayAnalysis, type: 'gameplay' });
-                    }
-                    if (game.trailers) {
-                        game.trailers.forEach(trailer => {
-                            displayItems.push({ ...trailer, type: 'trailer' });
-                        });
+                    } else if (game.trailers && game.trailers.length > 0) {
+                        // Fallback to first trailer if gameplay analysis is missing
+                        displayItems.push({ ...game.trailers[0], type: 'trailer' });
                     }
                     return {
                         ...game,
@@ -2184,7 +2195,6 @@
                     </div>`;
             }
             
-            // SEO FIX: Improved alt text
             const imageAltText = `Cover art for ${game.title} - ${currentDisplay.name}`;
 
             cartridge.innerHTML = `
@@ -2196,10 +2206,9 @@
                 <div class="cartridge-image">
                     <img src="${currentDisplay.image}" alt="${imageAltText}" class="game-image">
                     <div class="palette-preview">${palettePreview}</div>
-                    ${navOverlay}
                 </div>
                 <div class="cartridge-footer">
-                    <div class="trailer-info">${currentDisplay.name}</div>
+                    <div class="trailer-info">GAME DETAILS</div>
                 </div>`;
             return cartridge;
         }
@@ -2355,22 +2364,12 @@
             if (displayItem.type === 'gameplay' && displayItem.analysisReportImage) {
                 gameplayReportHTML = `
                 <div class="header-gameplay-report" data-image-url="${displayItem.analysisReportImage}" data-game-title="${game.title}">
-                    <div class="header-gameplay-report-title">VIEW REPORT</div>
-                    <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Thumbnail of gameplay analysis report for ${game.title}">
+                    <div class="header-gameplay-report-title">FULL GAME ANALYSIS</div>
+                    <img src="${displayItem.analysisReportImage}" class="header-gameplay-report-icon" alt="Thumbnail of full game analysis report for ${game.title}">
                 </div>`;
             }
             
-            // View Controls
-            const controls = `
-                <div class="view-controls">
-                    <div class="controls-title">AVAILABLE VIEWS</div>
-                    <div class="trailer-buttons">
-                        ${game.displayItems.map((item, index) => `
-                            <button class="trailer-btn ${index === displayIndex ? 'active' : ''}" 
-                                    onclick="switchModalView(${game.id}, ${index})">${item.name}</button>
-                        `).join('')}
-                    </div>
-                </div>`;
+            // View Controls removed as per user request
 
             // Immersive Color Palette
             const colorPalette = `
@@ -2383,15 +2382,14 @@
                     </div>
                 </div>`;
             
-            // Metrics
+            // Details description
             const metrics = `
                 <div class="data-section">
-                    <h3 class="data-section-title">Chromatic Metrics</h3>
-                    <div class="metrics-grid">
-                        <div class="metric-card"><div class="metric-label">SATURATION</div><div class="metric-value">${analysis.avgSaturation}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgSaturation}%;"></div></div></div>
-                        <div class="metric-card"><div class="metric-label">BRIGHTNESS</div><div class="metric-value">${analysis.avgBrightness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.avgBrightness}%;"></div></div></div>
-                        <div class="metric-card"><div class="metric-label">CONTRAST</div><div class="metric-value">${analysis.contrast}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.contrast}%;"></div></div></div>
-                        <div class="metric-card"><div class="metric-label">COLORFULNESS</div><div class="metric-value">${analysis.colorfulness}%</div><div class="metric-bar"><div class="metric-fill" style="width: ${analysis.colorfulness}%;"></div></div></div>
+                    <h3 class="data-section-title">Dominant LUT Details</h3>
+                    <div class="metrics-grid" style="display: block;">
+                        <p style="font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--gray-medium);">
+                            Game and game color details.
+                        </p>
                     </div>
                 </div>`;
 
@@ -2400,21 +2398,20 @@
                 <div class="analysis-container">
                     <header class="analysis-header">
                         <div class="analysis-header-main">
-                            <h2 class="game-title-large">${game.title}</h2>
-                            <p class="game-meta-large">${game.developer} • ${game.year} • VIEWING: ${displayItem.name}</p>
+                            <h2 class="game-title-large">\${game.title}</h2>
+                            <p class="game-meta-large">\${game.developer} • \${game.year}</p>
                         </div>
-                        ${gameplayReportHTML}
+                        \${gameplayReportHTML}
                     </header>
                     <div class="analysis-grid">
                         <div class="analysis-media-column">
                             <div class="media-display">
-                                ${mediaElement}
+                                \${mediaElement}
                             </div>
-                            ${controls}
                         </div>
                         <div class="analysis-data-column">
-                            ${colorPalette}
-                            ${metrics}
+                            \${colorPalette}
+                            \${metrics}
                         </div>
                     </div>
                 </div>
